@@ -69,6 +69,19 @@ Array.prototype.filter_attr = function(){
           _func(result);
         })
       },
+      post : function(_args,_func){
+        $.ajax(
+          {
+            url: _args.url,
+            data : _args.data,
+            type: "post", 
+            dataType: 'jsonp',
+            success: function (result) {
+              return _func ? _func(result) : result;
+            }
+          }
+        )
+      },
       // 关闭所有window，依赖layer
       closeAll : function(){
         layer.closeAll();

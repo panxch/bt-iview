@@ -1,43 +1,64 @@
 html,body{width:100%;height:100%;}
 /*全局*/
 .padding-left{padding-left:10px;}
+.padding-right{padding-right: 10px;}
+.margin-right{margin-right: 10px;}
+div.ivu-alert{border-radius: 0px;}
+div.line{width:100%;height:1px;border-top: 1px dotted #ccc;padding:10px;}
+.ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
+
+.wrapper{background: #eee;position: relative;}
+
+/*登陆*/
+.wrapper .login{width:300px;margin-top:10%;position: absolute;left:37%;}
+.wrapper .login .ivu-card{border-radius: 5px;}
+.wrapper .login .ivu-card-head{background: #3091f2;border-radius: 5px 5px 0 0;}
+.wrapper .login .ivu-card-head p{color:#fff;}
+.wrapper .login .ivu-form-item-content button{float: right;}
+
+/*菜单*/
+.wrapper .ivu-menu li.ivu-menu-item a{color:#fff;font-weight: normal;}
+
 /*首页*/
-.warp,.layout,.ivu-row-flex,.layout-menu-left{height: 100%;}
-.warp .layout{
+.wrapper,.layout,.ivu-row-flex,.layout-menu-left{height: 100%;}
+.wrapper .layout{
         border: 1px solid #d7dde4;
         background: #f5f7f9;
         position: relative;
     }
-.warp .layout-breadcrumb{
+.wrapper .layout-breadcrumb{
         padding: 10px 15px 0;
     }
-.warp .layout-content{
+.wrapper .layout-main{
         min-height: 200px;
         margin: 15px;
-        overflow: hidden;
-        background: #fff;
+        /*overflow: hidden;*/
         border-radius: 4px;
+        /*height: 85%;*/
     }
-.warp .layout-content-main{
+.wrapper .layout-content{
         padding: 10px;
+        margin-top:10px;
+        background: #fff;
     }
-.warp .layout-menu-left{
+.wrapper .layout-menu-left{
         background: #464c5b;
     }
-.warp .layout-header{
+.wrapper .layout-header{
         height: 60px;
         background: #fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
-.warp .layout-logo-left{
+.wrapper .layout-logo-left{
         width: 90%;
         height: 30px;
         background: #5b6270;
         border-radius: 3px;
         margin: 15px auto;
     }
-.warp .layout-header{height: 40px;}    
-.warp .layout-header .ivu-row .ivu-col{height: 40px;line-height: 40px;}    
-.warp .layout-header .ivu-row .ivu-col .face{width:30px;height:30px;border-radius: 30px;margin-top:5px;float:left;}
-.warp .layout-header .ivu-row .ivu-col h3{text-align: left;float:left;}
-.warp .layout-header .ivu-row .ivu-col h3.logout a{color:#bd2626;}
+.wrapper .layout-header{height: 40px;}    
+.wrapper .layout-header .ivu-row .ivu-col{height: 40px;line-height: 40px;}    
+.wrapper .layout-header .ivu-row .ivu-col .face{width:30px;height:30px;border-radius: 30px;margin-top:5px;float:left;}
+.wrapper .layout-header .ivu-row .ivu-col h3{text-align: left;float:left;}
+.wrapper .layout-header .ivu-row .ivu-col h3.logout a{color:#bd2626;}
+.wrapper .layout-header .ivu-row .ivu-col .user-info{float: right;}

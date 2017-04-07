@@ -5,6 +5,9 @@ import Routers from './config/router';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import './libs/units';
+import $ from 'jquery'
+
+window.$ = $;
 
 Vue.use(VueRouter);
 Vue.use(iView);
@@ -26,8 +29,21 @@ router.afterEach((to, from, next) => {
     window.scrollTo(0, 0);
 });
 
-new Vue({
+window.config = {
+	userinfo : { id : null },
+    active : 'home',
+}
+
+var vue = new Vue({
     el: '#app',
     router: router,
     render: h => h(App)
 });
+
+// 如果已经登陆
+if(localStorage.userinfo){
+    window.config.userinfo = JSON.parse(localStorage.userinfo);  
+}
+if( Object.prototype.toString.call(window.config.userinfo.id) === '[object Null]' ){
+	vue.$router.push({ path: '/login' });
+}

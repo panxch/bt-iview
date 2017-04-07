@@ -1,0 +1,49 @@
+<template>
+    <Menu :active-name="currentActiveKey" theme="dark" width="auto" :open-names="['1']"  @on-select="handleSelect">
+        <div class="layout-logo-left"></div>
+        <Submenu name="1">
+            <template slot="title">
+                <Icon type="ios-navigate"></Icon>
+                基础数据
+            </template>
+            <Menu-item name="class"><span>班级管理</span></Menu-item>
+            <Menu-item name="1-2">选项 211</Menu-item>
+            <Menu-item name="1-3">选项 3</Menu-item>
+        </Submenu>
+        <Submenu name="2">
+            <template slot="title">
+                <Icon type="ios-keypad"></Icon>
+                导航二
+            </template>
+            <Menu-item name="2-1">选项 1</Menu-item>
+            <Menu-item name="2-2">选项 2</Menu-item>
+        </Submenu>
+        <Submenu name="3">
+            <template slot="title">
+                <Icon type="ios-analytics"></Icon>
+                导航三
+            </template>
+            <Menu-item name="3-1">选项 1</Menu-item>
+            <Menu-item name="3-2">选项 2</Menu-item>
+        </Submenu>
+    </Menu>
+</template>
+
+<script type="text/javascript">
+export default {
+	name: 'bt_menu',
+	data () {
+		return {
+            currentActiveKey: window.config.active
+		}
+	},
+    props: {
+            activeKey: String
+    },
+    methods : {
+        handleSelect : function(name){
+            this.$router.push(name);
+        }
+    }
+}		
+</script>

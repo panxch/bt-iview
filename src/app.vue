@@ -2,23 +2,17 @@
     @import 'styles/common.css';
 </style>
 <template>
-    <div class="warp">
+    <div class="wrapper">
         <router-view></router-view>
     </div>
 </template>
-<script>
+<script type="text/javascript">
+    //import bt_header from './components/public/bt_header.vue'
     export default {
         data () {
-            return {}
-        },
-        mounted () {
-
-        },
-        beforeDestroy () {
-
-        },
-        methods: {
-
+            return {
+                userInfo : window.config.userinfo
+            }
         }
     }
 </script>
