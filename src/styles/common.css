@@ -1,0 +1,43 @@
+html,body{width:100%;height:100%;}
+/*全局*/
+.padding-left{padding-left:10px;}
+/*首页*/
+.warp,.layout,.ivu-row-flex,.layout-menu-left{height: 100%;}
+.warp .layout{
+        border: 1px solid #d7dde4;
+        background: #f5f7f9;
+        position: relative;
+    }
+.warp .layout-breadcrumb{
+        padding: 10px 15px 0;
+    }
+.warp .layout-content{
+        min-height: 200px;
+        margin: 15px;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 4px;
+    }
+.warp .layout-content-main{
+        padding: 10px;
+    }
+.warp .layout-menu-left{
+        background: #464c5b;
+    }
+.warp .layout-header{
+        height: 60px;
+        background: #fff;
+        box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    }
+.warp .layout-logo-left{
+        width: 90%;
+        height: 30px;
+        background: #5b6270;
+        border-radius: 3px;
+        margin: 15px auto;
+    }
+.warp .layout-header{height: 40px;}    
+.warp .layout-header .ivu-row .ivu-col{height: 40px;line-height: 40px;}    
+.warp .layout-header .ivu-row .ivu-col .face{width:30px;height:30px;border-radius: 30px;margin-top:5px;float:left;}
+.warp .layout-header .ivu-row .ivu-col h3{text-align: left;float:left;}
+.warp .layout-header .ivu-row .ivu-col h3.logout a{color:#bd2626;}
