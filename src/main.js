@@ -6,6 +6,8 @@ import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import './libs/units';
 import $ from 'jquery'
+import './libs/layer/layer.js'
+import './libs/layer/need/layer.css'
 
 window.$ = $;
 

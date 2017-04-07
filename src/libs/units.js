@@ -57,7 +57,7 @@ Array.prototype.filter_attr = function(){
         return result;
       },
       loading : function(){
-        layer.open( {type: 2,shadeClose:false} );
+        layer.open( {type: 2 ,content: '数据加载中...',shadeClose:false,shade: 'background-color: rgba(0,0,0,.5)'} );
       },
       msg : function(_text,_func){
         layer.closeAll();

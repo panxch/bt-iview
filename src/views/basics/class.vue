@@ -52,9 +52,10 @@
             }
         },
         mounted(){
-          api.get_grade(window.config.userinfo.school_id,(result)=>{
-            this.class_list = result.data;
-            //log(result.data);
+            __.loading();
+            api.get_grade(window.config.userinfo.school_id,(result)=>{
+                this.class_list = result.data;
+                __.closeAll();
           });
         },
         components : { bt_header,bt_menu,bt_breadcrumb },
