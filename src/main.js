@@ -32,8 +32,9 @@ router.afterEach((to, from, next) => {
 });
 
 window.config = {
-	userinfo : { id : 123 },
+	userinfo : { id : null },
     active : 'home',
+    active_name : '应用中心',
     left_width : 4,
     right_width : 20,
 }

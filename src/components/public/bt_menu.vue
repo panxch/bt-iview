@@ -1,5 +1,5 @@
 <template>
-    <Menu :active-name="currentActiveKey" theme="dark" width="auto" :open-names="['1']"  @on-select="handleSelect">
+    <Menu :active-name="config.active" theme="dark" width="auto" :open-names="['1']"  @on-select="handleSelect">
         <div class="layout-logo-left">
             <img src="/src/images/logo.png" class="logo">
         </div>
@@ -36,12 +36,9 @@ export default {
 	name: 'bt_menu',
 	data () {
 		return {
-            currentActiveKey: window.config.active
 		}
 	},
-    props: {
-            activeKey: String
-    },
+    props: ['config'],
     methods : {
         handleSelect : function(name){
             this.$router.push(name);
