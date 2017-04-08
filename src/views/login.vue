@@ -32,6 +32,12 @@
                 }
     		}
     	},
+        created(){
+            var $ = window.$;
+            setTimeout(function(){
+                $('.login').css('left',($(window).width() - $('.login').width()) / 2)
+            },10);
+        },
     	methods : {
     		handleSubmit : function(){
     			if(! this.form.username){

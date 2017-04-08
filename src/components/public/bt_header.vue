@@ -26,8 +26,8 @@ export default {
 	},
 	methods : {
 		logout : function(){
-			api.loginOut();
-			window.config.userinfo = null;
+			//api.loginOut();
+			window.config.userinfo.id = null;
 			this.$router.push({ path: '/login' });
 		},
 	}
