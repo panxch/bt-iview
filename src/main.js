@@ -3,9 +3,9 @@ import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './config/router';
 import App from './app.vue';
+import $ from 'jquery'
 import 'iview/dist/styles/iview.css';
 import './libs/units';
-import $ from 'jquery'
 import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
 
@@ -32,8 +32,10 @@ router.afterEach((to, from, next) => {
 });
 
 window.config = {
-	userinfo : { id : null },
+	userinfo : { id : 123 },
     active : 'home',
+    left_width : 4,
+    right_width : 20,
 }
 
 var vue = new Vue({

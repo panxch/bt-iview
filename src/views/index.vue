@@ -1,10 +1,10 @@
 <template>
    <div class="layout" >
         <Row type="flex">
-            <i-col span="3" class="layout-menu-left">
+            <i-col span="4" class="layout-menu-left">
                 <bt_menu></bt_menu>
             </i-col>
-            <i-col span="21">
+            <i-col span="20">
                 <bt_header></bt_header>
                 <bt_breadcrumb>应用中心</bt_breadcrumb>
                 <div class="layout-content">

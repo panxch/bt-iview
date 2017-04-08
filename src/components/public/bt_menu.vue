@@ -1,6 +1,8 @@
 <template>
     <Menu :active-name="currentActiveKey" theme="dark" width="auto" :open-names="['1']"  @on-select="handleSelect">
-        <div class="layout-logo-left"></div>
+        <div class="layout-logo-left">
+            <img src="/src/images/logo.png" class="logo">
+        </div>
         <Submenu name="1">
             <template slot="title">
                 <Icon type="ios-navigate"></Icon>
