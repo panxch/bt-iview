@@ -5,14 +5,17 @@ html,body{width:100%;height:100%;}
 .padding-right{padding-right: 10px;}
 .margin-right{margin-right: 10px;}
 .margin-remove{margin:0;}
+.float_right{float:right;}
 div.ivu-alert{border-radius: 0px;}
 div.line{width:100%;height:1px;border-top: 1px dotted #ccc;margin:5px;}
 div.space{height: 2px;}
+
 .ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
 .ivu-form .ivu-form-item{margin-bottom: 5px;}
 .ivu-input-wrapper .ivu-input{border-radius: 0px;}
-.wrapper .ivu-table td{height: 30px;}
+.wrapper .ivu-table td,.wrapper .ivu-table th{height: 30px;}
 .wrapper .ivu-btn{border-radius: 0;}
+.wrapper .ivu-alert-with-desc{padding: 7px;}
 
 .wrapper{background: #eee;position: relative;}
 .wrapper .layout .layout-logo-left img.logo{width:150px;}
@@ -40,13 +43,13 @@ div.space{height: 2px;}
     }
 .wrapper .layout-main{
         min-height: 200px;
-        margin: 15px;
+        margin: 5px;
         /*overflow: hidden;*/
         border-radius: 4px;
         /*height: 85%;*/
     }
 .wrapper .layout-content{
-        padding: 10px;
+        padding: 5px;
         margin-top:10px;
         background: #fff;
     }

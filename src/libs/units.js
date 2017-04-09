@@ -99,8 +99,10 @@ Array.prototype.filter_attr = function(){
         return info || null;
       },
       pasteListen : function(_func){
+        var self = this;
         $(document.body).bind({  
-          paste: function(e) {//paste事件  
+          paste: function(e) {//paste事件
+              self.loading();  
               var eve = e.originalEvent  
               var cp = eve.clipboardData;  
               var data = null;  
@@ -111,7 +113,9 @@ Array.prototype.filter_attr = function(){
               data = clipboardData.getData('Text');  
               data = data.replace(/[\t]/g, "TT");
               data = data.replace(/[\r]/g, "RR");
-              _func(data);
+              setTimeout(()=>{
+                _func(data);
+              },500)
           }  
         });
       }

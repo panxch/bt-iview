@@ -20,16 +20,22 @@
             <Tabs value="name1">
                 <Tab-pane label="剪贴板导入" name="name1" icon="clipboard">
                     <Row type="flex">
-                        <i-col span="19"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
+                        <i-col span="20"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
                         <i-col span="1"></i-col>
-                        <i-col span="2"><Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button></i-col>
-                        <i-col span="2"><Button type="success" @click="_import" :disabled="table_data.length == 0">导入</Button></i-col>
+                        <i-col span="3">
+                            <div class="float_right">
+                                <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
+                                <Button type="success" @click="_import" :disabled="table_data.length == 0">导入</Button>
+                            </div>
+                        </i-col>
                     </Row>
                     <div class="space"></div>
                     <Table highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0"></Table>
                 </Tab-pane>
                 <Tab-pane label="Excel导入" name="name2" icon="android-attach">标签二的内容</Tab-pane>
             </Tabs>
+        </div>
+        <div class="layout-content">dd
         </div>
     </div>
 </template>
@@ -84,12 +90,17 @@
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var array_key = ['name','passwd','school'];
                 line_match.forEach((c,i)=>{
-                    var column_match = c.replace('RR','').split('TT');
-                    var info = {};
-                    column_match.forEach((c,i)=>{
-                        eval('info.' + array_key[i] + '= "' + c + '"');
-                    });
-                    this.table_data.push( info );
+                    if( c.indexOf('TT') > -1){
+                        var column_match = c.replace('RR','').split('TT');
+                        var info = {};
+                        column_match.forEach((c,i)=>{
+                            eval('info.' + array_key[i] + '= "' + c + '"');
+                        });
+                        this.table_data.push( info );
+                    }else{
+                        this.$Message.warning('格式检查失败~');
+                    }
+                    __.closeAll();
                 });
             },
             // 清除粘贴数据
