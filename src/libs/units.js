@@ -90,6 +90,7 @@ Array.prototype.filter_attr = function(){
       byId : function(_id){
         return document.getElementById(_id);
       },
+      // 在Array中返回指定value的info
       info : function(array,key,value){
         var info = array.find(function(c, index, arr){
           //log(eval('c.key') + '/' + value)
@@ -97,6 +98,23 @@ Array.prototype.filter_attr = function(){
         })
         return info || null;
       },
+      pasteListen : function(_func){
+        $(document.body).bind({  
+          paste: function(e) {//paste事件  
+              var eve = e.originalEvent  
+              var cp = eve.clipboardData;  
+              var data = null;  
+              var clipboardData = window.clipboardData; // IE  
+              if (!clipboardData) { //chrome  
+                  clipboardData = e.originalEvent.clipboardData  
+              }  
+              data = clipboardData.getData('Text');  
+              data = data.replace(/[\t]/g, "TT");
+              data = data.replace(/[\r]/g, "RR");
+              _func(data);
+          }  
+        });
+      }
     }
     return new fn();
   })();

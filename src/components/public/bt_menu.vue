@@ -1,5 +1,5 @@
 <template>
-    <Menu :active-name="config.active" theme="dark" width="auto" :open-names="['1']"  @on-select="handleSelect">
+    <Menu :active-name="config.active" theme="dark" width="auto" :open-names="['1']"  @on-select="handleSelect" accordion>
         <div class="layout-logo-left">
             <img src="/src/images/logo.png" class="logo">
         </div>

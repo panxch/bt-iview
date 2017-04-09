@@ -32,7 +32,7 @@ router.afterEach((to, from, next) => {
 });
 
 window.config = {
-	userinfo : { id : null },
+	userinfo : { id : 123 },
     active : 'home',
     active_name : '应用中心',
     left_width : 4,

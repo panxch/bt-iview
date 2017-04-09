@@ -4,9 +4,15 @@ html,body{width:100%;height:100%;}
 .padding-left{padding-left:10px;}
 .padding-right{padding-right: 10px;}
 .margin-right{margin-right: 10px;}
+.margin-remove{margin:0;}
 div.ivu-alert{border-radius: 0px;}
-div.line{width:100%;height:1px;border-top: 1px dotted #ccc;padding:10px;}
+div.line{width:100%;height:1px;border-top: 1px dotted #ccc;margin:5px;}
+div.space{height: 2px;}
 .ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
+.ivu-form .ivu-form-item{margin-bottom: 5px;}
+.ivu-input-wrapper .ivu-input{border-radius: 0px;}
+.wrapper .ivu-table td{height: 30px;}
+.wrapper .ivu-btn{border-radius: 0;}
 
 .wrapper{background: #eee;position: relative;}
 .wrapper .layout .layout-logo-left img.logo{width:150px;}
