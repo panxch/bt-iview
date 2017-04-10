@@ -32,7 +32,7 @@ router.afterEach((to, from, next) => {
 });
 
 window.config = {
-	userinfo : { id : 123 },
+	userinfo : { id : null },
     active : 'home',
     active_name : '应用中心',
     left_width : 4,
@@ -49,6 +49,6 @@ var vue = new Vue({
 if(localStorage.userinfo){
     window.config.userinfo = JSON.parse(localStorage.userinfo);  
 }
-if( Object.prototype.toString.call(window.config.userinfo.id) === '[object Null]' ){
-	vue.$router.push({ path: '/login' });
+if( window.config.userinfo != null && Object.prototype.toString.call(window.config.userinfo.id) === '[object Null]' ){
+    vue.$router.push({ path: '/login' });
 }

@@ -1,7 +1,7 @@
 <template>   
     <div class="layout-main">
         <div class="layout-content">
-            <Alert>班级批量上传
+            <Alert>课程批量上传
                 <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
             </Alert>
             <div class="line"></div>
@@ -72,20 +72,36 @@
                             align: 'center'
                         },
                         {
-                            title: '班级名称',
+                            title: '课程码',
+                            key: 'code'
+                        },
+                        {
+                            title: '课程名',
                             key: 'name'
                         },
                         {
-                            title: '班级人数',
-                            key: 'student_cnt'
+                            title: '课程类别',
+                            key: 'type'
                         },
                         {
-                            title: '班主任',
-                            key: 'teachers'
+                            title: '学分',
+                            key: 'credit'
                         },
                         {
-                            title: '教室',
-                            key: 'class_room'
+                            title: '授课方式',
+                            key: 'teaching_method'
+                        },
+                        {
+                            title: '考核方式',
+                            key: 'assessment_method'
+                        },
+                        {
+                            title: '学期',
+                            key: 'study_section'
+                        },
+                        {
+                            title: '总分',
+                            key: 'full_marks'
                         }
                     ],
                 table_data : [],
@@ -94,8 +110,8 @@
             }
         },
         created(){
-            window.config.active = 'class';
-            window.config.active_name = '班级管理';
+            window.config.active = 'course';
+            window.config.active_name = '课程管理';
             this._init();
         },
         methods : {
@@ -113,7 +129,7 @@
             // 完成粘贴板的匹配
             hald_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
-                var result = __.pasteMatch(line_match,['name','student_cnt','teachers','class_room']);
+                var result = __.pasteMatch(line_match,['code','name','type','credit','teaching_method','assessment_method','study_section','full_marks']);
                 if(result.length > 0){
                     result.forEach((c,i)=>{
                         this.table_data.push(c);

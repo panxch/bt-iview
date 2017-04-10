@@ -75,7 +75,7 @@ Array.prototype.filter_attr = function(){
             url: _args.url,
             data : _args.data,
             type: "post", 
-            dataType: 'jsonp',
+            // dataType: 'jsonp',
             success: function (result) {
               return _func ? _func(result) : result;
             }
@@ -98,6 +98,24 @@ Array.prototype.filter_attr = function(){
         })
         return info || null;
       },
+      // 剪贴板 数据匹配
+      pasteMatch : function(_match,_array_key){
+        var table_data = [];
+        _match.forEach((c,i)=>{
+            if( c.indexOf('TT') > -1){
+                var column_match = c.replace('RR','').split('TT');
+                var info = {};
+                column_match.forEach((c,i)=>{
+                    c = c.replace(/[\r\n]/g, ""); 
+                    eval('info.' + _array_key[i] + '= "' + c + '"');
+                });
+                table_data.push( info );
+            }
+        });
+        this.closeAll();
+        return table_data
+      },
+      // 剪贴板侦听
       pasteListen : function(_func){
         var self = this;
         $(document.body).bind({  

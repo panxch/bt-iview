@@ -11,7 +11,10 @@ export default {
 	get_grade(school_id,func = null) {
 		return __.get( get('basics/get_grade/?school_id=' + school_id),func );
 	},
-	do_import(array,func = null){
-		return __.post( get('index/login',array),func );
-	}
+	do_import_grade_paset(array,func = null){
+		return __.post( get('import/grade_paset',array),func );
+	},
+	do_import_grade_excel(array,func = null){
+		return __.post( get('import/grade_excel',array),func );	
+	},
 }
