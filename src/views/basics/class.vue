@@ -1,70 +1,17 @@
 <template>   
-    <div class="layout-main">
-        <div class="layout-content">
-            <Alert>班级批量上传
+    <base_import @init="init" :table_columns="table_columns" :fields_array="fields_array">
+        <Alert>班级批量上传
                 <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
-            </Alert>
-            <div class="line"></div>
-            <Row type="flex">
-                <i-col span="10">
-                    <Form :label-width="80" inline>
-                        <Form-item label="年级">
-                            <Select placeholder="请选择" style="width:200px" v-model="grade_value">
-                                <Option :value="info.id" v-for="info in grade_list">{{info.name}}/{{info.grade_name}}</Option>
-                            </Select>
-                        </Form-item>
-                    </Form>
-                </i-col>
-            </Row>
-            <div class="line"></div>
-            <Tabs>
-                <Tab-pane label="剪贴板导入" name="name1" icon="clipboard">
-                    <div>
-                        <Row type="flex">
-                        <i-col span="20"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
-                        <i-col span="1"></i-col>
-                        <i-col span="3">
-                            <div class="float_right">
-                                <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
-                                <Button type="success" @click="import_paset" :disabled="table_data.length == 0">导入</Button>
-                            </div>
-                        </i-col>
-                    </Row>
-                    </div>
-                    <div class="space"></div>
-                    <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0"></Table></div>
-                </Tab-pane>
-                <Tab-pane label="Excel导入" name="name2" icon="android-attach">
-                    <div>
-                        <Row type="flex">
-                        <i-col span="23">
-                             <Upload :action="api_url + 'api.php/import/up_grade_excel'" :on-success="success_event" :format="['xls','xlsx']" 
-                             :on-format-error="handle_format_error" :max-size="2048" :on-exceeded-size="handle_maxize">
-                                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                            </Upload>
-                        </i-col>
-                        <i-col span="1">
-                            <div class="float_right">
-                                <Button type="success" @click="import_excel" :disabled="excel_file == null">导入</Button>
-                            </div>
-                        </i-col>
-                    </Row>
-                    </div>
-                </Tab-pane>
-            </Tabs>
-        </div>
-    </div>
+        </Alert>
+    </base_import>
 </template>
 <script type="text/javascript">
-    import api from '../../config/api/basics'
-    import setting from '../../config/setting';
+    import base_import from '../../components/base_import.vue'
     var $ = window.$;
 
     export default {
         data(){
             return {
-                grade_list : [],
-                grade_value : null,
                 table_columns : [
                         {
                             type: 'index',
@@ -88,102 +35,16 @@
                             key: 'class_room'
                         }
                     ],
-                table_data : [],
-                excel_file : null,
-                api_url : setting.get_api_url
+                fields_array : ['name','student_cnt','teachers','class_room'],
             }
         },
-        created(){
-            window.config.active = 'class';
-            window.config.active_name = '班级管理';
-            this._init();
-        },
         methods : {
-            instance : function(){
-                const title = '对话框的标题';
-                const content = '<p>一些对话框内容</p><p>一些对话框内容</p>';
-                this.$Modal.info({title: title,content: content});
-            },
-            _init : function(){
-                // 设置剪贴板侦听
-                __.pasteListen((data)=>{
-                    this.hald_paste(data + 'RR');
-                })
-            },
-            // 完成粘贴板的匹配
-            hald_paste : function(data){
-                var line_match = data.match(/([\W\w]*?)RR/g);
-                var result = __.pasteMatch(line_match,['name','student_cnt','teachers','class_room']);
-                if(result.length > 0){
-                    result.forEach((c,i)=>{
-                        this.table_data.push(c);
-                    })
-                }else{
-                    this.$Message.warning('格式检查失败~');
-                }
-            },
-            // 清除粘贴数据
-            clear : function(){
-                this.table_data = [];
-            },
-            // 上传Excel附件
-            success_event : function(response){
-                this.excel_file = response.file;
-                log(this.excel_file)
-            },
-            // 年级选择验证
-            reg_grade_select : function(){
-                if(! this.grade_value){
-                    this.$Message.warning('请选择一个年级~');
-                    return false;
-                }
-                return true;
-            },
-            // 导入成功后
-            import_success : function(){
-                this.$Notice.success({title: '消息',desc:'导入任务已经全部完成',duration : 10,top:500});
-                this.clear();
-                this.excel_file = null;
-            },
-            // 粘贴板导入
-            import_paset : function(){
-                if(this.reg_grade_select()){
-                    var param = {data : JSON.stringify(this.table_data),grade_id : this.grade_value,school_id : window.config.userinfo.school_id};
-                    api.do_import_grade_paset(param,(result)=>{
-                        result = eval(result);
-                        if(result.length === 0){
-                            this.import_success();
-                        }
-                    })
-                }
-            },
-            // Excel导入
-            import_excel : function(){
-                if(this.reg_grade_select()){
-                    var param = {grade_id : this.grade_value,school_id : window.config.userinfo.school_id,file : this.excel_file};
-                    api.do_import_grade_excel(param,(result)=>{
-                        result = eval(result);
-                        if(result.length === 0){
-                            this.import_success();
-                        }
-                    })
-                }
-            },
-            // Excel文件选择类型判断
-            handle_format_error : function(){
-                this.$Message.warning('文件格式不正确，请上传xls或xlsx格式的图片~');
-            },
-            // Excel文件超出大小
-            handle_maxize : function(){
-                this.$Message.warning('文件太大，不能超过2M~');  
-            },
+            init : function(){
+                log('init/class');
+                window.config.active = 'class';
+                window.config.active_name = '班级管理';
+            }
         },
-        mounted(){
-            __.loading();
-            api.get_grade(window.config.userinfo.school_id,(result)=>{
-                this.grade_list = result.data;
-                __.closeAll();
-          });
-        },
+        components : { base_import },
     }
 </script>
