@@ -7,7 +7,7 @@
                 <i-col span="10">
                     <Form :label-width="80" inline>
                         <Form-item label="年级">
-                            <Select placeholder="请选择" style="width:200px" v-model="grade_value">
+                            <Select placeholder="请选择" style="width:200px" v-model="grade_value" @on-change="handle_change">
                                 <Option :value="info.id" v-for="info in grade_list">{{info.name}}/{{info.grade_name}}</Option>
                             </Select>
                         </Form-item>
@@ -36,7 +36,7 @@
                     <div>
                         <Row type="flex">
                         <i-col span="23">
-                             <Upload :action="api_url + 'api.php/import/up_grade_excel'" :on-success="success_event" :format="['xls','xlsx']" 
+                             <Upload :action="api_url + 'api.php/basics/handle/up_grade_excel'" :on-success="success_event" :format="['xls','xlsx']" 
                              :on-format-error="handle_format_error" :max-size="2048" :on-exceeded-size="handle_maxize">
                                 <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                             </Upload>
@@ -54,8 +54,8 @@
     </div>
 </template>
 <script type="text/javascript">
-    import api from '../config/api/basics'
     import setting from '../config/setting';
+    import api from '../config/api/basics'
     var $ = window.$;
 
     export default {
@@ -63,6 +63,7 @@
         data(){
             return {
                 grade_list : [],
+                grade_value_copy : this.grade_value,
                 grade_value : null,
                 table_data : [],
                 excel_file : null,
@@ -82,29 +83,34 @@
             _init : function(){
                 // 设置剪贴板侦听
                 __.pasteListen((data)=>{
-                    this.hald_paste(data + 'RR');
+                    this.handle_paste(data + 'RR');
                 })
             },
             // 完成粘贴板的匹配
-            hald_paste : function(data){
+            handle_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
                 if(result.length > 0){
                     result.forEach((c,i)=>{
                         this.table_data.push(c);
+                        this.$emit('set_table_data',c);
                     })
                 }else{
                     this.$Message.warning('格式检查失败~');
                 }
             },
+            handle_change : function(value){
+                this.$emit('set_grade_value',value);
+            },
             // 清除粘贴数据
             clear : function(){
                 this.table_data = [];
+                this.$emit('set_table_data',null);
             },
             // 上传Excel附件
             success_event : function(response){
                 this.excel_file = response.file;
-                log(this.excel_file)
+                this.$emit('set_excel_file',this.excel_file);                
             },
             // 年级选择验证
             reg_grade_select : function(){
@@ -123,25 +129,13 @@
             // 粘贴板导入
             import_paset : function(){
                 if(this.reg_grade_select()){
-                    var param = {data : JSON.stringify(this.table_data),grade_id : this.grade_value,school_id : window.config.userinfo.school_id};
-                    api.do_import_grade_paset(param,(result)=>{
-                        result = eval(result);
-                        if(result.length === 0){
-                            this.import_success();
-                        }
-                    })
+                    this.$emit('import_paset');
                 }
             },
             // Excel导入
             import_excel : function(){
                 if(this.reg_grade_select()){
-                    var param = {grade_id : this.grade_value,school_id : window.config.userinfo.school_id,file : this.excel_file};
-                    api.do_import_grade_excel(param,(result)=>{
-                        result = eval(result);
-                        if(result.length === 0){
-                            this.import_success();
-                        }
-                    })
+                    this.$emit('import_excel');
                 }
             },
             // Excel文件选择类型判断
