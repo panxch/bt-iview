@@ -9,6 +9,8 @@ html,body{width:100%;height:100%;}
 div.ivu-alert{border-radius: 0px;}
 div.line{width:100%;height:1px;border-top: 1px dotted #ccc;margin:5px;}
 div.space{height: 2px;}
+button span a{color: #fff;}
+button span a:hover{color: #fff;}
 
 .ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
 .ivu-form .ivu-form-item{margin-bottom: 5px;}

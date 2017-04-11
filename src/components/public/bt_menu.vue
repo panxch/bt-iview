@@ -10,7 +10,7 @@
             </template>
             <Menu-item name="class"><span>班级管理</span></Menu-item>
             <Menu-item name="course">课程管理</Menu-item>
-            <Menu-item name="1-3">选项 3</Menu-item>
+            <Menu-item name="teacher">教师管理</Menu-item>
         </Submenu>
         <Submenu name="2">
             <template slot="title">
@@ -41,7 +41,7 @@ export default {
     props: ['config'],
     methods : {
         handleSelect : function(name){
-            this.$router.push(name);
+            this.$router.push('/' + name);
         }
     }
 }		
