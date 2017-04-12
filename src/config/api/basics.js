@@ -15,6 +15,10 @@ export default {
 	get_course(school_id,func = null) {
 		return __.get( get('basics/base/get_course/?school_id=' + school_id),func );
 	},
+	// 返回当前用户所在学校的所有班级
+	get_class(school_id,func = null) {
+		return __.get( get('basics/base/get_class/?school_id=' + school_id),func );
+	},
 	// 剪贴板年级导入
 	do_import_grade_paset(array,func = null){
 		return __.post( get('basics/_class/paset',array),func );

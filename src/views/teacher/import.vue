@@ -29,6 +29,14 @@
                     </div>
                     <div class="space"></div>
                     <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0"></Table></div>
+                    <div class="space"></div>
+                    <Row>
+                         <i-col>
+                             <div style="float:right;">
+                                 <Page :total="page_count" :page-size="10"  @on-change="handle_page_change" v-if="temp_table_data.length > 0"></Page>
+                             </div>
+                         </i-col>
+                    </Row>
                 </Tab-pane>
             </Tabs>
         </div>
@@ -37,9 +45,12 @@
 <script type="text/javascript">
     import base_import from '../../components/base_import.vue'
     import api from '../../config/api/basics'
+    import api_teacher from '../../config/api/teacher'
+    import api_member from '../../config/api/member'
     export default {
         data(){
             return {
+                temp_table_data : [],
                 table_data : [],
                 table_columns : [
                         {
@@ -51,7 +62,15 @@
                             title: '登陆名称',
                             key: 'username',
                             width: 140,
-                            align : 'center'
+                            align : 'center',
+                            render : this.column_render
+                        },
+                        {
+                            title : '验证用户',
+                            key : 'reg_username',
+                            width : 100,
+                            align : 'center',
+                            render : this.column_render,
                         },
                         {
                             title: '姓名',
@@ -72,26 +91,33 @@
                             align : 'center'
                         },
                         {
-                            title: '身份证号码',
-                            key: 'card',
-                            width : 160,
-                        },
-                        {
                             title: '所带科目',
                             key: 'course_mapping'
                         },
                         {
-                            title : '科目是通过',
-                            key : 'course_mapping_pass'
+                            title : '科目验证',
+                            key : 'course_mapping_pass',
+                            width : 90,
+                            align : 'center',
+                            render : this.column_render
                         },
                         {
                             title: '所带班级',
                             key: 'class_mapping'
+                        },
+                        {
+                            title : '班级验证',
+                            key : 'class_mapping_pass',
+                            width : 90,
+                            align : 'center',
+                            render : this.column_render
                         }
                     ],
-                fields_array : ['username','name','tel','gender','card','course_mapping','class_mapping'],
+                fields_array : ['username','name','tel','gender','course_mapping','class_mapping'],
                 grade_list : [],
-                course_list : []
+                course_list : [],
+                class_list : [],
+                page_count : 0,
             }
         },
         created(){
@@ -107,23 +133,39 @@
                 })
             },
             clear : function(){
-                this.table_data = [];
+                this.temp_table_data = this.table_data = [];
             },
             handle_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
                 if(result.length > 0){
                     result.forEach((c,i)=>{
-                        c.course_mapping_pass = this.reg_course(c.course_mapping) ? '通过' : '<span style="color:#ff0000;">不通过</span>';
-                        this.table_data.push(c);
+                        var reg_course_info = this.reg_course(c.course_mapping,this.course_list);
+                        var reg_class_info = this.reg_course(c.class_mapping,this.class_list);
+                        c.course_mapping_pass = reg_course_info.pass;
+                        c.class_mapping_pass = reg_class_info.pass;
+                        c.course_mapping_data = reg_course_info.data;
+                        c.class_mapping_data = reg_class_info.data;
+                        this.temp_table_data.push(c);
                     })
+                    this.page_count = this.temp_table_data.length;
+                    this.table_data = this.set_page(1,10,this.temp_table_data);
                 }else{
                     this.$Message.warning('格式检查失败~');
                 }
             },
+            // 数据分页
+            handle_page_change : function(index){
+                this.table_data = this.set_page(index,10,this.temp_table_data);
+            },
+            // array分页显示
+            set_page : function (pageNo, pageSize, array) {  
+                var offset = (pageNo - 1) * pageSize;  
+                return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);  
+            },
             // 检测科目匹配
-            reg_course : function(data){
-                var pass = false;
+            reg_course : function(data,list){
+                var pass = false , pass_array = [],pass_count = 0;
                 var items = data.split(',');
                 items.forEach((c,i)=>{
                     var infos = c.split('/');
@@ -142,22 +184,76 @@
                         var courses = infos[1].split('#');
                         pass = true;
                         courses.forEach((c)=>{
-                            var info = this.course_list.find(function(w){
+                            var info = list.find(function(w){
                                 //log(c + '/' + w.name + '/' + w.grade_id + '/' + grade.id)
                                 if(c == w.name && w.grade_id == grade.id){
+                                    pass_array.push(w.id);
                                     return c;
                                 }
                             });
                             if(! info){
                                 pass = false;
+                                return false;
                             }
                         });
                     }
+                    if( pass ) pass_count += 1 ;
+
                 });
-                return pass;
+                pass = false;
+                if(items.length === pass_count) pass = true;
+                if(pass || data == '') pass = true;
+                return { pass : pass, data : pass_array};
+            },
+            // 列检测规则验证
+            column_render : function(row,column,index){
+                var info = '';
+                if (column._index === 7) info = row.course_mapping_pass;
+                else if(column._index === 9) info = row.class_mapping_pass;
+                // 验证课目或班级的规则
+                if( Object.prototype.toString.call(info) === '[object Boolean]' ){
+                    if(info)
+                        return '<span style="color:rgb(17,144,10)">Y</span>';
+                    else{
+                        return '<span style="color:#ff0000">N</span>';
+                    }
+                }
+                else if( column._index ===2 ){
+                    if (row.reg_username === undefined)
+                        return '<span style="color:rgb(17,144,10)">Y</span>';
+                    return '<span style="color:#ff0000">N</span>';
+                }
+                else{
+                     //__.loading('正在验证用户名...');
+                    if(! this.temp_table_data[index].reg_username){
+                        api_member.get_member(row.username,(result)=>{
+                            info = JSON.parse(result);
+                            if(info.id){
+                                this.temp_table_data[index].username = this.temp_table_data[index].username + ' ';
+                                this.temp_table_data[index].reg_username = 'F';
+                                __.closeAll();
+                            }
+                        })
+                    }
+                    return row.username
+                }
             },
             import_paset : function(){
-
+                var pass = true;
+                this.temp_table_data.forEach((c,i)=>{
+                    log(c)
+                    if(c.reg_username === 'F' || ! c.course_mapping_pass  || ! c.class_mapping_pass ){
+                        this.$Message.warning('格式检查失败,请修改后再次导入~');
+                        pass = false;
+                        return pass;
+                    }
+                });
+                if(pass){
+                    var param = {data : JSON.stringify(this.temp_table_data),school_id : window.config.userinfo.school_id};
+                    api_teacher.do_import_teacher_paset(param,(result)=>{
+                        log(result);
+                    })
+                }
             },
         },
         mounted(){
@@ -165,13 +261,16 @@
             // 取所有年级
             api.get_grade(window.config.userinfo.school_id,(result)=>{
                 this.grade_list = result.data;
-                // log('-------this.grade_list------')
-                // log(this.grade_list);
                 __.closeAll();
             });
             // 取所有课目
             api.get_course(window.config.userinfo.school_id,(result)=>{
                 this.course_list = result.data;
+                __.closeAll();
+            });
+            // 取所有班级
+            api.get_class(window.config.userinfo.school_id,(result)=>{
+                this.class_list = result.data;
                 __.closeAll();
             });
         },
