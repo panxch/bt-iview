@@ -51,7 +51,7 @@
                         {
                             title: '登陆用户名',
                             key: 'username',
-                            width: 120,
+                            width: 140,
                             sortable: true
                         },
                         {

@@ -4,9 +4,9 @@
             <Row type="flex">
                 <i-col span="10">
                     <Form :label-width="80" inline>
-                        <Form-item label="年级">
-                            <Select placeholder="请选择" style="width:200px" >
-                                
+                        <Form-item label="角色">
+                            <Select placeholder="请选择" style="width:200px" v-model="role_value">
+                                <Option :value="info.id" v-for="info in role_list">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                     </Form>
@@ -117,7 +117,9 @@
                 grade_list : [],
                 course_list : [],
                 class_list : [],
+                role_list : [],
                 page_count : 0,
+                role_value : '',
             }
         },
         created(){
@@ -132,9 +134,21 @@
                     this.handle_paste(data + 'RR');
                 })
             },
+            // 导入成功后
+            import_success : function(){
+                this.$Notice.success({title: '消息',desc:'导入任务已经全部完成',duration : 10,top:500});
+                this.clear();
+                setTimeout(()=>{
+                    this.$router.push({ path: '/teacher' });
+                },3000)
+            },
             clear : function(){
                 this.temp_table_data = this.table_data = [];
             },
+            // handle_change : function(){
+            //     this.role_id = 0;
+            // },
+            // 匹配数据
             handle_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
@@ -241,7 +255,6 @@
             import_paset : function(){
                 var pass = true;
                 this.temp_table_data.forEach((c,i)=>{
-                    log(c)
                     if(c.reg_username === 'F' || ! c.course_mapping_pass  || ! c.class_mapping_pass ){
                         this.$Message.warning('格式检查失败,请修改后再次导入~');
                         pass = false;
@@ -249,9 +262,13 @@
                     }
                 });
                 if(pass){
-                    var param = {data : JSON.stringify(this.temp_table_data),school_id : window.config.userinfo.school_id};
+                    if(! this.role_value){
+                        this.$Message.warning('请选择一个角色~');
+                        return;
+                    }
+                    var param = {data : JSON.stringify(this.temp_table_data),school_id : window.config.userinfo.school_id ,role_id : this.role_value};
                     api_teacher.do_import_teacher_paset(param,(result)=>{
-                        log(result);
+                        this.import_success();
                     })
                 }
             },
@@ -273,6 +290,11 @@
                 this.class_list = result.data;
                 __.closeAll();
             });
+            // 取所有角色
+            api.get_role(window.config.userinfo.school_id,(result)=>{
+                this.role_list = result.data;
+                __.closeAll();
+            });            
         },
         components : {  },
     }
