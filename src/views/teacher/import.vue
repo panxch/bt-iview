@@ -23,6 +23,7 @@
                             <div class="float_right">
                                 <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
                                 <Button type="success" @click="import_paset" :disabled="table_data.length == 0">导入</Button>
+                                <bt_back></bt_back>
                             </div>
                         </i-col>
                     </Row>
@@ -33,7 +34,7 @@
                     <Row>
                          <i-col>
                              <div style="float:right;">
-                                 <Page :total="page_count" :page-size="10"  @on-change="handle_page_change" v-if="temp_table_data.length > 0"></Page>
+                                 <Page :total="page_count" :page-size="page_size"  @on-change="handle_page_change" v-if="temp_table_data.length > 0"></Page>
                              </div>
                          </i-col>
                     </Row>
@@ -43,7 +44,9 @@
     </div>
 </template>
 <script type="text/javascript">
+    import setting from '../../config/setting';
     import base_import from '../../components/base_import.vue'
+    import bt_back from '../../components/public/bt_back.vue'
     import api from '../../config/api/basics'
     import api_teacher from '../../config/api/teacher'
     import api_member from '../../config/api/member'
@@ -120,6 +123,7 @@
                 role_list : [],
                 page_count : 0,
                 role_value : '',
+                page_size : setting.get_page_size,
             }
         },
         created(){
@@ -145,9 +149,6 @@
             clear : function(){
                 this.temp_table_data = this.table_data = [];
             },
-            // handle_change : function(){
-            //     this.role_id = 0;
-            // },
             // 匹配数据
             handle_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
@@ -163,14 +164,14 @@
                         this.temp_table_data.push(c);
                     })
                     this.page_count = this.temp_table_data.length;
-                    this.table_data = this.set_page(1,10,this.temp_table_data);
+                    this.table_data = this.set_page(1,this.page_size,this.temp_table_data);
                 }else{
                     this.$Message.warning('格式检查失败~');
                 }
             },
             // 数据分页
             handle_page_change : function(index){
-                this.table_data = this.set_page(index,10,this.temp_table_data);
+                this.table_data = this.set_page(index,this.page_size,this.temp_table_data);
             },
             // array分页显示
             set_page : function (pageNo, pageSize, array) {  
@@ -296,6 +297,6 @@
                 __.closeAll();
             });            
         },
-        components : {  },
+        components : { bt_back },
     }
 </script>
