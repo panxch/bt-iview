@@ -30,7 +30,7 @@
                     </Row>
                     </div>
                     <div class="space"></div>
-                    <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0"></Table></div>
+                    <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0" :height="table_height"></Table></div>
                 </Tab-pane>
                 <Tab-pane label="Excel导入" name="name2" icon="android-attach">
                     <div>
@@ -68,6 +68,7 @@
                 table_data : [],
                 excel_file : null,
                 api_url : setting.get_api_url,
+                table_height : $(window).height() - 310,
             }
         },
         created(){
