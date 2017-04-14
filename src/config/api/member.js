@@ -11,5 +11,8 @@ export default {
 	get_member(username,func = null){
 		return __.post( get('basics/member/get_member?username=' + username),func );
 	},
+	get_student_by_no(no,func = null){
+		return __.post( get('basics/member/get_student_by_no?student_no=' + no),func );
+	},
 	
 }

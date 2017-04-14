@@ -12,22 +12,21 @@
                                 <Button type="success"><router-link to="/teacher/import">导入</router-link></Button>
                             </div>
                         </i-col>
-                    </Row>
-                    </div>
-            <Row>
-                 <i-col>
-                     <Table border highlight-row :columns="table_columns" :data="table_data" stripe></Table>
-                 </i-col>
-            </Row>
-            <div class="space"></div>
-            <Row>
-                 <i-col>
-                     <div style="float:right;">
-                         <Page :total="page_count" @on-change="handle_page_change" :page-size="20"></Page>
-                     </div>
-                 </i-col>
             </Row>
         </div>
+        <Row>
+             <i-col>
+                 <Table border highlight-row :columns="table_columns" :data="table_data" stripe></Table>
+             </i-col>
+        </Row>
+        <div class="space"></div>
+        <Row>
+             <i-col>
+                 <div style="float:right;">
+                     <Page :total="page_count" @on-change="handle_page_change" :page-size="20"></Page>
+                 </div>
+             </i-col>
+        </Row>
     </div>
 </template>
 <script type="text/javascript">

@@ -11,6 +11,10 @@ export default {
 	get_grade(school_id,func = null) {
 		return __.get( get('basics/base/get_grade/?school_id=' + school_id),func );
 	},
+	// 返回当前用户所在学校的所有年级 分组
+	get_grade_group(school_id,func = null) {
+		return __.get( get('basics/base/get_grade_group/?school_id=' + school_id),func );
+	},
 	// 返回当前用户所在学校的所有课目
 	get_course(school_id,func = null) {
 		return __.get( get('basics/base/get_course/?school_id=' + school_id),func );
