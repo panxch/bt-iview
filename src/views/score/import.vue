@@ -48,7 +48,7 @@
                         <Row type="flex" v-if="msg_error != ''">
                             <i-col span="24">
                                 <Alert type="error" width="100%">
-                                    验证提醒
+                                    <span style="color:#ff0000">验证提醒</span>
                                     <span slot="desc" v-html="msg_error"></span>
                                 </Alert>
                             </i-col>
@@ -264,8 +264,8 @@
                                     eval('r.' + m.en +'_code = m.id');
                                 }
                             }
-                        })
-                    }
+                        });
+                    };
                 });
                 // 检测学号
                 api_member.get_student_by_no(row.student_no,(result)=>{
