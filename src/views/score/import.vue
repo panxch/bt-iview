@@ -208,7 +208,11 @@
                 this.table_data = [];
                 this.msg_error = '';
             },
-            import_paset : function(){},
+            import_paset : function(){
+                if(this.msg_error != ''){
+                    this.$Message.warning('数据验证出现错误,请修改后再重新偿试~');
+                }
+            },
             // 完成粘贴板的匹配
             handle_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
