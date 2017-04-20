@@ -136,7 +136,11 @@ Array.prototype.filter_attr = function(){
               },500)
           }  
         });
-      }
+      },
+      set_page : function (pageNo, pageSize, array) {  
+          var offset = (pageNo - 1) * pageSize;  
+          return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);  
+      },
     }
     return new fn();
   })();

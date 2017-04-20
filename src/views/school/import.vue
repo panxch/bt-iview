@@ -67,7 +67,7 @@
                         {
                             type: 'index',
                             width: 60,
-                            align: 'center'
+                            align: 'center',
                         },
                         {
                             title: '登陆名称',
@@ -154,14 +154,19 @@
                         this.temp_table_data.push(c);
                     })
                     this.page_count = this.temp_table_data.length;
-                    this.table_data = __.set_page(1,this.page_size,this.temp_table_data);
+                    this.table_data = this.set_page(1,this.page_size,this.temp_table_data);
                 }else{
                     this.$Message.warning('格式检查失败~');
                 }
             },
             // 数据分页
             handle_page_change : function(index){
-                this.table_data = __.set_page(index,this.page_size,this.temp_table_data);
+                this.table_data = this.set_page(index,this.page_size,this.temp_table_data);
+            },
+            // array分页显示
+            set_page : function (pageNo, pageSize, array) {  
+                var offset = (pageNo - 1) * pageSize;  
+                return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);  
             },
             // 检测科目匹配
             reg_course : function(data,list){

@@ -18,7 +18,6 @@
 <script type="text/javascript">
 import api from '../../config/api/login'
 import $ from '../../libs/jquery-vendor';
-import '../../libs/superslide/jquery.SuperSlide.2.1.1.source.js'
 export default {
 	name: 'bt_header',
 	data () {

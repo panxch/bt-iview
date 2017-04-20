@@ -8,10 +8,11 @@
                 <Icon type="ios-navigate"></Icon>
                 基础数据
             </template>
+            <Menu-item name="school"><Icon type="ios-home"></Icon>学校管理</Menu-item>
             <Menu-item name="class"><Icon type="bookmark"></Icon>班级管理</Menu-item>
             <Menu-item name="course"><Icon type="compose"></Icon>课程管理</Menu-item>
             <Menu-item name="teacher"><Icon type="person-stalker"></Icon>教师管理</Menu-item>
-            <Menu-item name="score"><Icon type="android-clipboard"></Icon>成绩上传管理</Menu-item>
+            <Menu-item name="score"><Icon type="android-clipboard"></Icon>成绩管理</Menu-item>
         </Submenu>
         <Submenu name="2">
             <template slot="title">
