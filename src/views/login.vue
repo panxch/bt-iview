@@ -27,8 +27,8 @@
     			loading : false,
     			primary_text : '登录',
     			form: {
-                    username: 'weiyujiaowu4',
-                    passwd: '12345'
+                    username: '',
+                    passwd: ''
                 }
     		}
     	},
@@ -56,7 +56,9 @@
 	    				setTimeout(()=>{
 	    					window.config.userinfo = result;
                             window.config.userinfo.photo = window.config.userinfo.photo ? 
-                                                           setting.get_api_url + window.config.userinfo.photo : '/src/images/face.jpg';
+                                                           
+                            (window.location.host == 'www.yishengya.cn' ?'http://www.yishengya.cn/' : 'http://localhost:9087/')
+                                                            + window.config.userinfo.photo : '/public/vue/dist/face.jpg';
                             // 存储到本地
                             localStorage.userinfo = JSON.stringify(window.config.userinfo);                                                           
 	    					log(window.config.userinfo)

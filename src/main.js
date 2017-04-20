@@ -3,20 +3,20 @@ import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './config/router';
 import App from './app.vue';
-import $ from 'jquery'
+import $ from './libs/jquery-vendor';
 import 'iview/dist/styles/iview.css';
 import './libs/units';
 import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
 
-window.$ = $;
+// window.$ = $;
+// window.jQuery = $;
+
 
 Vue.use(VueRouter);
 Vue.use(iView);
-
 // 路由配置
 const RouterConfig = {
-    mode: 'history',
     routes: Routers
 };
 const router = new VueRouter(RouterConfig);
@@ -37,6 +37,8 @@ window.config = {
     active_name : '应用中心',
     left_width : 4,
     right_width : 20,
+    // 下拉框中最后选择的一位学校
+    last_school : null,
 }
 
 var vue = new Vue({

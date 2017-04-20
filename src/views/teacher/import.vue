@@ -2,8 +2,9 @@
     <div class="layout-main">
         <div class="layout-content">
             <Row type="flex">
-                <i-col span="10">
+                <i-col>
                     <Form :label-width="80" inline>
+                        <drop_school @handle_school_change="handle_school_change"></drop_school>
                         <Form-item label="角色">
                             <Select placeholder="请选择" style="width:200px" v-model="role_value">
                                 <Option :value="info.id" v-for="info in role_list">{{info.name}}</Option>
@@ -16,6 +17,14 @@
             <Tabs>
                 <Tab-pane label="剪贴板导入" name="name1" icon="clipboard">
                     <div>
+                        <Row type="flex" v-if="msg_error != ''">
+                            <i-col span="24">
+                                <Alert type="error" width="100%">
+                                    <span style="color:#ff0000">验证提醒</span>
+                                    <span slot="desc" v-html="msg_error"></span>
+                                </Alert>
+                            </i-col>
+                        </Row>
                         <Row type="flex">
                         <i-col span="20"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
                         <i-col span="1"></i-col>
@@ -23,7 +32,6 @@
                             <div class="float_right">
                                 <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
                                 <Button type="success" @click="import_paset" :disabled="table_data.length == 0">导入</Button>
-                                <bt_back></bt_back>
                             </div>
                         </i-col>
                     </Row>
@@ -46,10 +54,10 @@
 <script type="text/javascript">
     import setting from '../../config/setting';
     import base_import from '../../components/base_import.vue'
-    import bt_back from '../../components/public/bt_back.vue'
     import api from '../../config/api/basics'
     import api_teacher from '../../config/api/teacher'
     import api_member from '../../config/api/member'
+    import drop_school from '../../components/drop_school.vue'
     export default {
         data(){
             return {
@@ -67,14 +75,7 @@
                             width: 140,
                             align : 'center',
                             render : this.column_render
-                        },
-                        {
-                            title : '验证用户',
-                            key : 'reg_username',
-                            width : 100,
-                            align : 'center',
-                            render : this.column_render,
-                        },
+                        },                    
                         {
                             title: '姓名',
                             key: 'name',
@@ -96,24 +97,10 @@
                         {
                             title: '所带科目',
                             key: 'course_mapping'
-                        },
-                        {
-                            title : '科目验证',
-                            key : 'course_mapping_pass',
-                            width : 90,
-                            align : 'center',
-                            render : this.column_render
-                        },
+                        },                        
                         {
                             title: '所带班级',
                             key: 'class_mapping'
-                        },
-                        {
-                            title : '班级验证',
-                            key : 'class_mapping_pass',
-                            width : 90,
-                            align : 'center',
-                            render : this.column_render
                         }
                     ],
                 fields_array : ['username','name','tel','gender','course_mapping','class_mapping'],
@@ -124,6 +111,8 @@
                 page_count : 0,
                 role_value : '',
                 page_size : setting.get_page_size,
+                school_id : null,
+                msg_error : '',
             }
         },
         created(){
@@ -148,6 +137,7 @@
             },
             clear : function(){
                 this.temp_table_data = this.table_data = [];
+                this.msg_error = '';
             },
             // 匹配数据
             handle_paste : function(data){
@@ -196,6 +186,7 @@
                     }(this.grade_list);
                     // 如果找到年级对应关系,再匹配课目
                     if(grade){
+                        log(list);
                         var courses = infos[1].split('#');
                         pass = true;
                         courses.forEach((c)=>{
@@ -221,81 +212,74 @@
             },
             // 列检测规则验证
             column_render : function(row,column,index){
-                var info = '';
-                if (column._index === 7) info = row.course_mapping_pass;
-                else if(column._index === 9) info = row.class_mapping_pass;
-                // 验证课目或班级的规则
-                if( Object.prototype.toString.call(info) === '[object Boolean]' ){
-                    if(info)
-                        return '<span style="color:rgb(17,144,10)">Y</span>';
-                    else{
-                        return '<span style="color:#ff0000">N</span>';
+                if(! row.course_mapping_pass){
+                    this.msg_error += row.username + '所带科目匹配失败<br>';
+                }
+                if(! row.class_mapping_pass){
+                    this.msg_error += row.username + '所带班级匹配失败<br>';
+                }
+                api_member.get_member(row.username,(result)=>{
+                    let info = JSON.parse(result);
+                    if(info.id){
+                        this.temp_table_data[index].reg_username = 'F';
+                        this.msg_error += row.username + '已经存在<br>';
+                        __.closeAll();
                     }
-                }
-                else if( column._index ===2 ){
-                    if (row.reg_username === undefined)
-                        return '<span style="color:rgb(17,144,10)">Y</span>';
-                    return '<span style="color:#ff0000">N</span>';
-                }
-                else{
-                     //__.loading('正在验证用户名...');
-                    if(! this.temp_table_data[index].reg_username){
-                        api_member.get_member(row.username,(result)=>{
-                            info = JSON.parse(result);
-                            if(info.id){
-                                this.temp_table_data[index].username = this.temp_table_data[index].username + ' ';
-                                this.temp_table_data[index].reg_username = 'F';
-                                __.closeAll();
-                            }
-                        })
-                    }
-                    return row.username
-                }
+                })
+                return row.username;
             },
+            // 数据导入
             import_paset : function(){
                 var pass = true;
-                this.temp_table_data.forEach((c,i)=>{
-                    if(c.reg_username === 'F' || ! c.course_mapping_pass  || ! c.class_mapping_pass ){
-                        this.$Message.warning('格式检查失败,请修改后再次导入~');
-                        pass = false;
-                        return pass;
-                    }
-                });
+                if(this.msg_error != '' ){
+                    this.$Message.warning('格式检查失败,请修改后再次导入~');
+                    pass = false;
+                    return pass;
+                }
+
                 if(pass){
                     if(! this.role_value){
                         this.$Message.warning('请选择一个角色~');
                         return;
                     }
-                    var param = {data : JSON.stringify(this.temp_table_data),school_id : window.config.userinfo.school_id ,role_id : this.role_value};
+                    var param = {data : JSON.stringify(this.temp_table_data),school_id : this.school_id,role_id : this.role_value};
                     api_teacher.do_import_teacher_paset(param,(result)=>{
                         this.import_success();
                     })
                 }
             },
+            // 获取学校所有的角色
+            handle_school_change : function(value){
+                this.school_id = value;
+                __.loading();
+                // 取所有角色
+                api.get_role(value,(result)=>{
+                    this.role_list = result.data;
+                    __.closeAll();
+                });
+                // 取所有课目
+                api.get_course(value,(result)=>{
+                    this.course_list = [];
+                    if(result.data.length > 0){
+                        this.course_list = result.data;
+                    }
+                });
+                // 取所有班级
+                api.get_class(value,(result)=>{
+                    this.class_list = [];
+                    if(result.data.length > 0){
+                        this.class_list = result.data;
+                    }
+                });
+                // 取所有角色
+                api.get_grade(value,(result)=>{
+                     this.grade_list = result.data;
+                    __.closeAll();
+                }); 
+            },
         },
         mounted(){
-            __.loading();
-            // 取所有年级
-            api.get_grade(window.config.userinfo.school_id,(result)=>{
-                this.grade_list = result.data;
-                __.closeAll();
-            });
-            // 取所有课目
-            api.get_course(window.config.userinfo.school_id,(result)=>{
-                this.course_list = result.data;
-                __.closeAll();
-            });
-            // 取所有班级
-            api.get_class(window.config.userinfo.school_id,(result)=>{
-                this.class_list = result.data;
-                __.closeAll();
-            });
-            // 取所有角色
-            api.get_role(window.config.userinfo.school_id,(result)=>{
-                this.role_list = result.data;
-                __.closeAll();
-            });            
         },
-        components : { bt_back },
+        components : { drop_school },
     }
 </script>

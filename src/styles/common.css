@@ -20,7 +20,7 @@ button span a:hover{color: #fff;}
 .wrapper .ivu-alert-with-desc{padding: 7px;}
 
 .wrapper{background: #eee;position: relative;}
-.wrapper .layout .layout-logo-left img.logo{width:150px;}
+.wrapper .layout .layout-logo-left img.logo{margin-left:60px;height: 40px;}
 .wrapper .layout .layout-logo-left{background: #fff;height: 45px;}
 
 /*登陆*/

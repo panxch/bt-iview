@@ -4,10 +4,11 @@
             <slot></slot>
             <div class="line"></div>
             <Row type="flex">
-                <i-col span="10">
+                <i-col>
                     <Form :label-width="80" inline>
+                        <drop_school @handle_school_change="handle_school_change"></drop_school>
                         <Form-item label="年级">
-                            <Select placeholder="请选择" style="width:200px" v-model="grade_value" @on-change="handle_change">
+                            <Select placeholder="请选择" style="width:200px" v-model="grade_value" @on-change="handle_grade_change">
                                 <Option :value="info.id" v-for="info in grade_list">{{info.name}}/{{info.grade_name}}</Option>
                             </Select>
                         </Form-item>
@@ -56,6 +57,7 @@
 <script type="text/javascript">
     import setting from '../config/setting';
     import api from '../config/api/basics'
+    import drop_school from '../components/drop_school.vue'
     var $ = window.$;
 
     export default {
@@ -69,6 +71,7 @@
                 excel_file : null,
                 api_url : setting.get_api_url,
                 table_height : $(window).height() - 310,
+                school_id : null,
             }
         },
         created(){
@@ -100,8 +103,17 @@
                     this.$Message.warning('格式检查失败~');
                 }
             },
-            handle_change : function(value){
+            // 年级选择
+            handle_grade_change : function(value){
                 this.$emit('set_grade_value',value);
+            },
+            // 学校选择回调
+            handle_school_change : function(value){
+                this.school_id = value;
+                api.get_grade(value,(result)=>{
+                    this.grade_list = result.data;
+                    __.closeAll();
+                });
             },
             // 清除粘贴数据
             clear : function(){
@@ -149,11 +161,7 @@
             },
         },
         mounted(){
-            __.loading();
-            api.get_grade(window.config.userinfo.school_id,(result)=>{
-                this.grade_list = result.data;
-                __.closeAll();
-          });
         },
+        components : { drop_school },
     }
 </script>

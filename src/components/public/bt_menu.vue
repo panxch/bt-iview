@@ -1,7 +1,7 @@
 <template>
     <Menu :active-name="config.active" theme="dark" width="auto" :open-names="['1']"  @on-select="handleSelect" accordion>
         <div class="layout-logo-left">
-            <img src="/src/images/logo.png" class="logo">
+            <img src="/public/vue/dist/logo.png" class="logo">
         </div>
         <Submenu name="1">
             <template slot="title">
@@ -11,17 +11,16 @@
             <Menu-item name="class"><Icon type="bookmark"></Icon>班级管理</Menu-item>
             <Menu-item name="course"><Icon type="compose"></Icon>课程管理</Menu-item>
             <Menu-item name="teacher"><Icon type="person-stalker"></Icon>教师管理</Menu-item>
-            <Menu-item name="score"><Icon type="android-clipboard"></Icon>成绩管理</Menu-item>
+            <Menu-item name="score"><Icon type="android-clipboard"></Icon>成绩上传管理</Menu-item>
         </Submenu>
-        <!-- <Submenu name="2">
+        <Submenu name="2">
             <template slot="title">
                 <Icon type="ios-keypad"></Icon>
-                导航二
+                权限分配
             </template>
-            <Menu-item name="2-1">选项 1</Menu-item>
-            <Menu-item name="2-2">选项 2</Menu-item>
+            <Menu-item name="role">角色管理</Menu-item>
         </Submenu>
-        <Submenu name="3">
+        <!-- <Submenu name="3">
             <template slot="title">
                 <Icon type="ios-analytics"></Icon>
                 导航三

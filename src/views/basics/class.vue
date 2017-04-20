@@ -48,7 +48,7 @@
             },
             // 剪贴板导入
             import_paset : function(){
-                var param = {data : JSON.stringify(this.table_data),grade_id : this.grade_value,school_id : window.config.userinfo.school_id};
+                var param = {data : JSON.stringify(this.table_data),grade_id : this.grade_value,school_id : this.$refs.import.school_id};
                 api.do_import_grade_paset(param,(result)=>{
                     result = eval(result);
                     if(result.length === 0){
@@ -58,7 +58,7 @@
             },
             // Excel导入
             import_excel : function(){
-                var param = {grade_id : this.grade_value,school_id : window.config.userinfo.school_id,file : this.excel_file};
+                var param = {grade_id : this.grade_value,school_id : this.$refs.import.school_id,file : this.excel_file};
                 api.do_import_grade_excel(param,(result)=>{
                     result = eval(result);
                     if(result.length === 0){

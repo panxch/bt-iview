@@ -5,10 +5,10 @@
     <div class="wrapper">
        <div class="layout" >
             <Row type="flex">
-                <i-col span="4" class="layout-menu-left" v-if="config.userinfo.id != null">
+                <i-col span="3" class="layout-menu-left" v-if="config.userinfo.id != null">
                     <bt_menu v-if="config.userinfo.id  != null " :config="config"></bt_menu>
                 </i-col>
-                <i-col span="20">
+                <i-col span="21">
                     <bt_header v-if="config.userinfo.id  != null "></bt_header>
                     <bt_breadcrumb v-if="config.userinfo.id  != null " :config="config"></bt_breadcrumb>
                     <div class="layout-box">
