@@ -35,6 +35,7 @@ btv.install = function(Vue, options){
     var _valid = Vue.prototype;
 
     _valid.validator = function($data = null){
+      btv.$data = $data;
       if(Object.prototype.toString.call($data) === '[object Object]'){
         let var_list = {};
         for(let i in $data){
@@ -72,7 +73,7 @@ btv.install = function(Vue, options){
 	};
 	// 全局是否验证通过
 	_valid.is_validator = function(){
-		return this.validator().length > 0 ? false : true;
+		return this.validator(btv.$data).length > 0 ? false : true;
 	}
 };
 

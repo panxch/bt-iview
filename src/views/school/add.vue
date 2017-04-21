@@ -1,14 +1,15 @@
 <template>   
     <div class="layout-main">
-        <div class="layout-content">
+         <Form :label-width="80" inline id="form">
+            <div class="layout-content">
             <Row type="flex">
-                        <i-col span="20"></i-col>
-                        <i-col span="1"></i-col>
-                        <i-col span="3">
-                            <div class="float_right">
-                                <Button type="info" @click="save">保存</Button>
-                            </div>
-                        </i-col>
+                <i-col span="20"></i-col>
+                <i-col span="1"></i-col>
+                <i-col span="3">
+                    <div class="float_right">
+                        <Button type="info" @click="save">保存</Button>
+                    </div>
+                </i-col>
             </Row>
             <div class="line"></div>
             <Row type="flex" v-if="msg_error.length > 0">
@@ -21,36 +22,32 @@
             </Row>
             <Row type="flex">
                 <i-col>
-                    <Form :label-width="80" inline>
-                        <Form-item label="学校名称">
-                            <input placeholder="请输入..." class="ivu-input" v-model="m_name" name="name" v-bt-validator:rules="['required']" empty_err="学校名称">
-
-                        </Form-item>
-                        <Form-item label="学校类别">
-                            <select class="ivu-select-options" name="school_type" v-model="m_school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
-                                <option :value="info.id" v-for="info in school_type_list">{{info.name}}</option>
-                            </select>
-                        </Form-item>
-                    </Form>
+                    <Form-item label="学校名称">
+                        <input placeholder="请输入..." class="ivu-input" v-model="m_name" name="name" v-bt-validator:rules="['required']" empty_err="学校名称">
+                    </Form-item>
+                    <Form-item label="学校类别">
+                        <select class="ivu-select-options" name="school_type" v-model="m_school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
+                            <option :value="info.id" v-for="info in school_type_list">{{info.name}}</option>
+                        </select>
+                    </Form-item>
                 </i-col>
             </Row>
             <div class="line"></div>
             <Row type="flex">
                 <i-col>
-                    <Form :label-width="80" inline>
-                        <Form-item label="学校地址">
-                            <input placeholder="请输入..." class="ivu-input" v-model="m_address" name="address" v-bt-validator:rules="['required']" empty_err="学校地址">
-                        </Form-item>
-                        <Form-item label="联系人">
-                            <input placeholder="请输入..." class="ivu-input" v-model="m_principal" name="principal" v-bt-validator:rules="['required']" empty_err="联系人">
-                        </Form-item>
-                        <Form-item label="联系电话">
-                            <input placeholder="请输入..." class="ivu-input" v-model="m_mobile" name="mobile" v-bt-validator:rules="['required','telphone']" empty_err="联系电话" err="电话号码格式错误">
-                        </Form-item>
-                    </Form>
+                    <Form-item label="学校地址">
+                        <input placeholder="请输入..." class="ivu-input" v-model="m_address" name="address" v-bt-validator:rules="['required']" empty_err="学校地址">
+                    </Form-item>
+                    <Form-item label="联系人">
+                        <input placeholder="请输入..." class="ivu-input" v-model="m_principal" name="principal" v-bt-validator:rules="['required']" empty_err="联系人">
+                    </Form-item>
+                    <Form-item label="联系电话">
+                        <input placeholder="请输入手机号..." class="ivu-input" v-model="m_mobile" name="mobile" v-bt-validator:rules="['required','mobile']" empty_err="联系电话" err="电话号码格式错误">
+                    </Form-item>
                 </i-col>
             </Row>
-        </div>
+            </div>
+        </Form>
     </div>
 </template>
 <script type="text/javascript">
@@ -72,8 +69,23 @@
         methods : {
             _init : function(){
             },
+            clear : function(){
+                __.byId('form').reset();
+            },
             save : function(){
                 this.msg_error = this.validator(this.$data);
+                if(this.is_validator()){
+                    api_school.save((result)=>{
+                        result = JSON.parse(result);
+                        if(result.id){
+                            this.$Notice.success({title: '消息',desc:'导入任务已经全部完成',duration : 10,top:500});
+                            this.clear();
+                            setTimeout(()=>{
+                                this.$router.push({ path: '/school' });
+                            },3000)
+                        }
+                    })
+                }
             },
         },
         mounted(){

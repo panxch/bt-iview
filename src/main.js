@@ -10,6 +10,7 @@ import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
 import VueValidator from './libs/plugs/validator.js'
 
+window.$ = $;
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.use(VueValidator);

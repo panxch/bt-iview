@@ -231,7 +231,6 @@
                     pass = false;
                     return pass;
                 }
-
                 if(pass){
                     if(! this.role_value){
                         this.msg_error = '请选择一个角色~';
