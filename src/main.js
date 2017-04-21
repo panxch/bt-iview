@@ -8,19 +8,13 @@ import 'iview/dist/styles/iview.css';
 import './libs/units';
 import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
-
-// window.$ = $;
-// window.jQuery = $;
+import VueValidator from './libs/plugs/validator.js'
 
 Vue.use(VueRouter);
 Vue.use(iView);
-Vue.directive('focus', {
-  // 当绑定元素插入到 DOM 中。
-  inserted: function (el) {
-    // 聚焦元素
-    el.focus()
-  }
-})
+Vue.use(VueValidator);
+
+
 
 // 路由配置
 const RouterConfig = {

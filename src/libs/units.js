@@ -90,6 +90,9 @@ Array.prototype.filter_attr = function(){
       byId : function(_id){
         return document.getElementById(_id);
       },
+      byName : function(_name){
+        return document.getElementsByName(_name)[0];
+      },
       // 在Array中返回指定value的info
       info : function(array,key,value){
         var info = array.find(function(c, index, arr){
@@ -140,6 +143,14 @@ Array.prototype.filter_attr = function(){
       set_page : function (pageNo, pageSize, array) {  
           var offset = (pageNo - 1) * pageSize;  
           return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);  
+      },
+      // iView专用验证数据打包
+      iview_rule_serialize : function(_data){
+        let list = {};
+        for(let i in _data){
+            list[i] = _data[i];
+        };
+        return list;
       },
     }
     return new fn();

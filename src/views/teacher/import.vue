@@ -156,7 +156,7 @@
                     this.page_count = this.temp_table_data.length;
                     this.table_data = __.set_page(1,this.page_size,this.temp_table_data);
                 }else{
-                    this.$Message.warning('格式检查失败~');
+                     this.msg_error = '格式检查失败~';
                 }
             },
             // 数据分页
@@ -227,14 +227,14 @@
             import_paset : function(){
                 var pass = true;
                 if(this.msg_error != '' ){
-                    this.$Message.warning('格式检查失败,请修改后再次导入~');
+                    //this.$Message.warning('格式检查失败,请修改后再次导入~');
                     pass = false;
                     return pass;
                 }
 
                 if(pass){
                     if(! this.role_value){
-                        this.$Message.warning('请选择一个角色~');
+                        this.msg_error = '请选择一个角色~';
                         return;
                     }
                     var param = {data : JSON.stringify(this.temp_table_data),school_id : this.school_id,role_id : this.role_value};

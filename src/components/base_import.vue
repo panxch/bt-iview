@@ -16,6 +16,14 @@
                 </i-col>
             </Row>
             <div class="line"></div>
+            <Row type="flex" v-if="msg_error.length > 0">
+                <i-col span="24">
+                    <Alert type="error" width="100%">
+                        <span style="color:#ff0000">验证提醒</span>
+                        <span slot="desc" v-html="msg_error"></span>
+                    </Alert>
+                </i-col>
+            </Row>
             <Tabs>
                 <Tab-pane label="剪贴板导入" name="name1" icon="clipboard">
                     <div>
@@ -72,6 +80,7 @@
                 api_url : setting.get_api_url,
                 table_height : $(window).height() - 310,
                 school_id : null,
+                msg_error : '',
             }
         },
         created(){
@@ -95,12 +104,13 @@
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
                 if(result.length > 0){
+                    this.msg_error = '';
                     result.forEach((c,i)=>{
                         this.table_data.push(c);
                         this.$emit('set_table_data',c);
                     })
                 }else{
-                    this.$Message.warning('格式检查失败~');
+                    this.msg_error = '格式检查失败~';
                 }
             },
             // 年级选择
@@ -118,6 +128,7 @@
             // 清除粘贴数据
             clear : function(){
                 this.table_data = [];
+                this.msg_error = '';
                 this.$emit('set_table_data',null);
             },
             // 上传Excel附件
@@ -128,7 +139,7 @@
             // 年级选择验证
             reg_grade_select : function(){
                 if(! this.grade_value){
-                    this.$Message.warning('请选择一个年级~');
+                    this.msg_error = '请选择一个年级~';
                     return false;
                 }
                 return true;

@@ -228,23 +228,23 @@
                 var pass = true;
                 if(this.msg_error != ''){
                     pass = false;
-                    this.$Message.warning('数据验证出现错误,请修改后再重新偿试~');
+                    //this.msg_error += '数据验证出现错误,请修改后再重新偿试~<br>';
                 }
                 if(this.semester_value == ''){
                     pass = false;
-                    this.$Message.warning('请选择所在学期~');   
+                    this.msg_error += '请选择所在学期~<br>';
                 }
                 if(this.exam_value == ''){
                     pass = false;
-                    this.$Message.warning('请选择考试类型~');   
+                    this.msg_error += '请选择考试类型~<br>';
                 }
                 if(this.time_value == ''){
                     pass = false;
-                    this.$Message.warning('请选择考试时间~');   
+                    this.msg_error += '请选择考试时间~<br>';
                 }
                 if(this.class_value == ''){
                     pass = false;
-                    this.$Message.warning('请选择班级类型~');   
+                    this.msg_error += '请选择班级类型~<br>';
                 }               
                 if(pass){
                     var param = {data : JSON.stringify(this.table_data),
@@ -299,9 +299,10 @@
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
                 if(result.length > 0){
+                    this.msg_error = '';
                     this.table_data = result;
                 }else{
-                    this.$Message.warning('格式检查失败~');
+                    this.msg_error = '格式检查失败~';
                 }
             },
             // 入学年份选择

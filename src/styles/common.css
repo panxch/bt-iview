@@ -11,6 +11,8 @@ div.line{width:100%;height:1px;border-top: 1px dotted #ccc;margin:5px;}
 div.space{height: 2px;}
 button span a{color: #fff;}
 button span a:hover{color: #fff;}
+.ivu-form-item .ivu-input,.ivu-form-item .ivu-select-placeholder{width:200px;}
+.ivu-form-item .ivu-select-options{width:200px;border: 1px solid #d7dde4;border-radius: 3px;height: 30px;color:#657180;padding-left:3px;}
 
 .ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
 .ivu-form .ivu-form-item{margin-bottom: 5px;}

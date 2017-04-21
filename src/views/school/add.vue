@@ -23,13 +23,13 @@
                 <i-col>
                     <Form :label-width="80" inline>
                         <Form-item label="学校名称">
-                            <Input placeholder="请输入..." style="width: 200px" name="name"></Input>
+                            <input placeholder="请输入..." class="ivu-input" v-model="m_name" name="name" v-bt-validator:rules="['required']" empty_err="学校名称">
 
                         </Form-item>
                         <Form-item label="学校类别">
-                            <Select style="width:200px">
-                                <Option :value="info.id" v-for="info in school_type_list">{{info.name}}</Option>
-                            </Select>
+                            <select class="ivu-select-options" name="school_type" v-model="m_school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
+                                <option :value="info.id" v-for="info in school_type_list">{{info.name}}</option>
+                            </select>
                         </Form-item>
                     </Form>
                 </i-col>
@@ -39,13 +39,13 @@
                 <i-col>
                     <Form :label-width="80" inline>
                         <Form-item label="学校地址">
-                            <Input placeholder="请输入..." style="width: 200px" name="address"></Input>
+                            <input placeholder="请输入..." class="ivu-input" v-model="m_address" name="address" v-bt-validator:rules="['required']" empty_err="学校地址">
                         </Form-item>
                         <Form-item label="联系人">
-                            <Input placeholder="请输入..." style="width: 200px" name="principal"></Input>
+                            <input placeholder="请输入..." class="ivu-input" v-model="m_principal" name="principal" v-bt-validator:rules="['required']" empty_err="联系人">
                         </Form-item>
                         <Form-item label="联系电话">
-                            <Input placeholder="请输入..." style="width: 200px" name="mobile"></Input>
+                            <input placeholder="请输入..." class="ivu-input" v-model="m_mobile" name="mobile" v-bt-validator:rules="['required','telphone']" empty_err="联系电话" err="电话号码格式错误">
                         </Form-item>
                     </Form>
                 </i-col>
@@ -61,6 +61,7 @@
             return {
                 school_type_list : [{id : '1',name : '小学'},{id : 2,name : '初中'},{id : 3,name : '高中'}],
                 msg_error : [],
+                m_name : '',m_address : '',m_principal : '',m_mobile : '',m_school_type : ''
             }
         },
         created(){
@@ -72,7 +73,7 @@
             _init : function(){
             },
             save : function(){
-                                
+                this.msg_error = this.validator(this.$data);
             },
         },
         mounted(){
