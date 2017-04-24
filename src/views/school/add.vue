@@ -8,6 +8,7 @@
                 <i-col span="3">
                     <div class="float_right">
                         <Button type="info" @click="save">保存</Button>
+                        <back></back>
                     </div>
                 </i-col>
             </Row>
@@ -26,9 +27,12 @@
                         <input placeholder="请输入..." class="ivu-input" v-model="m_name" name="name" v-bt-validator:rules="['required']" empty_err="学校名称">
                     </Form-item>
                     <Form-item label="学校类别">
-                        <select class="ivu-select-options" name="school_type" v-model="m_school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
-                            <option :value="info.id" v-for="info in school_type_list">{{info.name}}</option>
-                        </select>
+                        <Select class="ivu-select-options" name="school_type_select" v-model="m_school_type_select" v-bt-validator:rules="['required']" empty_err="学校类别">
+                            <Option :value="info.id" v-for="info in school_type_list">{{info.name}}</Option>
+                        </Select>
+                    </Form-item>
+                    <Form-item label="所在地区">
+                        <Cascader :data="city_list" v-model="m_city" name="city" empty_err="所在地区" v-bt-validator:rules="['required']" placeholder="请选择学校所在地区"></Cascader>
                     </Form-item>
                 </i-col>
             </Row>
@@ -42,35 +46,63 @@
                         <input placeholder="请输入..." class="ivu-input" v-model="m_principal" name="principal" v-bt-validator:rules="['required']" empty_err="联系人">
                     </Form-item>
                     <Form-item label="联系电话">
-                        <input placeholder="请输入手机号..." class="ivu-input" v-model="m_mobile" name="mobile" v-bt-validator:rules="['required','mobile']" empty_err="联系电话" err="电话号码格式错误">
+                        <input placeholder="请输入手机号..." class="ivu-input" v-model="m_mobile" name="mobile" v-bt-validator:rules="['required']" empty_err="联系电话" err="电话号码格式错误">
                     </Form-item>
                 </i-col>
             </Row>
             </div>
+            <input type="hidden" name="school_type" v-model="m_school_type_select">
+            <input type="hidden" name="location" v-model="m_city[1]">
+            <input type="hidden" name="id" :value="query.id" v-if="query">
         </Form>
     </div>
 </template>
 <script type="text/javascript">
     import setting from '../../config/setting';    
     import api_school from '../../config/api/school'
+    import back from '../../components/public/bt_back.vue'
     export default {
         data(){
             return {
                 school_type_list : [{id : '1',name : '小学'},{id : 2,name : '初中'},{id : 3,name : '高中'}],
                 msg_error : [],
-                m_name : '',m_address : '',m_principal : '',m_mobile : '',m_school_type : ''
+                city_list : [],
+                m_name : '',m_address : '',m_principal : '',m_mobile : '',m_school_type_select : '',m_city : [],
+                query : null,
             }
         },
         created(){
             this._init();
+            this.data_bind();
             window.config.active = 'school';
             window.config.active_name = '添加学校';
         },
         methods : {
             _init : function(){
+                // 新增 or 更新
+                if(this.$route.query.hasOwnProperty('id')){
+                    this.query = this.$route.query
+                    this.update(this.query.id);
+                }
+            },
+            data_bind : function(){
+                //city_list
+                api_school.get_school_group((result)=>{
+                    this.city_list = eval(result);
+                });
             },
             clear : function(){
                 __.byId('form').reset();
+            },
+            update : function(id){
+                api_school.get_school_by_id(id,(result)=>{
+                    let info = result.data;
+                    this.m_name = info.name;
+                    this.m_address = info.address;
+                    this.m_principal = info.principal;
+                    this.m_mobile = info.mobile;
+                    this.m_school_type_select = parseInt(info.school_type);
+                })
             },
             save : function(){
                 this.msg_error = this.validator(this.$data);
@@ -90,6 +122,6 @@
         },
         mounted(){
         },
-        components : {  },
+        components : { back },
     }
 </script>

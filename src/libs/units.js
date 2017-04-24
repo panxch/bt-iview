@@ -19,6 +19,14 @@ Array.prototype.filter_attr = function(){
   });
   return array;
 };
+// 自定义Join，将数组中的指定属性拼接返回
+Array.prototype._join = function(filed){
+  var str = '';
+  this.forEach((c,i)=>{
+    str += eval('c.' + filed) + ',';
+  })
+  return str.substring(0,str.length - 1);
+};
 
 (function(){
   var __ = (function(){
@@ -150,6 +158,34 @@ Array.prototype.filter_attr = function(){
         for(let i in _data){
             list[i] = _data[i];
         };
+        return list;
+      },
+      // iView全选或单选下的值返
+      get_selection : function(selection){
+        var info = {count : 0,ids : ''};
+        if(selection.length > 0){
+          info.count = selection.length;
+        }
+        for(let i in selection){
+          if(selection[i].id){
+            info.ids += selection[i].id  + ',';
+          }
+        };
+        if(selection.length > 0){
+          info.ids = info.ids.substring(0,info.ids.length - 1);
+        }
+        return info;
+      },
+      // iView中首页列表中的多列选择判断
+      get_list_update_check : function(list){
+        list.pass = true;
+        if(list.count == 0){
+          list.error = '未选择任何数据,请选择后再次操作~';
+          list.pass = false;
+        }else if(list.count > 1){
+          list.error = '本次操作，只允许选择1条数据~';
+          list.pass = false;
+        }
         return list;
       },
     }

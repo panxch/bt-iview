@@ -26,12 +26,13 @@
                             </i-col>
                         </Row>
                         <Row type="flex">
-                        <i-col span="20"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
+                        <i-col span="18"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
                         <i-col span="1"></i-col>
-                        <i-col span="3">
+                        <i-col span="5">
                             <div class="float_right">
                                 <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
                                 <Button type="success" @click="import_paset" :disabled="table_data.length == 0">导入</Button>
+                                <back></back>
                             </div>
                         </i-col>
                     </Row>
@@ -58,51 +59,14 @@
     import api_teacher from '../../config/api/teacher'
     import api_member from '../../config/api/member'
     import drop_school from '../../components/drop_school.vue'
+    import back from '../../components/public/bt_back.vue'
+    import table_columns from '../../config/table_columns'
     export default {
         data(){
             return {
                 temp_table_data : [],
                 table_data : [],
-                table_columns : [
-                        {
-                            type: 'index',
-                            width: 60,
-                            align: 'center'
-                        },
-                        {
-                            title: '登陆名称',
-                            key: 'username',
-                            width: 140,
-                            align : 'center',
-                            render : this.column_render
-                        },                    
-                        {
-                            title: '姓名',
-                            key: 'name',
-                            width: 120,
-                            align : 'center'
-                        },
-                        {
-                            title: '手机号',
-                            key: 'tel',
-                            width: 120,
-                            align : 'center'
-                        },
-                        {
-                            title: '性别',
-                            key: 'gender',
-                            width: 80,
-                            align : 'center'
-                        },
-                        {
-                            title: '所带科目',
-                            key: 'course_mapping'
-                        },                        
-                        {
-                            title: '所带班级',
-                            key: 'class_mapping'
-                        }
-                    ],
+                table_columns : table_columns.teacher_import,
                 fields_array : ['username','name','tel','gender','course_mapping','class_mapping'],
                 grade_list : [],
                 course_list : [],
@@ -274,6 +238,6 @@
         },
         mounted(){
         },
-        components : { drop_school },
+        components : { drop_school,back},
     }
 </script>

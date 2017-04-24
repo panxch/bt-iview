@@ -12,7 +12,8 @@ div.space{height: 2px;}
 button span a{color: #fff;}
 button span a:hover{color: #fff;}
 .ivu-form-item .ivu-input,.ivu-form-item .ivu-select-placeholder{width:200px;}
-.ivu-form-item .ivu-select-options{width:200px;border: 1px solid #d7dde4;border-radius: 3px;height: 30px;color:#657180;padding-left:3px;}
+.ivu-form-item .ivu-select-options{width:200px;}
+.wrapper .ivu-btn-back{background-color: #76797b;border-color:#76797b;color:#fff;}
 
 .ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
 .ivu-form .ivu-form-item{margin-bottom: 5px;}
@@ -24,6 +25,7 @@ button span a:hover{color: #fff;}
 .wrapper{background: #eee;position: relative;}
 .wrapper .layout .layout-logo-left img.logo{margin-left:60px;height: 40px;}
 .wrapper .layout .layout-logo-left{background: #fff;height: 45px;}
+.ivu-row-flex h4{line-height:30px};
 
 /*登陆*/
 .wrapper .login{width:300px;margin-top:10%;position: absolute;left:40%;}

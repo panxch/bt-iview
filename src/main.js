@@ -24,6 +24,13 @@ const RouterConfig = {
 const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
+    // 路由拦截，重新加入分页首index
+    let tos = to.path.split('/');
+    let froms = from.path.split('/');
+    if(tos[1] != froms[1]){
+        window.config.page_index = 1;
+        window.config.page_count = 0;
+    }
     iView.LoadingBar.start();
     next();
 });
@@ -41,6 +48,8 @@ window.config = {
     right_width : 20,
     // 下拉框中最后选择的一位学校
     last_school : null,
+    page_index : 1,
+    page_count : 0,
 }
 
 var vue = new Vue({

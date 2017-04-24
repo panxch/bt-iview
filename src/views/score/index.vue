@@ -31,59 +31,12 @@
 </template>
 <script type="text/javascript">
     import setting from '../../config/setting';
+    import table_columns from '../../config/table_columns';
     import api from '../../config/api/scores'
     export default {
         data(){
             return {
-                table_columns : [
-                        {
-                            type: 'selection',
-                            width: 60,
-                            align: 'center',
-                        },
-                        {
-                            title : '#',
-                            key : 'id',
-                            width: 80,
-                            align: 'center',
-                        },
-                        {
-                            title: '导入方式',
-                            key: 'file_name_new',
-                            sortable: true
-                        },
-                        {
-                            title: '创建人',
-                            key: 'name',
-                            width: 200,
-                            align: 'center',
-                        },
-                        {
-                            title: '入学时间',
-                            key: 'year',
-                            width: 160,
-                            align: 'center',
-                        },
-                        {
-                            title: '学期',
-                            width: 140,
-                            key: 'semester',
-                            align: 'center',
-                        },
-                        {
-                            title: '考试时间',
-                            width: 140,
-                            key: 'examTime',
-                            align: 'center',
-                        },
-                        {
-                            title : '创建时间',
-                            key : 'create_time',
-                            width: 160,
-                            align: 'center',
-                            sortable: true
-                        }
-                    ],
+                table_columns : table_columns.score,
                 table_data : [],
                 page_count : 0,
                 page_index : 1,

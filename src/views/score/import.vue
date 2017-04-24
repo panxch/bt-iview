@@ -4,7 +4,9 @@
             <Row type="flex">
                 <i-col>
                     <Form :label-width="80" inline>
-                        <drop_school @handle_school_change="handle_school_change"></drop_school>
+                        <Form-item label="学校">
+                            <drop_school @handle_school_change="handle_school_change"></drop_school>
+                        </Form-item>
                     </Form>
                 </i-col>
             </Row>
@@ -61,12 +63,13 @@
                             </i-col>
                         </Row>
                         <Row type="flex">
-                            <i-col span="20"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
+                            <i-col span="18"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
                             <i-col span="1"></i-col>
-                            <i-col span="3">
+                            <i-col span="5">
                                 <div class="float_right">
                                     <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
                                     <Button type="success" @click="import_paset" :disabled="table_data.length == 0">导入</Button>
+                                    <back></back>
                                 </div>
                             </i-col>
                         </Row>
@@ -80,104 +83,19 @@
 </template>
 <script type="text/javascript">
     import setting from '../../config/setting';
+    import table_columns from '../../config/table_columns';
     import base_import from '../../components/base_import.vue'
     import api from '../../config/api/basics'
     import api_scores from '../../config/api/scores'
     import api_member from '../../config/api/member'
     import drop_school from '../../components/drop_school.vue'
+    import back from '../../components/public/bt_back.vue'
     var $ = window.$;
     export default {
         data(){
             return {
                 table_data : [],
-                table_columns : [
-                        {
-                            type: 'index',
-                            width: 70,
-                            align: 'center'
-                        },
-                        {
-                            title : '学号',
-                            key : 'student_no',
-                            render : this.column_render
-                        },
-                        {
-                            title: '姓名',
-                            key: 'name',
-                            width: 90,
-                            align : 'center',
-                        },
-                        {
-                            title: '班级',
-                            key: 'class',
-                            width: 70,
-                            align : 'center'
-                        },
-                        {
-                            title: '总分',
-                            key: 'sum_socre',
-                            width: 70,
-                            align : 'center'
-                        },
-                        {
-                            title: '语文',
-                            width: 70,
-                            key: 'yuwen',
-                            align : 'center',
-                        },
-                        {
-                            title : '数学',
-                            key : 'shuxue',
-                            width: 70,
-                            align : 'center',
-                        },
-                        {
-                            title: '英语',
-                            width: 70,
-                            key: 'yingyue'
-                        },
-                        {
-                            title : '物理',
-                            key : 'wuli',
-                            width: 70,
-                            align : 'center'                            
-                        },
-                        {
-                            title : '化学',
-                            key : 'huaxue',
-                            width: 70,
-                            align : 'center'                            
-                        },
-                        {
-                            title : '生物',
-                            key : 'shengwu',
-                            width: 70,
-                            align : 'center'                            
-                        },
-                        {
-                            title : '政治',
-                            key : 'zhengzhi',
-                            width: 70,
-                            align : 'center'                            
-                        },
-                        {
-                            title : '历史',
-                            key : 'lishi',
-                            width: 70,
-                            align : 'center'                            
-                        },
-                        {
-                            title : '地理',
-                            key : 'dili',
-                            width: 70,
-                            align : 'center'                            
-                        },
-                        {
-                            title : '技术',
-                            key : 'jishu',
-                            width: 70,
-                            align : 'center'
-                        }],
+                table_columns : table_columns.score_import,
                 grade_list : [],
                 grade_nianji_list : [],
                 page_size : setting.get_page_size,
@@ -383,6 +301,6 @@
         mounted(){
             
         },
-        components : { drop_school },
+        components : { drop_school,back },
     }
 </script>

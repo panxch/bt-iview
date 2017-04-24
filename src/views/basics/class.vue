@@ -8,32 +8,11 @@
 <script type="text/javascript">
     import base_import from '../../components/base_import.vue'
     import api from '../../config/api/basics'
+    import table_columns from '../../config/table_columns'
     export default {
         data(){
             return {
-                table_columns : [
-                        {
-                            type: 'index',
-                            width: 60,
-                            align: 'center'
-                        },
-                        {
-                            title: '班级名称',
-                            key: 'name'
-                        },
-                        {
-                            title: '班级人数',
-                            key: 'student_cnt'
-                        },
-                        {
-                            title: '班主任',
-                            key: 'teachers'
-                        },
-                        {
-                            title: '教室',
-                            key: 'class_room'
-                        }
-                    ],
+                table_columns : table_columns.class,
                 fields_array : ['name','student_cnt','teachers','class_room'],
                 table_data : [],
                 grade_value : null,

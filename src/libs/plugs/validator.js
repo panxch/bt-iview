@@ -13,6 +13,11 @@ btv.check = function(info){
 	//return btv.rules_validator[info.rule](info.dom.value);
   return btv.rules_validator[info.rule](info.dom);
 }
+// 返回默认规则
+btv.default = function(){
+  let info = { empty_err:'未知',rules:["required"] };
+  return info;
+}
 
 btv.install = function(Vue, options){
     Vue.directive('bt-validator',{
@@ -44,30 +49,56 @@ btv.install = function(Vue, options){
           }
         }
 
-      	let list = this.vals;
-      	let errors = [];
-      	if(Object.prototype.toString.call(list) === '[object Object]'){
-      		for(let i in list){
-      			//let dom = __.byName(i);
-            let dom = var_list['m_' + i];
-      			let rules = list[i].rules;
-      			let dobule_reg = true;
-      			// 规则遍历验证
-      			rules.forEach((c)=>{
-      				let info = {
-      					dom : dom,
-      					rule : c,
-      					err : list[i].err,
-                empty_err : list[i].empty_err
-      				};
-      				// 如果验证未通过，将错误信息带入错误池
-      				if(! btv.check(info) && dobule_reg == true){
-      					dobule_reg = false
-      					errors.push(info.err);
-      				}
-      			})
-      		}
-      	};
+        // log(var_list)
+        //log(this.vals);
+        let errors = [];
+        for(let i in var_list){
+          let dom = var_list[i];
+          let dobule_reg = true;
+          let model = null;//btv.default();
+          if(Object.prototype.toString.call(this.vals[i.replace('m_','')]) == '[object Object]'){
+            model = this.vals[i.replace('m_','')];
+          }
+          // 规则遍历验证
+          model.rules.forEach((c)=>{
+            let info = {
+            dom : dom,
+            rule : c,
+            err : model.err,
+            empty_err : model.empty_err
+          };
+             // 如果验证未通过，将错误信息带入错误池
+            if(! btv.check(info) && dobule_reg == true){
+               dobule_reg = false
+               errors.push(info.err);
+            }
+          })
+        }
+
+      	// let list = this.vals;
+      	// let errors = [];
+      	// if(Object.prototype.toString.call(list) === '[object Object]'){
+      	// 	for(let i in list){
+      	// 		//let dom = __.byName(i);
+       //      let dom = var_list['m_' + i];
+      	// 		let rules = list[i].rules;
+      	// 		let dobule_reg = true;
+      	// 		// 规则遍历验证
+      	// 		rules.forEach((c)=>{
+      	// 			let info = {
+      	// 				dom : dom,
+      	// 				rule : c,
+      	// 				err : list[i].err,
+       //          empty_err : list[i].empty_err
+      	// 			};
+      	// 			// 如果验证未通过，将错误信息带入错误池
+      	// 			if(! btv.check(info) && dobule_reg == true){
+      	// 				dobule_reg = false
+      	// 				errors.push(info.err);
+      	// 			}
+      	// 		})
+      	// 	}
+      	// };
         return errors;
       };
 	};

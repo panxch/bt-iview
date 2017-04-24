@@ -8,49 +8,12 @@
 <script type="text/javascript">
     import base_import from '../../components/base_import.vue'
     import api from '../../config/api/basics'
+    import table_columns from '../../config/table_columns'
     
     export default {
         data(){
             return {
-               table_columns : [
-                        {
-                            type: 'index',
-                            width: 60,
-                            align: 'center'
-                        },
-                        {
-                            title: '课程码',
-                            key: 'code'
-                        },
-                        {
-                            title: '课程名',
-                            key: 'name'
-                        },
-                        {
-                            title: '课程类别',
-                            key: 'type'
-                        },
-                        {
-                            title: '学分',
-                            key: 'credit'
-                        },
-                        {
-                            title: '授课方式',
-                            key: 'teaching_method'
-                        },
-                        {
-                            title: '考核方式',
-                            key: 'assessment_method'
-                        },
-                        {
-                            title: '学期',
-                            key: 'study_section'
-                        },
-                        {
-                            title: '总分',
-                            key: 'full_marks'
-                        }
-                    ],
+               table_columns : table_columns.course,
                 fields_array : ['code','name','type','credit','teaching_method','assessment_method','study_section','full_marks'],
                 table_data : [],
                 grade_value : null,

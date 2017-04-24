@@ -6,7 +6,9 @@
             <Row type="flex">
                 <i-col>
                     <Form :label-width="80" inline>
-                        <drop_school @handle_school_change="handle_school_change"></drop_school>
+                        <Form-item label="学校">
+                            <drop_school @handle_school_change="handle_school_change"></drop_school>
+                        </Form-item>
                         <Form-item label="年级">
                             <Select placeholder="请选择" style="width:200px" v-model="grade_value" @on-change="handle_grade_change">
                                 <Option :value="info.id" v-for="info in grade_list">{{info.name}}/{{info.grade_name}}</Option>
