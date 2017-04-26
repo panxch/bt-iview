@@ -59,20 +59,22 @@ btv.install = function(Vue, options){
           if(Object.prototype.toString.call(this.vals[i.replace('m_','')]) == '[object Object]'){
             model = this.vals[i.replace('m_','')];
           }
-          // 规则遍历验证
-          model.rules.forEach((c)=>{
-            let info = {
-            dom : dom,
-            rule : c,
-            err : model.err,
-            empty_err : model.empty_err
-          };
-             // 如果验证未通过，将错误信息带入错误池
-            if(! btv.check(info) && dobule_reg == true){
-               dobule_reg = false
-               errors.push(info.err);
-            }
-          })
+          if(model){
+            // 规则遍历验证
+            model.rules.forEach((c)=>{
+              let info = {
+              dom : dom,
+              rule : c,
+              err : model.err,
+              empty_err : model.empty_err
+            };
+               // 如果验证未通过，将错误信息带入错误池
+              if(! btv.check(info) && dobule_reg == true){
+                 dobule_reg = false
+                 errors.push(info.err);
+              }
+            })
+          }
         }
 
       	// let list = this.vals;

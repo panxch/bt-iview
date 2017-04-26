@@ -9,13 +9,14 @@
                 <h4>筛选：</h4>
             </i-col>
             <i-col span="5">
-                <drop_school @handle_school_change="handle_school_change"></drop_school>
+                <drop_school @handle_school_change="handle_school_change" ref="drp_school"></drop_school>
             </i-col>
             <i-col span="8">
                 <Tag closable color="blue" @on-close="handle_tag_close" :key="tag" :name="tag.name" v-for="tag in tags">{{tag.name}}</Tag>
             </i-col>
             <i-col span="10">
                 <div class="float_right">
+                    <Button type="info" @click="go_update">修改</Button>
                     <Button type="success"><router-link to="/teacher/import">导入</router-link></Button>
                 </div>
             </i-col>
@@ -23,7 +24,7 @@
     </div>
     <Row>
          <i-col>
-             <Table border highlight-row :columns="table_columns" :data="table_data" stripe></Table>
+             <Table border highlight-row :columns="table_columns" :data="table_data" stripe @on-selection-change="selection_change"></Table>
          </i-col>
     </Row>
     <div class="space"></div>
@@ -50,6 +51,7 @@
                 page_count : window.config.page_count,
                 page_index : window.config.page_index,
                 tags : [],
+                selection : __.get_selection([]),
             }
         },
         created(){
@@ -62,6 +64,19 @@
             handle_page_change : function(index){
                 window.config.page_index = index;
                 this.set_page(index);
+            },
+            // 选择事件
+            selection_change : function(selection){
+                this.selection = __.get_selection(selection);
+            },
+            // 修改
+            go_update : function(){
+                let info = __.get_list_update_check(this.selection);
+                if(! info.pass){
+                    this.$Message.error(info.error);
+                    return;
+                }
+                this.$router.push({ path: 'teacher/update',query : {id : info.ids }});
             },
             // 分页
             set_page : function(index){
@@ -108,7 +123,6 @@
             },
         },
         mounted(){
-            log(this.page_index);
             this.set_page(this.page_index);
         },
         components : { drop_school },

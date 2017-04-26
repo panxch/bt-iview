@@ -7,6 +7,7 @@ const routers = [
     {path: '/class',component: (resolve) => require(['../views/basics/class.vue'], resolve)},
     {path: '/course',component: (resolve) => require(['../views/basics/course.vue'], resolve)},
     {path: '/teacher',component: (resolve) => require(['../views/teacher/index.vue'], resolve)},
+    {path: '/teacher/update',component: (resolve) => require(['../views/teacher/update.vue'], resolve)},
     {path: '/teacher/import',component: (resolve) => require(['../views/teacher/import.vue'], resolve)},
     {path: '/score',component: (resolve) => require(['../views/score/index.vue'], resolve)},
     {path: '/score/import',component: (resolve) => require(['../views/score/import.vue'], resolve)},
