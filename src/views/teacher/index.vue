@@ -76,7 +76,7 @@
                     this.$Message.error(info.error);
                     return;
                 }
-                this.$router.push({ path: 'teacher/update',query : {id : info.ids }});
+                __.go(this,'teacher/update',{id : info.ids })
             },
             // 分页
             set_page : function(index){
@@ -92,7 +92,8 @@
                         this.page_count = window.config.page_count = result.page_count;
                     }
                     __.closeAll();
-              });
+                });
+                __.bind_list_dblclick(this,'teacher/update');
             },
             // 学校选择
             handle_school_change : function(value){

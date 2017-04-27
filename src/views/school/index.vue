@@ -56,7 +56,8 @@
                 this.set_page(index);
             },
             set_page : function(index){
-               this.table_data = __.set_page(index,this.page_size,this.temp_table_data);
+                this.table_data = __.set_page(index,this.page_size,this.temp_table_data);
+                __.bind_list_dblclick(this,'school/update');
             },
             selection_change : function(selection){
                 this.selection = __.get_selection(selection);
@@ -67,7 +68,7 @@
                     this.$Message.error(info.error);
                     return;
                 }
-                this.$router.push({ path: 'school/update',query : {id : info.ids }});
+                __.go(this,'school/update',{id : info.ids });
             },
         },
         mounted(){

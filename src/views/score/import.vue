@@ -19,12 +19,12 @@
                             </Select>
                         </Form-item>
                         <Form-item label="所在年级">
-                            <Select placeholder="请选择" style="width:200px" :clearable="true" @on-change="do_grade_nianji_select">
+                            <Select placeholder="请选择" style="width:200px" :clearable="true" @on-change="do_grade_nianji_select" v-model="m_grade_value" name="grade_value" v-bt-validator:rules="['required']" empty_err="所在年级">
                                 <Option :value="info.id" v-for="info in grade_nianji_list">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                         <Form-item label="所在学期">
-                            <Select placeholder="请选择" style="width:200px" v-model="semester_value">
+                            <Select placeholder="请选择" style="width:200px" v-model="m_semester_value" name="semester_value" v-bt-validator:rules="['required']" empty_err="所在学期">
                                 <Option :value="info.id" v-for="info in semester_list">{{info.name}}</Option>
                             </Select>
                         </Form-item>
@@ -35,15 +35,15 @@
                 <i-col>
                     <Form :label-width="80" inline>
                         <Form-item label="考试类型">
-                            <Select placeholder="请选择" style="width:200px" v-model="exam_value">
+                            <Select placeholder="请选择" style="width:200px" v-model="m_exam_value" name="exam_value" empty_err="考试类型" v-bt-validator:rules="['required']">
                                 <Option :value="info.id" v-for="info in exam_type_list">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                         <Form-item label="考试时间">
-                            <Date-picker type="date" placeholder="选择日期" style="width: 200px" format="yyyy-MM-dd" @on-change="do_time_change"></Date-picker>
+                            <Date-picker type="date" placeholder="选择日期" style="width: 200px" format="yyyy-MM-dd" @on-change="do_time_change" v-bt-validator:rules="['required']" name="time_value" v-model="m_time_value" empty_err="考试时间"></Date-picker>
                         </Form-item>
                         <Form-item label="班级类型">
-                            <Select placeholder="请选择" style="width:200px" v-model="class_value">
+                            <Select placeholder="请选择" style="width:200px" v-model="m_class_value" name="class_value" empty_err="班级类型" v-bt-validator:rules="['required']">
                                 <Option :value="info.id" v-for="info in class_type_list">{{info.name}}</Option>
                             </Select>
                         </Form-item>
@@ -95,7 +95,7 @@
         data(){
             return {
                 table_data : [],
-                table_columns : table_columns.score_import,
+                table_columns : table_columns.score_import.call(this),
                 grade_list : [],
                 grade_nianji_list : [],
                 page_size : setting.get_page_size,
@@ -109,11 +109,14 @@
                 grade_current_array : [],
                 class_list : [],
                 msg_error : '',
-                semester_value : '',
-                exam_value : '',
                 time_value : '',
-                class_value : '',
+                m_semester_value : '',
+                m_exam_value : '',
+                m_time_value : '',
+                m_class_value : '',
+                m_time_value : '',
                 year_value : '',
+                m_grade_value : '',
                 table_height : $(window).height() - 400,
             }
         },
@@ -135,42 +138,20 @@
             },
             // 导入成功后
             import_success : function(){
-                this.$Notice.success({title: '消息',desc:'导入任务已经全部完成',duration : 10,top:500});
-                this.clear();
-                setTimeout(()=>{
-                    this.$router.push({ path: '/score' });
-                },3000)
+                __.go_success(this);
             },
             // 数据导入
             import_paset : function(){
-                var pass = true;
-                if(this.msg_error != ''){
-                    pass = false;
-                    //this.msg_error += '数据验证出现错误,请修改后再重新偿试~<br>';
+                if(this.msg_error == ''){
+                    this.msg_error = this.validator(this.$data);
                 }
-                if(this.semester_value == ''){
-                    pass = false;
-                    this.msg_error += '请选择所在学期~<br>';
-                }
-                if(this.exam_value == ''){
-                    pass = false;
-                    this.msg_error += '请选择考试类型~<br>';
-                }
-                if(this.time_value == ''){
-                    pass = false;
-                    this.msg_error += '请选择考试时间~<br>';
-                }
-                if(this.class_value == ''){
-                    pass = false;
-                    this.msg_error += '请选择班级类型~<br>';
-                }               
-                if(pass){
+                if(this.is_validator() && this.msg_error == ''){
                     var param = {data : JSON.stringify(this.table_data),
                         member_id : window.config.userinfo.id ,
-                        semester : this.semester_value,
-                        exam_type : this.exam_value,
+                        semester : this.m_semester_value,
+                        exam_type : this.m_exam_value,
                         exam_time : this.time_value,
-                        class_type : this.class_value,
+                        class_type : this.m_class_value,
                         grade_id : this.grade_id,
                         year : this.year_value
                     };

@@ -1,3 +1,11 @@
+<style type="text/css">
+.wrapper .login{width:300px;margin-top:10%;position: absolute;left:40%;}
+.wrapper .login .ivu-card{border-radius: 5px;}
+.wrapper .login .ivu-card-head{background: #3091f2;border-radius: 5px 5px 0 0;}
+.wrapper .login .ivu-card-head p{color:#fff;}
+.wrapper .login .ivu-form-item-content button{float: right;}
+.wrapper .login .ivu-form-item .ivu-input{width:270px;}
+</style>
 <template>
 	<div class="login">
         <Card>

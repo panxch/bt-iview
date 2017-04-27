@@ -66,7 +66,7 @@
             return {
                 temp_table_data : [],
                 table_data : [],
-                table_columns : table_columns.teacher_import,
+                table_columns : table_columns.teacher_import.call(this),
                 fields_array : ['username','name','tel','gender','course_mapping','class_mapping'],
                 grade_list : [],
                 course_list : [],

@@ -30,7 +30,7 @@ export default {
 			api.loginOut();
 			localStorage.removeItem('userinfo');
 			window.config.userinfo.id = null;
-			this.$router.push({ path: '/login' });
+			__.go(this,'/login');
 		},
 	}
 }		

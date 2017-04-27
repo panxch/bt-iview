@@ -32,7 +32,7 @@
                         </Select>
                     </Form-item>
                     <Form-item label="所在地区">
-                        <Cascader :data="city_list" v-model="m_city" name="city" empty_err="所在地区" v-bt-validator:rules="['required']" placeholder="请选择学校所在地区"></Cascader>
+                        <Cascader :data="city_list" v-model="m_city" name="city" trigger="hover" empty_err="所在地区" v-bt-validator:rules="['required']" placeholder="请选择学校所在地区"></Cascader>
                     </Form-item>
                 </i-col>
             </Row>
@@ -75,7 +75,7 @@
             this._init();
             this.data_bind();
             window.config.active = 'school';
-            window.config.active_name = '添加学校';
+            window.config.active_name = '学校管理';
         },
         methods : {
             _init : function(){
@@ -110,11 +110,7 @@
                     api_school.save((result)=>{
                         result = JSON.parse(result);
                         if(result.id){
-                            this.$Notice.success({title: '消息',desc:'导入任务已经全部完成',duration : 10,top:500});
-                            this.clear();
-                            setTimeout(()=>{
-                                this.$router.push({ path: '/school' });
-                            },3000)
+                            __.go_success(this);
                         }
                     })
                 }

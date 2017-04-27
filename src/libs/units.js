@@ -188,6 +188,33 @@ Array.prototype._join = function(filed){
         }
         return list;
       },
+      // 重定向路由
+      go : function(self,url,query = null){
+        let param = { path: url};
+        if(query){
+          param.query = query;
+        }
+        self.$router.push(param);
+      },
+      // 双击更新跳转
+      bind_list_dblclick : function(self,url){
+        let _this = this;
+        setTimeout(function(){
+            $('table tr').dblclick((c,i)=>{
+                let info = $(c.currentTarget);
+                let id = info.find('td:eq(1) span').html();
+                _this.go(self,url, {id : id })
+            })
+        },1000);
+      },
+      // 更新完成跳转
+      go_success(self,desc = '任务已经全部完成'){
+        self.$Notice.success({title: '消息',desc:desc,duration : 1.5,top:500});
+        self.clear();
+        setTimeout(()=>{
+            __.go(self,'/' + window.config.active);
+        },1500)
+      },
     }
     return new fn();
   })();

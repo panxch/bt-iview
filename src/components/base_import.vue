@@ -122,7 +122,7 @@
             // 学校选择回调
             handle_school_change : function(value){
                 this.school_id = value;
-                api.get_grade(value,(result)=>{
+                api.get_grade(value,null,(result)=>{
                     this.grade_list = result.data;
                     __.closeAll();
                 });

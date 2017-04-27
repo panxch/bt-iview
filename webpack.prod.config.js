@@ -12,13 +12,13 @@ fs.open('./src/config/env.js', 'w', function (err, fd) {
 
 module.exports = merge(webpackBaseConfig, {
     output: {
-        publicPath: '/dist/',
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].[hash].chunk.js'
+        publicPath: '/public/vue/dist/',
+        filename: 'app_min.js',
+        //chunkFilename: '[name].[hash].chunk.js'
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: '[name].[hash].css',
+            filename: 'app.css',
             allChunks: true
         }),
         new webpack.optimize.CommonsChunkPlugin({

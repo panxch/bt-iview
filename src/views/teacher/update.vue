@@ -9,39 +9,39 @@
          <Form :label-width="100" inline id="form">
             <div class="layout-content">
             <Row type="flex">
-                <i-col span="20"></i-col>
-                <i-col span="1"></i-col>
-                <i-col span="3">
+                <Col span="20"></Col>
+                <Col span="1"></Col>
+                <Col span="3">
                     <div class="float_right">
                         <Button type="info" @click="save">保存</Button>
                         <back></back>
                     </div>
-                </i-col>
+                </Col>
             </Row>
             <div class="line" v-if="msg_error.length > 0"></div>
             <Row type="flex" v-if="msg_error.length > 0">
-                <i-col span="24">
+                <Col span="24">
                     <Alert type="error" width="100%">
                         <span style="color:#ff0000">验证提醒</span>
                         <span slot="desc" v-html="msg_error"></span>
                     </Alert>
-                </i-col>
+                </Col>
             </Row>
             <div class="line"><h3>角色信息</h3></div>
             <Row type="flex">
-                <i-col>
+                <Col>
                     <Form-item label="教师角色">
                         <Select style="width:200px" name="role_select" v-model="m_role_select" v-bt-validator:rules="['required']" empty_err="教师角色">
                             <Option v-for="item in role_list" :value="item.id" :key="item">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
-                </i-col>
+                </Col>
             </Row>
             <div class="line"><h3>基础信息</h3></div>
             <Row type="flex">
-                <i-col>
+                <Col>
                     <Form-item label="教师姓名">
-                        <input placeholder="请输入..." class="ivu-input" v-model="m_name" name="name" v-bt-validator:rules="['required']" empty_err="教师姓名">
+                        <input placeholder="请输入..." class="ivu-input" v-model="m_name" name="name" v-bt-validator:rules="['required','chinese']" empty_err="教师姓名" err="教师姓名必须为中文"><span class="red">*</span>
                     </Form-item>
                     <Form-item label="教师性别">
                         <Radio-group v-model="m_gender" type="button" size="small">
@@ -52,12 +52,12 @@
                     <Form-item label="联系手机">
                         <input placeholder="请输入手机号..." class="ivu-input" v-model="m_tel" name="tel">
                     </Form-item>
-                </i-col>
+                </Col>
             </Row>
             <Row type="flex">
-                <i-col>
+                <Col>
                     <Form-item label="办公电话">
-                        <input placeholder="请输入..." class="ivu-input" v-model="m_phone" name="phone">
+                        <input placeholder="请输入..." class="ivu-input" v-model="m_phone" name="phone"><span class="red"></span>
                     </Form-item>
                     <Form-item label="电子邮箱">
                         <input placeholder="请输入..." class="ivu-input" v-model="m_mailbox" name="mailbox">
@@ -65,30 +65,42 @@
                     <Form-item label="身份证号">
                         <input placeholder="请输入..." class="ivu-input" v-model="m_card_id" name="card_id">
                     </Form-item>
-                </i-col>
+                </Col>
+            </Row>
+            <div class="line"><h3>编制设置</h3></div>
+            <Row type="flex">
+                <Col span="7">
+                    <Form-item label="所带班级">
+                         <Cascader :data="class_list" @on-change="class_change" trigger="hover" :closeer="true"></Cascader>
+                    </Form-item>
+                </Col>
+                <Col span="17">
+                    <Tag closable v-for="item in tag_class_list" :key="item" :name="item.name" @on-close="handle_tag_close">{{item.name}}</Tag>
+                </Col>
             </Row>
             <div class="line"><h3>导师设置</h3></div>
             <Row type="flex">
-                <i-col>
+                <Col>
                     <Form-item label="是否导师">
                         <i-switch v-model="m_is_assist">
                             <span slot="open">是</span>
                             <span slot="close">否</span>
                         </i-switch>
                     </Form-item>
-                </i-col>
+                </Col>
             </Row>
             <Row type="flex">
-                <i-col class="col-my-width">
+                <Col class="col-my-width">
                     <Form-item label="导师简介">
                         <Input type="textarea" placeholder="请输入..." style="width:100%;" v-model="m_assist_introduction" name="assist_introduction"></Input>
                     </Form-item>
-                </i-col>
+                </Col>
             </Row>
             </div>
             <input type="hidden" name="id" :value="query.id" v-if="query">
             <input type="hidden" name="is_assist" v-model="m_is_assist">
             <input type="hidden" name="type" v-model="m_role_select">
+            <input type="hidden" name="class_ids" v-model="rever_tag_class_list">
         </Form>
     </div>
 </template>
@@ -101,6 +113,9 @@
         data(){
             return {
                 role_list : [],
+                class_list : [],
+                tag_class_list : [],
+                m_class : [],
                 msg_error : [],
                 m_name : '',m_gender : '',m_tel : '',m_mobile : '',m_phone : '',m_mailbox : '',m_card_id:'',m_is_assist:false,m_assist_introduction:'',m_role_select:'',
                 query : null,
@@ -128,13 +143,41 @@
                     });
                 })
             },
+            class_bind : function(info){
+                api.get_grade_class_union(info.school_id,info.school_district,(result)=>{
+                    this.class_list = result.data;
+                });
+                var param = {ids : JSON.stringify(info.class_ids)};
+                api.get_grade_class_union_by_ids(param,result=>{
+                    result = JSON.parse(result);
+                    this.tag_class_list = result;
+                    log(this.tag_class_list)
+                })
+            },
+            class_change : function(value,data){
+                this.tag_class_list.push({name : data[0].label + '/' + data[1].label , id : data[1].value});
+                log(this.tag_class_list)
+            },
+            // 关闭Tag
+            handle_tag_close : function(event, name){
+                var index = (function(tags){
+                    let j = null;
+                    var t = tags.find((c,i)=>{
+                        if(c.name == name){
+                            j = i;
+                            return false;
+                        }
+                    });
+                    return j;
+                })(this.tag_class_list);
+                this.tag_class_list.splice(index, 1);
+            },
             clear : function(){
                 __.byId('form').reset();
             },
             update : function(id){
                 api_teacher.get_teacher(id,(result)=>{
                     let info = result.data;
-                    log(info);
                     this.m_name = info.name;
                     this.m_gender = parseInt(info.gender) ==  1 ? '男' : '女';
                     this.m_tel = info.tel;
@@ -145,15 +188,22 @@
                     this.m_assist_introduction = info.assist_introduction;
                     this.m_role_select = info.type.split(',')[1];
                     this.role_bind(info.school_id);
+                    this.class_bind(info);
                 })
             },
             save : function(){
                 this.msg_error = this.validator(this.$data);
                 if(this.is_validator()){
                     api_teacher.save(result=>{
-                        log(result);
+                        __.go_success(this);
                     })
                 }
+            }
+        },
+        // 计算器
+        computed : {
+            rever_tag_class_list:function(){
+                return this.tag_class_list._join('id');
             }
         },
         mounted(){

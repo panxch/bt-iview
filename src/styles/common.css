@@ -12,19 +12,20 @@ div.line h3{position: absolute;left:20px;top:-22px;background: #fff;margin: 10px
 div.space{height: 2px;}
 button span a{color: #fff;}
 button span a:hover{color: #fff;}
+span.red{color:#ff0000;padding-left:3px;width:2px;display:inline-block;}
 .ivu-form-item .ivu-input,.ivu-form-item .ivu-select-placeholder{width:200px;}
 .ivu-form-item .ivu-select-options{width:200px;}
 .wrapper .ivu-btn-back{background-color: #76797b;border-color:#76797b;color:#fff;}
 
 .ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
-.ivu-form .ivu-form-item{margin-bottom: 5px;}
+.ivu-form .ivu-form-item{margin-bottom: 5px;;}
 .ivu-input-wrapper .ivu-input{border-radius: 0px;}
 .wrapper .ivu-table td,.wrapper .ivu-table th{height: 30px;}
 .wrapper .ivu-btn{border-radius: 0;}
 .wrapper .ivu-alert-with-desc{padding: 7px;}
 
 .wrapper{background: #eee;position: relative;}
-.wrapper .layout .layout-logo-left img.logo{margin-left:60px;height: 40px;}
+.wrapper .layout .layout-logo-left img.logo{height: 40px;width:100%;max-width: 215px;min-width: 140px;}
 .wrapper .layout .layout-logo-left{background: #fff;height: 45px;}
 .ivu-row-flex h4{line-height:30px};
 

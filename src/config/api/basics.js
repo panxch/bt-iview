@@ -12,8 +12,16 @@ export default {
 		return __.get( get('basics/base/get_school/'),func );
 	},
 	// 返回当前用户所在学校的所有年级
-	get_grade(school_id,func = null) {
-		return __.get( get('basics/base/get_grade/?school_id=' + school_id),func );
+	get_grade(school_id,district_id = null,func = null) {
+		return __.get( get('basics/base/get_grade/?school_id=' + school_id + '&district_id=' + district_id),func );
+	},
+	// 根据class_id 获取班级和所有年级信息
+	get_grade_class_union_by_ids(array,func = null){
+		return __.post( get('basics/_class/get_grade_class_union_by_ids',array),func );
+	},
+	// 返回当前学校所有年级与班级联动关系
+	get_grade_class_union(school_id,district_id = null,func = null) {
+		return __.get( get('basics/base/get_grade_class_union/?school_id=' + school_id + '&district_id=' + district_id),func );
 	},
 	// 返回当前用户所在学校的所有年级 分组
 	get_grade_group(school_id,func = null) {
@@ -45,7 +53,7 @@ export default {
 	},
 	// Excel年级导入
 	do_import_course_excel(array,func = null){
-		return __.post( get('basics/course/excel',array),func );	
+		return __.post( get('basics/course/excel',array),func );
 	},
 	// 获取当前学校的有教师
 	get_school_teacher(school_id = null,page_index,func = null){

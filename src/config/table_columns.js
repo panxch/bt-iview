@@ -90,46 +90,48 @@ var table_columns = {
                     key: 'course_mapping'
                 }
             ],
-    teacher_import : [
-                        {
-                            type: 'index',
-                            width: 60,
-                            align: 'center'
-                        },
-                        {
-                            title: '登陆名称',
-                            key: 'username',
-                            width: 140,
-                            align : 'center',
-                            render : this.column_render
-                        },                    
-                        {
-                            title: '姓名',
-                            key: 'name',
-                            width: 120,
-                            align : 'center'
-                        },
-                        {
-                            title: '手机号',
-                            key: 'tel',
-                            width: 120,
-                            align : 'center'
-                        },
-                        {
-                            title: '性别',
-                            key: 'gender',
-                            width: 80,
-                            align : 'center'
-                        },
-                        {
-                            title: '所带科目',
-                            key: 'course_mapping'
-                        },                        
-                        {
-                            title: '所带班级',
-                            key: 'class_mapping'
-                        }
-                    ],
+    teacher_import : function(){
+        return [
+                    {
+                        type: 'index',
+                        width: 60,
+                        align: 'center'
+                    },
+                    {
+                        title: '登陆名称',
+                        key: 'username',
+                        width: 140,
+                        align : 'center',
+                        render : this.column_render
+                    },                    
+                    {
+                        title: '姓名',
+                        key: 'name',
+                        width: 120,
+                        align : 'center'
+                    },
+                    {
+                        title: '手机号',
+                        key: 'tel',
+                        width: 120,
+                        align : 'center'
+                    },
+                    {
+                        title: '性别',
+                        key: 'gender',
+                        width: 80,
+                        align : 'center'
+                    },
+                    {
+                        title: '所带科目',
+                        key: 'course_mapping'
+                    },                        
+                    {
+                        title: '所带班级',
+                        key: 'class_mapping'
+                    }
+                ];
+    },
     score : [
                         {
                             type: 'selection',
@@ -179,7 +181,8 @@ var table_columns = {
                             sortable: true
                         }
                 ],
-    score_import : [
+    score_import : function(){
+        return [
                     {
                         type: 'index',
                         width: 70,
@@ -267,69 +270,70 @@ var table_columns = {
                         width: 70,
                         align : 'center'
                     }
-                ],
-            class : [
-                        {
-                            type: 'index',
-                            width: 60,
-                            align: 'center'
-                        },
-                        {
-                            title: '班级名称',
-                            key: 'name'
-                        },
-                        {
-                            title: '班级人数',
-                            key: 'student_cnt'
-                        },
-                        {
-                            title: '班主任',
-                            key: 'teachers'
-                        },
-                        {
-                            title: '教室',
-                            key: 'class_room'
-                        }
-                    ],
-            course : [
-                        {
-                            type: 'index',
-                            width: 60,
-                            align: 'center'
-                        },
-                        {
-                            title: '课程码',
-                            key: 'code'
-                        },
-                        {
-                            title: '课程名',
-                            key: 'name'
-                        },
-                        {
-                            title: '课程类别',
-                            key: 'type'
-                        },
-                        {
-                            title: '学分',
-                            key: 'credit'
-                        },
-                        {
-                            title: '授课方式',
-                            key: 'teaching_method'
-                        },
-                        {
-                            title: '考核方式',
-                            key: 'assessment_method'
-                        },
-                        {
-                            title: '学期',
-                            key: 'study_section'
-                        },
-                        {
-                            title: '总分',
-                            key: 'full_marks'
-                        }
-                    ],
+                ];
+    },
+    class : [
+                {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: '班级名称',
+                    key: 'name'
+                },
+                {
+                    title: '班级人数',
+                    key: 'student_cnt'
+                },
+                {
+                    title: '班主任',
+                    key: 'teachers'
+                },
+                {
+                    title: '教室',
+                    key: 'class_room'
+                }
+            ],
+    course : [
+                {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: '课程码',
+                    key: 'code'
+                },
+                {
+                    title: '课程名',
+                    key: 'name'
+                },
+                {
+                    title: '课程类别',
+                    key: 'type'
+                },
+                {
+                    title: '学分',
+                    key: 'credit'
+                },
+                {
+                    title: '授课方式',
+                    key: 'teaching_method'
+                },
+                {
+                    title: '考核方式',
+                    key: 'assessment_method'
+                },
+                {
+                    title: '学期',
+                    key: 'study_section'
+                },
+                {
+                    title: '总分',
+                    key: 'full_marks'
+                }
+            ],
 }
 
 export default table_columns

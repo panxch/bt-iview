@@ -14,22 +14,18 @@ module.exports = merge(webpackBaseConfig, {
     devtool: '#source-map',
     output: {
         publicPath: '/public/vue/dist/',
-        filename: '[name].js',
-        chunkFilename: '[name].chunk.js'
+        filename: 'app_min.js',
+        // chunkFilename: '[name].chunk.js'
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: '[name].css',
+            filename: 'app.css',
             allChunks: true
         }),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendors',
-        //     filename: 'vendors.js'
-        // }),
-        // new HtmlWebpackPlugin({
-        //     filename: '../index.html',
-        //     template: './src/template/index.ejs',
-        //     inject: false
-        // })
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
     ]
 });
