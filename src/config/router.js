@@ -9,6 +9,7 @@ const routers = [
     {path: '/teacher',component: (resolve) => require(['../views/teacher/index.vue'], resolve)},
     {path: '/teacher/update',component: (resolve) => require(['../views/teacher/update.vue'], resolve)},
     {path: '/teacher/import',component: (resolve) => require(['../views/teacher/import.vue'], resolve)},
+    {path: '/student',component: (resolve) => require(['../views/student/index.vue'], resolve)},
     {path: '/score',component: (resolve) => require(['../views/score/index.vue'], resolve)},
     {path: '/score/import',component: (resolve) => require(['../views/score/import.vue'], resolve)},
 ];

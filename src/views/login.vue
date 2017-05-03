@@ -42,8 +42,16 @@
     	},
         created(){
             var $ = window.$;
+            let self = this;;
             setTimeout(function(){
-                $('.login').css('left',($(window).width() - $('.login').width()) / 2)
+                //$('.login').css('left',($(window).width() - $('.login').width()) / 2)
+                document.onkeydown = (e)=>{
+                    var theEvent = e || window.event;  
+                    var code = theEvent.keyCode || theEvent.which || theEvent.charCode;  
+                    if (code == 13) {   
+                        self.handleSubmit();
+                    }  
+                }; 
             },10);
         },
     	methods : {
@@ -68,7 +76,7 @@
                             (window.location.host == 'www.yishengya.cn' ?'http://www.yishengya.cn/' : 'http://localhost:9087/')
                                                             + window.config.userinfo.photo : '/public/vue/dist/face.jpg';
                             // 存储到本地
-                            localStorage.userinfo = JSON.stringify(window.config.userinfo);                                                           
+                            localStorage.userinfo = JSON.stringify(window.config.userinfo);
 	    					log(window.config.userinfo)
 	    					this.$router.push({ path: '/' });
 	    				},1000)

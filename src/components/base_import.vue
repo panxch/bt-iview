@@ -30,7 +30,7 @@
                 <Tab-pane label="剪贴板导入" name="name1" icon="clipboard">
                     <div>
                         <Row type="flex">
-                        <i-col span="20"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
+                        <i-col span="20"><Input type="text" placeholder="请直接Ctrl + V" :readonly="true"></Input></i-col>
                         <i-col span="1"></i-col>
                         <i-col span="3">
                             <div class="float_right">

@@ -75,7 +75,17 @@
                     </Form-item>
                 </Col>
                 <Col span="17">
-                    <Tag closable v-for="item in tag_class_list" :key="item" :name="item.name" @on-close="handle_tag_close">{{item.name}}</Tag>
+                    <Tag closable v-for="item in tag_class_list" :key="item" :name="item.name" @on-close="handle_tag_close($event,item.name,'tag_class_list')">{{item.name}}</Tag>
+                </Col>
+            </Row>
+            <Row type="flex">
+                <Col span="7">
+                    <Form-item label="所带学科">
+                         <Cascader :data="course_list" @on-change="course_change" trigger="hover" :closeer="true"></Cascader>
+                    </Form-item>
+                </Col>
+                <Col span="17">
+                    <Tag closable v-for="item in tag_course_list" :key="item" :name="item.name" @on-close="handle_tag_close($event,item.name,'tag_course_list')">{{item.name}}</Tag>
                 </Col>
             </Row>
             <div class="line"><h3>导师设置</h3></div>
@@ -101,6 +111,7 @@
             <input type="hidden" name="is_assist" v-model="m_is_assist">
             <input type="hidden" name="type" v-model="m_role_select">
             <input type="hidden" name="class_ids" v-model="rever_tag_class_list">
+            <input type="hidden" name="subject_id" v-model="rever_tag_course_list">
         </Form>
     </div>
 </template>
@@ -117,6 +128,8 @@
                 tag_class_list : [],
                 m_class : [],
                 msg_error : [],
+                course_list : [],
+                tag_course_list : [],
                 m_name : '',m_gender : '',m_tel : '',m_mobile : '',m_phone : '',m_mailbox : '',m_card_id:'',m_is_assist:false,m_assist_introduction:'',m_role_select:'',
                 query : null,
             }
@@ -143,6 +156,17 @@
                     });
                 })
             },
+            course_bind : function(info){
+                api.get_grade_course_union(info.school_id,info.school_district,(result)=>{
+                    this.course_list = result.data;
+                });
+                var param = {ids : JSON.stringify(info.subject_id)};
+                api.get_grade_course_union_by_ids(param,result=>{
+                    result = JSON.parse(result);
+                    this.tag_course_list = result;
+                    log(this.tag_course_list)
+                })
+            },
             class_bind : function(info){
                 api.get_grade_class_union(info.school_id,info.school_district,(result)=>{
                     this.class_list = result.data;
@@ -151,15 +175,17 @@
                 api.get_grade_class_union_by_ids(param,result=>{
                     result = JSON.parse(result);
                     this.tag_class_list = result;
-                    log(this.tag_class_list)
                 })
             },
+            course_change : function(value,data){
+                this.tag_course_list.push({name : data[0].label + '/' + data[1].label , id : data[1].value});
+            }, 
             class_change : function(value,data){
                 this.tag_class_list.push({name : data[0].label + '/' + data[1].label , id : data[1].value});
-                log(this.tag_class_list)
             },
             // 关闭Tag
-            handle_tag_close : function(event, name){
+            handle_tag_close : function(event, name,object){
+                let list = eval('this.' + object);
                 var index = (function(tags){
                     let j = null;
                     var t = tags.find((c,i)=>{
@@ -169,8 +195,8 @@
                         }
                     });
                     return j;
-                })(this.tag_class_list);
-                this.tag_class_list.splice(index, 1);
+                })(list);
+                list.splice(index, 1);
             },
             clear : function(){
                 __.byId('form').reset();
@@ -189,6 +215,7 @@
                     this.m_role_select = info.type.split(',')[1];
                     this.role_bind(info.school_id);
                     this.class_bind(info);
+                    this.course_bind(info);
                 })
             },
             save : function(){
@@ -202,9 +229,12 @@
         },
         // 计算器
         computed : {
-            rever_tag_class_list:function(){
+            rever_tag_class_list : function(){
                 return this.tag_class_list._join('id');
-            }
+            },
+            rever_tag_course_list : function(){
+                return this.tag_course_list._join('id');  
+            },
         },
         mounted(){
         },

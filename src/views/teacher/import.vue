@@ -230,7 +230,7 @@
                     }
                 });
                 // 取所有角色
-                api.get_grade(value,(result)=>{
+                api.get_grade(value,null,(result)=>{
                      this.grade_list = result.data;
                     __.closeAll();
                 }); 

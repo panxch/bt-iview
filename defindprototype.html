@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script type="text/javascript" src="src/libs/units.js"></script>
+	<style type="text/css">
+		.show{display: block;}
+	</style>
+</head>
+<body>
+	<input type="text" id="name">
+	<input type="text" id="sex">
+	<input type="text" id="phone">
+	<span id="ts_name" class="show"></span>
+	<span id="ts_sex" class="show"></span>
+	<span id="ts_phone" class="show"></span>
+
+	<button id="compile">compile</button>
+	{{dd}}
+	<script type="text/javascript">
+		function log(val){
+			console.log(val);
+		}
+
+		var i = {
+			$data : {},
+			data : 
+				 {
+					name : '',
+					sex : '',
+					phone : '',
+				}
+		};
+		for(let j in i.data){
+			Object.defineProperty(i,j,{
+				get : function(){
+					return eval('this.$data.' + j);
+				},
+				set : function(value){
+					eval('this.$data.' + j + ' = value;');
+					__.byId(j).value = value;
+					eval('__.byId("ts_'+ j +'").innerHTML = i.' + j);
+				}
+			});
+		}
+		__.byId('name').addEventListener('keyup',(event)=>{
+			i.name = event.target.value;
+		});
+		__.byId('sex').addEventListener('keyup',(event)=>{
+			i.sex = event.target.value;
+		});
+		__.byId('phone').addEventListener('keyup',(event)=>{
+			i.phone = event.target.value;
+		});
+		__.byId('compile').addEventListener('click',(event)=>{
+			var oFragment = document.createDocumentFragment();
+			for(var i = 0 ; i < 10; i ++) {
+			    var oTxt = document.createTextNode("段落" + i);
+			    oFragment.appendChild(oTxt);
+			}
+			//document.body.appendChild(oFragment);
+			//log
+			//document.body.toString().replace('{{dd}}',123);
+		});		
+
+		// let arr = [1,2,2,3,3,4];
+		// let set = arr.filter(result =>{return false;});
+		// log(arr);
+		// log(set);
+
+		// var a = {length:3, 0 : 'tk',1 : 90,2 : '120'};
+		// log([].slice.call(a));
+
+		// var a={length:2,0:'first',1:'second'};
+		// log([].slice.call(a));
+		console.log("%O",document.body);
+	</script>
+</body>
+</html>

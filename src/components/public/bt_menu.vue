@@ -3,6 +3,7 @@
         <div class="layout-logo-left">
             <img src="/public/vue/dist/logo.png" class="logo">
         </div>
+        <slot></slot>
         <Submenu name="1">
             <template slot="title">
                 <Icon type="ios-navigate"></Icon>
@@ -12,6 +13,7 @@
             <Menu-item name="class"><Icon type="bookmark"></Icon>班级管理</Menu-item>
             <Menu-item name="course"><Icon type="compose"></Icon>课程管理</Menu-item>
             <Menu-item name="teacher"><Icon type="person-stalker"></Icon>教师管理</Menu-item>
+            <Menu-item name="student"><Icon type="person"></Icon>学生管理</Menu-item>
             <Menu-item name="score"><Icon type="android-clipboard"></Icon>成绩管理</Menu-item>
         </Submenu>
         <Submenu name="2">

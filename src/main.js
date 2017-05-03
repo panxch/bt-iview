@@ -2,20 +2,20 @@ import Vue from 'vue';
 import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './config/router';
+import Setting from './config/setting';
 import App from './app.vue';
 import $ from './libs/jquery-vendor';
 import 'iview/dist/styles/iview.css';
 import './libs/units';
 import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
+import './styles/common.css'
 import VueValidator from './libs/plugs/validator.js'
 
 window.$ = $;
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.use(VueValidator);
-
-
 
 // 路由配置
 const RouterConfig = {
@@ -50,7 +50,8 @@ window.config = {
     last_school : null,
     page_index : 1,
     page_count : 0,
-}
+};
+document.title = Setting.title;
 
 var vue = new Vue({
     el: '#app',

@@ -19,9 +19,17 @@ export default {
 	get_grade_class_union_by_ids(array,func = null){
 		return __.post( get('basics/_class/get_grade_class_union_by_ids',array),func );
 	},
+	// 根据course_id 获取溶剂学课和所有年级信息
+	get_grade_course_union_by_ids(array,func = null){
+		return __.post( get('basics/course/get_grade_course_union_by_ids',array),func );
+	},
 	// 返回当前学校所有年级与班级联动关系
 	get_grade_class_union(school_id,district_id = null,func = null) {
 		return __.get( get('basics/base/get_grade_class_union/?school_id=' + school_id + '&district_id=' + district_id),func );
+	},
+	// 返回当前学校所有年级与学科联动关系
+	get_grade_course_union(school_id,district_id = null,func = null) {
+		return __.get( get('basics/course/get_grade_course_union/?school_id=' + school_id + '&district_id=' + district_id),func );
 	},
 	// 返回当前用户所在学校的所有年级 分组
 	get_grade_group(school_id,func = null) {

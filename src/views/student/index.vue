@@ -4,7 +4,7 @@
 <template>
 <div class="layout-main">
     <div class="layout-content">
-        <Alert>教师管理
+        <Alert>学生管理
                 <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
         </Alert>
         <Row type="flex">
@@ -45,6 +45,7 @@
     import table_columns from '../../config/table_columns';
     import api from '../../config/api/basics'
     import api_teacher from '../../config/api/teacher'
+    import api_student from '../../config/api/student'
     import drop_school from '../../components/drop_school.vue'
     export default {
         data(){
@@ -58,8 +59,8 @@
             }
         },
         created(){
-            window.config.active = 'teacher';
-            window.config.active_name = '教师管理';
+            window.config.active = 'student';
+            window.config.active_name = '学生管理';
             let info = window.config.userinfo;
             this.tags = JSON.parse(localStorage.teacher_tags);
             log(info)
@@ -89,7 +90,7 @@
                 if(!this.tags._join('id')){
                     param.school_ids = window.config.userinfo.school_id;
                 }
-                api_teacher.get_teacher_by_school_ids(param,(result)=>{
+                api_student.get_student_by_school_ids(param,(result)=>{
                     result = JSON.parse(result);
                     this.table_data = result.list;
                     if(this.page_count === 0){
