@@ -164,7 +164,6 @@
                 api.get_grade_course_union_by_ids(param,result=>{
                     result = JSON.parse(result);
                     this.tag_course_list = result;
-                    log(this.tag_course_list)
                 })
             },
             class_bind : function(info){
@@ -219,7 +218,11 @@
                 })
             },
             save : function(){
-                this.msg_error = this.validator(this.$data);
+                let rules = {
+                    name : this.m_name,
+                    role_select : this.m_role_select,
+                };
+                this.msg_error = this.validator(this.$data,rules);
                 if(this.is_validator()){
                     api_teacher.save(result=>{
                         __.go_success(this);

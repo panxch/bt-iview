@@ -1,7 +1,9 @@
 <template>   
     <base_import ref="import" @init="init" :table_columns="table_columns" :fields_array="fields_array" @import_paset="import_paset" @import_excel="import_excel" @set_table_data="set_table_data" @set_grade_value="set_grade_value" @set_excel_file="set_excel_file">
         <Alert>班级批量上传
-                <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
+                <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案<br>
+                <a href="/public/templates/tpl_class.xlsx"><Button type="dashed" icon="arrow-down-a">模板下载</Button></a>    
+                </template>
         </Alert>
     </base_import>
 </template>

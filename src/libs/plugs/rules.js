@@ -1,5 +1,8 @@
 var rules = {
 	required : function(value){
+		if(!value){
+			return false;
+		}
 		return __.check_string(value.toString());
 	},
 	mobile : function(value){

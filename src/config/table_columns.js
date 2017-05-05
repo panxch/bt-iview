@@ -43,6 +43,129 @@ var table_columns = {
 	                sortable: true
 	            },
             ],
+    student : function(){
+        return [
+                {
+                    type: 'selection',
+                    width: 50,
+                    align: 'center',
+                },
+                {
+                    title : '#',
+                    key : 'tid',
+                    width: 80,
+                    align: 'center',
+                },
+                {
+                    title: '学生姓名',
+                    key: 'student_name',
+                    sortable: true,
+                    align: 'center',
+                },
+                {
+                    title: '学籍号',
+                    key: 'student_no',
+                    
+                    sortable: true,
+                    align: 'center',
+                },
+                {
+                    title: '登陆用户名',
+                    key: 'username',
+                    width: 140,
+                    sortable: true
+                },
+                {
+                    title: '年级',
+                    key: 'grade_name',
+                    align: 'center',
+                },
+                {
+                    title: '班级',
+                    key: 'class_name',
+                    align: 'center',
+                },
+                {
+                    title: '学校',
+                    key: 'school_name',
+                    align: 'center',
+                },
+                {
+                    title: '校区',
+                    key: 'campus_name',
+                    align: 'center',
+                },
+                {
+                    title: '是否毕业',
+                    key: 'is_by',
+                    align: 'center',
+                    render : this.column_render
+                },
+                {
+                    title : '创建时间',
+                    key : 'create_time',
+                    width: 160,
+                    align: 'center',
+                    sortable: true
+                },
+            ];
+    },
+    student_import : function(){
+        return [
+                    {
+                        type: 'index',
+                        width: 60,
+                        align: 'center'
+                    },
+                    {
+                        title: '登陆帐号',
+                        key: 'username',
+                        align : 'center',
+                        render : this.column_render
+                    },                    
+                    {
+                        title: '姓名',
+                        key: 'name',
+                        align : 'center'
+                    },
+                    {
+                        title: '性别',
+                        key: 'gender',
+                        width: 80,
+                        align : 'center'
+                    },
+                    {
+                        title: '学号',
+                        key: 'student_no',
+                        align : 'center'
+                    },
+                    {
+                        title: '学生类型',
+                        key: 'student_stype',
+                        align: 'center'
+                    },                        
+                    {
+                        title: '身高',
+                        key: 'v_height',
+                        align: 'center'
+                    },
+                    {
+                        title: '体重',
+                        key: 'v_weight',
+                        align: 'center'
+                    },
+                    {
+                        title: '肺活量',
+                        key: 'v_lung',
+                        align: 'center'
+                    },
+                    {
+                        title: '视力',
+                        key: 'v_vision',
+                        align: 'center'
+                    }
+                ];
+    },
     teacher : [
                 {
                     type: 'selection',
@@ -98,7 +221,7 @@ var table_columns = {
                         align: 'center'
                     },
                     {
-                        title: '登陆名称',
+                        title: '登陆帐号',
                         key: 'username',
                         width: 140,
                         align : 'center',
@@ -334,6 +457,58 @@ var table_columns = {
                     key: 'full_marks'
                 }
             ],
+    grade : function(){
+        return  [
+                    {
+                        type: 'selection',
+                        width: 60,
+                        align: 'center',
+                    },
+                    
+                    {
+                        title: '#',
+                        width: 100,
+                        key: 'id',
+                        align: 'center',
+                        sortable: true
+                    },
+                    {
+                        title: '年级',
+                        key: 'name',
+                        align: 'center',
+                        sortable: true
+                    },
+                    {
+                        title: '年级名称',
+                        key: 'grade_name',
+                        align: 'center',
+                        sortable: true
+                    },
+                    {
+                        title: '所属学校',
+                        key: 'school_name',
+                        align: 'center',
+                        sortable: true
+                    },
+                    {
+                        title: '校区',
+                        key: 'campus_name',
+                        align: 'center',
+                    },
+                    {
+                        title: '学年',
+                        key: 'school_year',
+                        align: 'center',
+                        sortable: true
+                    },
+                     {
+                        title: '入学年份',
+                        key: 'entrance',
+                        align: 'center',
+                        sortable: true
+                    },
+            ]
+    }
 }
 
 export default table_columns

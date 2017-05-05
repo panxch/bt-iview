@@ -10,6 +10,7 @@
                 基础数据
             </template>
             <Menu-item name="school"><Icon type="ios-home"></Icon>学校管理</Menu-item>
+            <Menu-item name="grade"><Icon type="ios-home"></Icon>年级管理</Menu-item>
             <Menu-item name="class"><Icon type="bookmark"></Icon>班级管理</Menu-item>
             <Menu-item name="course"><Icon type="compose"></Icon>课程管理</Menu-item>
             <Menu-item name="teacher"><Icon type="person-stalker"></Icon>教师管理</Menu-item>

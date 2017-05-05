@@ -45,21 +45,18 @@
         methods: {
             toggleClick () {
                 let self = this;
-                if (this.spanLeft === 3) {
-                    setTimeout(function(){
-                        $('.wrapper .layout-menu-left').addClass('menu-open').css('left',$('.wrapper .layout-menu-left').width() * -1 + 5);
-                        $('.wrapper .layout-menu-left li').click(function(){
-                            $('.wrapper .layout-menu-left').removeClass('menu-open').css('left','0px');
-                            self.spanLeft = 3;
-                            self.spanRight = 21;
-                        })
-                    },50)
-                    this.spanLeft = 0;
-                    this.spanRight = 24;
-                } else {
-                    this.spanLeft = 3;
-                    this.spanRight = 21;
-                }
+                setTimeout(function(){
+                    let left = $('.wrapper .layout-menu-left');
+                    left.addClass('menu-open').animate({'left' : left.width() * -1 + 5});
+                    left.mouseover(function(){
+                        left.unbind('mouseover');
+                        left.removeClass('menu-open').animate({'left':'0px'});
+                        self.spanLeft = 3;
+                        self.spanRight = 21;
+                    })
+                },50)
+                this.spanLeft = 0;
+                this.spanRight = 24;
             }
         },
         created(){

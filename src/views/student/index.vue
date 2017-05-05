@@ -20,7 +20,7 @@
             <i-col span="10">
                 <div class="float_right">
                     <Button type="info" @click="go_update">修改</Button>
-                    <Button type="success"><router-link to="/teacher/import">导入</router-link></Button>
+                    <Button type="success"><router-link to="/student/import">导入</router-link></Button>
                 </div>
             </i-col>
         </Row>
@@ -44,13 +44,12 @@
     import setting from '../../config/setting';
     import table_columns from '../../config/table_columns';
     import api from '../../config/api/basics'
-    import api_teacher from '../../config/api/teacher'
     import api_student from '../../config/api/student'
     import drop_school from '../../components/drop_school.vue'
     export default {
         data(){
             return {
-                table_columns : table_columns.teacher,
+                table_columns : table_columns.student.call(this),
                 table_data : [],
                 page_count : window.config.page_count,
                 page_index : window.config.page_index,
@@ -61,11 +60,18 @@
         created(){
             window.config.active = 'student';
             window.config.active_name = '学生管理';
-            let info = window.config.userinfo;
-            this.tags = JSON.parse(localStorage.teacher_tags);
-            log(info)
+            this.tags = JSON.parse(localStorage.school_tags);
         },
         methods :{
+            column_render : function(row,column,index){
+                if(column.key == 'is_by'){
+                    if(row.is_by == '1')
+                        return '<span style="color:rgb(214, 214, 213)">是</span>';
+                    else if(row.is_by == '0')
+                        return '<span style="color:rgb(115, 107, 3)">否</span>';
+                    return '<span style="color:#ff0000">-</span>';
+                }
+            },
             handle_page_change : function(index){
                 window.config.page_index = index;
                 this.set_page(index);
@@ -81,7 +87,7 @@
                     this.$Message.error(info.error);
                     return;
                 }
-                __.go(this,'teacher/update',{id : info.ids })
+                __.go(this,'student/update',{id : info.ids })
             },
             // 分页
             set_page : function(index){
@@ -98,7 +104,7 @@
                     }
                     __.closeAll();
                 });
-                __.bind_list_dblclick(this,'teacher/update');
+                __.bind_list_dblclick(this,'student/update');
             },
             // 学校选择
             handle_school_change : function(value){
@@ -134,7 +140,7 @@
         // 计算器
         watch : {
             tags : function(){
-                localStorage.teacher_tags = JSON.stringify(this.tags);
+                localStorage.school_tags = JSON.stringify(this.tags);
             }
         },
         components : { drop_school },

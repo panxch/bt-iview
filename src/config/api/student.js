@@ -12,9 +12,12 @@ export default {
 		return __.post( get('basics/student/get_student_by_school_ids',array),func );
 	},
 	get_student(id,func = null){
-		return __.get( get('basics/student/get_teacher?id=' + id),func );
+		return __.get( get('basics/student/get_student?id=' + id),func );
 	},
 	save(func = null){
-		return __.post( get('basics/teacher/do_save'),func );
+		return __.post( get('basics/student/do_save'),func );
+	},
+	do_import_student_paset(array,func = null){
+		return __.post( get('basics/student/do_import_student_paset',array),func );
 	},
 }

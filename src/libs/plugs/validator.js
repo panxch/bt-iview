@@ -39,25 +39,17 @@ btv.install = function(Vue, options){
 
     var _valid = Vue.prototype;
 
-    _valid.validator = function($data = null){
+    _valid.validator = function($data = null,$rules){
       btv.$data = $data;
+      btv.$rules = $rules;
       if(Object.prototype.toString.call($data) === '[object Object]'){
-        let var_list = {};
-        for(let i in $data){
-          if(i.substring(0,2) == 'm_'){
-            var_list[i] = $data[i]
-          }
-        }
-
-        // log(var_list)
-        //log(this.vals);
         let errors = [];
-        for(let i in var_list){
-          let dom = var_list[i];
+        for(let i in $rules){
+          let dom = $rules[i];
           let dobule_reg = true;
           let model = null;//btv.default();
-          if(Object.prototype.toString.call(this.vals[i.replace('m_','')]) == '[object Object]'){
-            model = this.vals[i.replace('m_','')];
+          if(Object.prototype.toString.call(this.vals[i]) == '[object Object]'){
+            model = this.vals[i];
           }
           if(model){
             // 规则遍历验证
@@ -76,37 +68,12 @@ btv.install = function(Vue, options){
             })
           }
         }
-
-      	// let list = this.vals;
-      	// let errors = [];
-      	// if(Object.prototype.toString.call(list) === '[object Object]'){
-      	// 	for(let i in list){
-      	// 		//let dom = __.byName(i);
-       //      let dom = var_list['m_' + i];
-      	// 		let rules = list[i].rules;
-      	// 		let dobule_reg = true;
-      	// 		// 规则遍历验证
-      	// 		rules.forEach((c)=>{
-      	// 			let info = {
-      	// 				dom : dom,
-      	// 				rule : c,
-      	// 				err : list[i].err,
-       //          empty_err : list[i].empty_err
-      	// 			};
-      	// 			// 如果验证未通过，将错误信息带入错误池
-      	// 			if(! btv.check(info) && dobule_reg == true){
-      	// 				dobule_reg = false
-      	// 				errors.push(info.err);
-      	// 			}
-      	// 		})
-      	// 	}
-      	// };
         return errors;
       };
 	};
 	// 全局是否验证通过
 	_valid.is_validator = function(){
-		return this.validator(btv.$data).length > 0 ? false : true;
+		return this.validator(btv.$data,btv.$rules).length > 0 ? false : true;
 	}
 };
 

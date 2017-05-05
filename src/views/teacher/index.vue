@@ -61,7 +61,7 @@
             window.config.active = 'teacher';
             window.config.active_name = '教师管理';
             let info = window.config.userinfo;
-            this.tags = JSON.parse(localStorage.teacher_tags);
+            this.tags = JSON.parse(localStorage.school_tags);
             log(info)
         },
         methods :{
@@ -133,7 +133,7 @@
         // 计算器
         watch : {
             tags : function(){
-                localStorage.teacher_tags = JSON.stringify(this.tags);
+                localStorage.school_tags = JSON.stringify(this.tags);
             }
         },
         components : { drop_school },
