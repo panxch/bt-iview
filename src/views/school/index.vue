@@ -8,8 +8,8 @@
                 <i-col span="10"></i-col>
                 <i-col span="14">
                     <div class="float_right">
-                        <Button type="info" @click="go_update">修改</Button>
-                        <Button type="success"><router-link to="/school/add">添加</router-link></Button>
+                        <event_button @click="go_update" type="info" icon="ios-checkmark-outline">修改</event_button>
+                        <event_button @click="go_add" type="success" icon="plus-round">添加</event_button>
                     </div>
                 </i-col>
             </Row>
@@ -33,6 +33,7 @@
     import setting from '../../config/setting';
     import table_columns from '../../config/table_columns';
     import api from '../../config/api/basics'
+    import event_button from '../../components/public/bt_save.vue'
     export default {
         data(){
             return {
@@ -70,6 +71,9 @@
                 }
                 __.go(this,'school/update',{id : info.ids });
             },
+            go_add : function(){
+                __.go(this,'/school/add');
+            },
         },
         mounted(){
             __.loading();
@@ -80,5 +84,6 @@
                 this.set_page(this.page_index);
           });
         },
+        components : { event_button},
     }
 </script>

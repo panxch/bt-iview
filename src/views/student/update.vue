@@ -7,7 +7,7 @@
                 <Col span="1"></Col>
                 <Col span="3">
                     <div class="float_right">
-                        <Button type="info" @click="save">保存</Button>
+                        <event_button @click="save" type="info" icon="checkmark-round">保存</event_button>
                         <back></back>
                     </div>
                 </Col>
@@ -129,6 +129,7 @@
     import back from '../../components/public/bt_back.vue'
     import drop_school_district from '../../components/drop_school_district.vue'
     import drop_grade_class from '../../components/drop_grade_class.vue'
+    import event_button from '../../components/public/bt_save.vue'
     
     export default {
         data(){
@@ -178,7 +179,6 @@
             update : function(id){
                 api_student.get_student(id,(result)=>{
                     let info = this.student_info = result.data;
-                    log(info);
                     this.student_info.gender = parseInt(info.gender) ==  1 ? '男' : '女';
                     this.student_info.is_by = parseInt(info.is_by) > 0 ? true : false;
                     this.class_bind(info.school_id,info.school_district);
@@ -204,6 +204,6 @@
         mounted(){
             $(document.body).unbind('paste');
         },
-        components : { back,drop_school_district,drop_grade_class },
+        components : { back,drop_school_district,drop_grade_class,event_button },
     }
 </script>

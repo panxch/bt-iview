@@ -13,7 +13,7 @@
                 <Col span="1"></Col>
                 <Col span="3">
                     <div class="float_right">
-                        <Button type="info" @click="save">保存</Button>
+                        <event_button @click="save" type="info" icon="checkmark-round">保存</event_button>
                         <back></back>
                     </div>
                 </Col>
@@ -120,6 +120,7 @@
     import api_teacher from '../../config/api/teacher'
     import api from '../../config/api/basics'
     import back from '../../components/public/bt_back.vue'
+    import event_button from '../../components/public/bt_save.vue'
     export default {
         data(){
             return {
@@ -241,6 +242,6 @@
         },
         mounted(){
         },
-        components : { back },
+        components : { back ,event_button},
     }
 </script>

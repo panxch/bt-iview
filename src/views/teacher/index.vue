@@ -19,8 +19,8 @@
             </i-col>
             <i-col span="10">
                 <div class="float_right">
-                    <Button type="info" @click="go_update">修改</Button>
-                    <Button type="success"><router-link to="/teacher/import">导入</router-link></Button>
+                    <event_button @click="go_update" type="info" icon="ios-checkmark-outline">修改</event_button>
+                    <event_button @click="go_add" type="success" icon="android-arrow-down">导入</event_button>
                 </div>
             </i-col>
         </Row>
@@ -46,6 +46,7 @@
     import api from '../../config/api/basics'
     import api_teacher from '../../config/api/teacher'
     import drop_school from '../../components/drop_school.vue'
+    import event_button from '../../components/public/bt_save.vue'
     export default {
         data(){
             return {
@@ -81,6 +82,9 @@
                     return;
                 }
                 __.go(this,'teacher/update',{id : info.ids })
+            },
+            go_add : function(){
+                __.go(this,'/teacher/import');
             },
             // 分页
             set_page : function(index){
@@ -136,6 +140,6 @@
                 localStorage.school_tags = JSON.stringify(this.tags);
             }
         },
-        components : { drop_school },
+        components : { drop_school,event_button},
     }
 </script>

@@ -16,8 +16,8 @@
                 </i-col>
                 <i-col span="10">
                     <div class="float_right">
-                        <Button type="info" @click="go_update">修改</Button>
-                        <Button type="success"><router-link to="/school/add">添加</router-link></Button>
+                        <event_button @click="go_update" type="info" icon="ios-checkmark-outline">修改</event_button>
+                        <event_button @click="go_add" type="success" icon="plus-round">添加</event_button>
                     </div>
                 </i-col>
             </Row>
@@ -35,6 +35,7 @@
     import table_columns from '../../config/table_columns';
     import api from '../../config/api/basics'
     import drop_school from '../../components/drop_school.vue'
+    import event_button from '../../components/public/bt_save.vue'
     export default {
         data(){
             return {
@@ -74,6 +75,9 @@
                 }
                 __.go(this,'grade/update',{id : info.ids });
             },
+            go_add : function(){
+                __.go(this,'/grade/add');
+            },
             // 学校选择
             handle_school_change : function(value){
                 if(this.tags.length <3){
@@ -110,6 +114,6 @@
                 localStorage.school_tags = JSON.stringify(this.tags);
             }
         },
-        components : { drop_school },
+        components : { drop_school,event_button },
     }
 </script>

@@ -18,4 +18,5 @@ const routers = [
     {path: '/score',component: (resolve) => require(['../views/score/index.vue'], resolve)},
     {path: '/score/import',component: (resolve) => require(['../views/score/import.vue'], resolve)},
 ];
+
 export default routers;

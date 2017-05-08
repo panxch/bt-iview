@@ -7,7 +7,7 @@
                 <i-col span="1"></i-col>
                 <i-col span="3">
                     <div class="float_right">
-                        <Button type="info" @click="save">保存</Button>
+                        <save @click="save" icon="checkmark-round" type="info">保存</save>
                         <back></back>
                     </div>
                 </i-col>
@@ -57,6 +57,12 @@
                         <Form-item label="校区名称">
                         <input placeholder="请输入..." class="ivu-input" v-model="school_district_name">
                         </Form-item>
+                        <Form-item label="负责人">
+                        <input placeholder="请输入负责人姓名..." class="ivu-input" v-model="school_district_official">
+                        </Form-item>
+                        <Form-item label="联系方式">
+                        <input placeholder="请输入联系电话..." class="ivu-input" v-model="school_district_tel">
+                        </Form-item>
                     </Col>
                     <Col>
                         <Button icon="plus" @click="add_school_district">添加</Button>
@@ -67,7 +73,7 @@
                     <Form-item label="校区列表">
                         <ol class="school_district_list">
                             <li v-for="info in school_district_list">
-                                {{info.campus_name}}
+                                {{info.campus_name}}/{{info.official}}/{{info.tel}}
                             </li>
                         </ol>
                         </Form-item>
@@ -86,6 +92,7 @@
     import setting from '../../config/setting';    
     import api_school from '../../config/api/school'
     import back from '../../components/public/bt_back.vue'
+    import save from '../../components/public/bt_save.vue'
     export default {
         data(){
             return {
@@ -93,7 +100,7 @@
                 msg_error : [],
                 city_list : [],
                 school_district_list : [],
-                school_district_name : '',
+                school_district_name : '',school_district_official : '',school_district_tel :'',
                 school_info : { school_type : '',location : ['','']},
                 query : null,
             }
@@ -160,16 +167,16 @@
             },
             // 添加校区
             add_school_district : function(){
-                if(__.check_string(this.school_district_name)){
-                    let info = { campus_name : this.school_district_name};
+                if(__.check_string(this.school_district_name.toString())){
+                    let info = { campus_name : this.school_district_name,official : this.school_district_official,tel : this.school_district_tel};
                     this.school_district_list.push(info);
-                    this.school_district_name = null;
+                    this.school_district_name = this.school_district_official = this.school_district_tel = null;
                     log(this.school_district_list)
                 }
             },
         },
         mounted(){
         },
-        components : { back },
+        components : { back,save},
     }
 </script>

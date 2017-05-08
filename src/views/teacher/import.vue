@@ -35,8 +35,8 @@
                         <i-col span="1"></i-col>
                         <i-col span="5">
                             <div class="float_right">
-                                <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
-                                <Button type="success" @click="import_paset" :disabled="table_data.length == 0">导入</Button>
+                                <event_button @click="clear" type="warning" icon="android-close" :disabled="table_data.length == 0">清除</event_button>
+                                <event_button @click="import_paset" type="info" icon="android-arrow-down" :disabled="table_data.length == 0">导入</event_button>
                                 <back></back>
                             </div>
                         </i-col>
@@ -66,6 +66,7 @@
     import drop_school from '../../components/drop_school.vue'
     import back from '../../components/public/bt_back.vue'
     import table_columns from '../../config/table_columns'
+    import event_button from '../../components/public/bt_save.vue'
     export default {
         data(){
             return {
@@ -243,6 +244,6 @@
         },
         mounted(){
         },
-        components : { drop_school,back},
+        components : { drop_school,back,event_button},
     }
 </script>

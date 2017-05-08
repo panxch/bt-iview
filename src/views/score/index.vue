@@ -9,7 +9,7 @@
                 <i-col span="1"></i-col>
                 <i-col span="3">
                     <div class="float_right">
-                        <Button type="success"><router-link to="/score/import">导入</router-link></Button>
+                        <event_button @click="go_import" type="success" icon="android-arrow-down">导入</event_button>
                     </div>
                 </i-col>
             </Row>
@@ -33,6 +33,7 @@
     import setting from '../../config/setting';
     import table_columns from '../../config/table_columns';
     import api from '../../config/api/scores'
+    import event_button from '../../components/public/bt_save.vue'
     export default {
         data(){
             return {
@@ -50,6 +51,9 @@
             handle_page_change : function(index){
                 this.set_page(index);
             },
+            go_import : function(){
+                __.go(this,'/score/import');
+            },
             set_page : function(index){
                 __.loading();
                 api.get_score_upload(window.config.userinfo.school_id,index,(result)=>{
@@ -64,5 +68,6 @@
         mounted(){
            this.set_page(this.page_index);
         },
+        components : { event_button},
     }
 </script>

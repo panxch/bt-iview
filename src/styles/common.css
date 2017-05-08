@@ -34,7 +34,8 @@ ol {
 
 .ivu-alert-with-desc span.ivu-alert-message{color:#3399ff;}
 .ivu-form .ivu-form-item{margin-bottom: 5px;;}
-.ivu-input-wrapper .ivu-input{border-radius: 0px;}
+.wrapper .ivu-input{border-radius: 0px;}
+.wrapper .ivu-select-selection{border-radius: 0px;}
 .wrapper .ivu-table td,.wrapper .ivu-table th{height: 30px;}
 .wrapper .ivu-btn{border-radius: 0;}
 .wrapper .ivu-alert-with-desc{padding: 7px;}
