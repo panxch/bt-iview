@@ -1,5 +1,5 @@
 <template>   
-    <base_import ref="import" @init="init" :table_columns="table_columns" :fields_array="fields_array" @import_paset="import_paset" @import_excel="import_excel" @set_table_data="set_table_data" @set_grade_value="set_grade_value" @set_excel_file="set_excel_file">
+    <base_import ref="import" @init="init" :table_columns="table_columns" :fields_array="fields_array" @import_paset="import_paset" @set_table_data="set_table_data">
         <Alert>班级批量上传
                 <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案<br>
                 <a href="/public/templates/tpl_class.xlsx"><Button type="dashed" icon="arrow-down-a">模板下载</Button></a>    
@@ -14,33 +14,26 @@
     export default {
         data(){
             return {
-                table_columns : table_columns.class,
+                name : 'class_import',
+                table_columns : table_columns.class.call(this),
                 fields_array : ['name','student_cnt','teachers','class_room'],
                 table_data : [],
-                grade_value : null,
-                excel_file : null
             }
         },
         methods : {
             init : function(){
-                log('init/class');
                 window.config.active = 'class';
                 window.config.active_name = '班级管理';
             },
             // 剪贴板导入
-            import_paset : function(){
-                var param = {data : JSON.stringify(this.table_data),grade_id : this.grade_value,school_id : this.$refs.import.school_id};
+            import_paset : function(object){
+                var param = {
+                    data : JSON.stringify(this.table_data),
+                    grade_id : object.grade_id,
+                    school_id : object.school_id,
+                    school_district : object.school_district
+                };
                 api.do_import_grade_paset(param,(result)=>{
-                    result = eval(result);
-                    if(result.length === 0){
-                        this.$refs.import.import_success();
-                    }
-                })
-            },
-            // Excel导入
-            import_excel : function(){
-                var param = {grade_id : this.grade_value,school_id : this.$refs.import.school_id,file : this.excel_file};
-                api.do_import_grade_excel(param,(result)=>{
                     result = eval(result);
                     if(result.length === 0){
                         this.$refs.import.import_success();
@@ -55,14 +48,21 @@
                     this.table_data = [];
                 }
             },
-            // 从子组合中拿到所选择的年级
-            set_grade_value : function(value){
-                this.grade_value = value;
+            column_render : function(row,column,index){
+                let list = this.$refs.import.teacher_list;
+                if(list.length == 0){
+                    this.$refs.import.msg_error = ['教师匹配失败'];
+                }else{
+                    var info = __.info(list,'name',row.teachers);
+                    if(! info){
+                        let err = row.teachers + '匹配失败';
+                        this.$refs.import.msg_error.push(err);
+                    }else{
+                        this.table_data[index].teacher_id = info.id;
+                    }
+                }
+                return row.teachers;
             },
-            // 从子组合中拿到所选择的Excel文件
-            set_excel_file : function(value){
-                this.excel_file = value;
-            }
         },
         components : { base_import },
     }

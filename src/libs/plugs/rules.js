@@ -5,6 +5,10 @@ var rules = {
 		}
 		return __.check_string(value.toString());
 	},
+	number : function(value){
+		let patter = /^\d{1,5}$/;
+		return patter.test(value);
+	},
 	mobile : function(value){
 		let patter = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
 		return patter.test(value);

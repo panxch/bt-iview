@@ -22,5 +22,12 @@ module.exports = merge(webpackBaseConfig, {
             filename: '[name].css',
             allChunks: true
         }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //   compress:{
+        //     warnings: false,
+        //     drop_debugger: true,
+        //     drop_console: true
+        //   }
+        // })
     ]
 });

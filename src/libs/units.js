@@ -104,8 +104,9 @@ Array.prototype._join = function(filed){
       // 在Array中返回指定value的info
       info : function(array,key,value){
         var info = array.find(function(c, index, arr){
-          //log(eval('c.key') + '/' + value)
-          return eval('c.key') == value;
+          //log(c.name);
+          //log(eval('c.' + key) + '/' + value)
+          return eval('c.' + key) == value;
         })
         return info || null;
       },
