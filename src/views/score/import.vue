@@ -93,6 +93,7 @@
     import api from '../../config/api/basics'
     import api_scores from '../../config/api/scores'
     import api_member from '../../config/api/member'
+    import api_course from '../../config/api/course'
     import drop_school from '../../components/drop_school.vue'
     import back from '../../components/public/bt_back.vue'
     var $ = window.$;
@@ -173,7 +174,7 @@
             handle_school_change : function(value){
                 __.loading();
                 // 取所有课目
-                api.get_course(value,(result)=>{
+                api_course.get_course(value,(result)=>{
                     this.course_list = [];
                     if(result.data.length > 0){
                         this.course_list = result.data;

@@ -9,13 +9,13 @@
 </template>
 <script type="text/javascript">
     import base_import from '../../components/base_import.vue'
-    import api from '../../config/api/basics'
+    import api from '../../config/api/course'
     import table_columns from '../../config/table_columns'
     
     export default {
         data(){
             return {
-                table_columns : table_columns.course,
+                table_columns : table_columns.course.call(this),
                 fields_array : ['code','name','type','credit','teaching_method','assessment_method','study_section','full_marks'],
                 table_data : [],
             }
@@ -27,7 +27,12 @@
             },
             // 剪贴板导入
             import_paset : function(object){
-                var param = {data : JSON.stringify(this.table_data),grade_id : object.grade_id,school_id : object.school_id};
+                var param = {
+                            data : JSON.stringify(this.table_data),
+                            grade_id : object.grade_id,
+                            school_id : object.school_id,
+                            school_district:object.school_district
+                        };
                 api.do_import_course_paset(param,(result)=>{
                     result = eval(result);
                     if(result.length === 0){

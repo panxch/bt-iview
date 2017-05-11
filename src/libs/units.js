@@ -19,11 +19,23 @@ Array.prototype.filter_attr = function(){
   });
   return array;
 };
+// 过滤重复数据 
+Array.prototype.distinct = function () {    
+  var newArr = [],obj = {};    
+  for(var i=0, len = this.length; i < len; i++){    
+    if(!obj[typeof(this[i]) + this[i]]){    
+      newArr.push(this[i]);    
+      obj[typeof(this[i]) + this[i]] = 'new';    
+    }    
+  }    
+  return newArr;  
+}
 // 自定义Join，将数组中的指定属性拼接返回
 Array.prototype._join = function(filed){
   var str = '';
   this.forEach((c,i)=>{
-    str += eval('c.' + filed) + ',';
+    //str += eval('c.' + filed) + ',';
+    str += c[filed] + ',';
   })
   return str.substring(0,str.length - 1);
 };
@@ -106,7 +118,8 @@ Array.prototype._join = function(filed){
         var info = array.find(function(c, index, arr){
           //log(c.name);
           //log(eval('c.' + key) + '/' + value)
-          return eval('c.' + key) == value;
+          //return eval('c.' + key) == value;
+          return c[key] == value;
         })
         return info || null;
       },
@@ -119,7 +132,8 @@ Array.prototype._join = function(filed){
                 var info = {};
                 column_match.forEach((c,i)=>{
                     c = c.replace(/[\r\n]/g, ""); 
-                    eval('info.' + _array_key[i] + '= "' + c + '"');
+                    //eval('info.' + _array_key[i] + '= "' + c + '"');
+                    info[ _array_key[i] ] = c;
                 });
                 table_data.push( info );
             }

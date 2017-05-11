@@ -137,6 +137,7 @@
                     this.$emit('import_paset',param);
                 }
             },
+            
         },
         mounted(){
         },

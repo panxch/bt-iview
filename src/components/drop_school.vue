@@ -1,5 +1,5 @@
 <template>
-		<Select placeholder="请选择" style="width:200px" @on-change="school_change" filterable>
+		<Select placeholder="请选择" v-model="value" style="width:200px" @on-change="school_change" filterable>
             <Option :value="info.id" :label="info.name" v-for="info in school_list">
 	            <span>{{info.name}}</span>
 	            <span style="float:right;color:#ccc">#{{info.id}}</span>
@@ -13,6 +13,7 @@
 			return {
 				school_list : [],
 				grade_list : [],
+				value : '',
 			}
 		},
 		methods : {
@@ -22,6 +23,9 @@
             		return c.id == value;
             	}));
                 this.$emit('handle_school_change',value);
+            },
+            set_value : function(value){
+            	this.value = value;
             },
 		},
 		 mounted(){

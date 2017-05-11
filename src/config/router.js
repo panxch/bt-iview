@@ -10,7 +10,9 @@ const routers = [
     {path: '/class',component: (resolve) => require(['../views/class/index.vue'], resolve)},
     {path: '/class/update',component: (resolve) => require(['../views/class/model.vue'], resolve)},
     {path: '/class/import',component: (resolve) => require(['../views/class/import.vue'], resolve)},
-    {path: '/course',component: (resolve) => require(['../views/course/import.vue'], resolve)},
+    {path: '/course',component: (resolve) => require(['../views/course/index.vue'], resolve)},
+    {path: '/course/update',component: (resolve) => require(['../views/course/model.vue'], resolve)},
+    {path: '/course/import',component: (resolve) => require(['../views/course/import.vue'], resolve)},
     {path: '/teacher',component: (resolve) => require(['../views/teacher/index.vue'], resolve)},
     {path: '/teacher/update',component: (resolve) => require(['../views/teacher/model.vue'], resolve)},
     {path: '/teacher/import',component: (resolve) => require(['../views/teacher/import.vue'], resolve)},
@@ -19,6 +21,9 @@ const routers = [
     {path: '/student/import',component: (resolve) => require(['../views/student/import.vue'], resolve)},
     {path: '/score',component: (resolve) => require(['../views/score/index.vue'], resolve)},
     {path: '/score/import',component: (resolve) => require(['../views/score/import.vue'], resolve)},
+    {path: '/role',component: (resolve) => require(['../views/role/index.vue'], resolve)},
+    {path: '/role/add',component: (resolve) => require(['../views/role/model.vue'], resolve)},
+    {path: '/role/update',component: (resolve) => require(['../views/role/model.vue'], resolve)}
 ];
 
 export default routers;

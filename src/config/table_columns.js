@@ -89,6 +89,13 @@ var table_columns = {
                     width:110,
                 },
                 {
+                    title: '是否毕业',
+                    key: 'is_by',
+                    align: 'center',
+                    width:90,
+                    render : this.column_render
+                },
+                {
                     title: '学校',
                     key: 'school_name',
                     align: 'center',
@@ -97,13 +104,6 @@ var table_columns = {
                     title: '校区',
                     key: 'campus_name',
                     align: 'center',
-                },
-                {
-                    title: '是否毕业',
-                    key: 'is_by',
-                    align: 'center',
-                    width:90,
-                    render : this.column_render
                 },
                 {
                     title : '创建时间',
@@ -202,20 +202,29 @@ var table_columns = {
                     align: 'center',
                 },
                 {
-                    title : '创建时间',
-                    key : 'create_time',
-                    width: 160,
-                    align: 'center',
-                    sortable: true
-                },
-                {
                     title: '班级关系',
                     key: 'class_mapping'
                 },
                 {
                     title: '学科关系',
                     key: 'course_mapping'
-                }
+                },
+                {
+                    title: '学校',
+                    key: 'school_name',
+                    align: 'center',
+                },
+                {
+                    title: '校区',
+                    key: 'campus_name',
+                    align: 'center',
+                },
+                {
+                    title: '创建时间',
+                    key: 'create_time',
+                    align: 'center',
+                    width : 160
+                },
             ],
     teacher_import : function(){
         return [
@@ -420,16 +429,6 @@ var table_columns = {
                     align: 'center'
                 },
                 {
-                    title: '学校',
-                    key: 'school_name',
-                },
-                {
-                    title: '校区',
-                    key: 'campus_name',
-                    width: 140,
-                    align: 'center'
-                },
-                {
                     title: '班级人数',
                     key: 'student_cnt',
                     width: 140,
@@ -443,53 +442,110 @@ var table_columns = {
                     render : this.column_render
                 },
                 {
+                    title: '学校',
+                    key: 'school_name',
+                },
+                {
+                    title: '校区',
+                    key: 'campus_name',
+                    width: 140,
+                    align: 'center'
+                },
+                {
                     title: '创建时间',
                     key: 'create_time',
-                    width: 200,
+                    width: 160,
                     align: 'center'
                 }
 
             ];
     },
-    course : [
-                {
-                    type: 'index',
+    course : function(){
+        return [
+                    {
+                    type: 'selection',
                     width: 60,
                     align: 'center'
                 },
                 {
+                    title : '#',
+                    key : 'id',
+                    width: 80,
+                    align: 'center',
+                    sortable: true
+                },
+                {
                     title: '课程码',
-                    key: 'code'
+                    key: 'code',
+                    width: 100,
+                    align: 'center',
+                    render : this.column_render
                 },
                 {
                     title: '课程名',
-                    key: 'name'
+                    key: 'name',
+                    width: 120,
+                    align: 'center'
                 },
                 {
                     title: '课程类别',
-                    key: 'type'
+                    key: 'type',
+                    width: 120,
+                    align: 'center'
                 },
                 {
                     title: '学分',
-                    key: 'credit'
+                    key: 'credit',
+                    width: 90,
+                    align: 'center'
                 },
                 {
                     title: '授课方式',
-                    key: 'teaching_method'
+                    key: 'teaching_method',
+                    width: 120,
+                    align: 'center'
                 },
                 {
                     title: '考核方式',
-                    key: 'assessment_method'
+                    key: 'assessment_method',
+                    width: 120,
+                    align: 'center'
                 },
                 {
                     title: '学期',
-                    key: 'study_section'
+                    key: 'study_section',
+                    width: 120,
+                    align: 'center'
                 },
                 {
                     title: '总分',
-                    key: 'full_marks'
+                    key: 'full_marks',
+                    width: 120,
+                    align: 'center'
+                },
+                {
+                    title: '年级',
+                    key: 'grade_name',
+                    align: 'center',
+                    width: 140,
+                },
+                {
+                    title: '学校',
+                    key: 'school_name',
+                },
+                {
+                    title: '校区',
+                    key: 'campus_name',
+                    align: 'center'
+                },
+                {
+                    title: '创建时间',
+                    key: 'create_time',
+                    width: 160,
+                    align: 'center'
                 }
-            ],
+            ];
+    },
     grade : function(){
         return  [
                     {
@@ -518,17 +574,6 @@ var table_columns = {
                         sortable: true
                     },
                     {
-                        title: '所属学校',
-                        key: 'school_name',
-                        align: 'center',
-                        sortable: true
-                    },
-                    {
-                        title: '校区',
-                        key: 'campus_name',
-                        align: 'center',
-                    },
-                    {
                         title: '学年',
                         key: 'school_year',
                         align: 'center',
@@ -540,8 +585,57 @@ var table_columns = {
                         align: 'center',
                         sortable: true
                     },
+                    {
+                        title: '所属学校',
+                        key: 'school_name',
+                        align: 'center',
+                        sortable: true
+                    },
+                    {
+                        title: '校区',
+                        key: 'campus_name',
+                        align: 'center',
+                    },
+                    {
+                        title: '创建时间',
+                        key: 'create_time',
+                        align: 'center',
+                        width : 160
+                    },
             ]
-    }
+    },
+    role : function(){
+        return [
+                    {
+                    type: 'selection',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title : '#',
+                    key : 'id',
+                    width: 80,
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    title: '角色名称',
+                    key: 'name',
+                    align: 'left',
+                    width: 200,
+                },
+                {
+                    title: '学校名称',
+                    key: 'name',
+                    align: 'left',
+                    width: 200,
+                },
+                {
+                    title: '角色说明',
+                    key: 'description',
+                },
+            ];
+    },
 }
 
 export default table_columns
