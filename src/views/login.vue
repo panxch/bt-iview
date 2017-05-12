@@ -1,10 +1,10 @@
 <style type="text/css">
-.wrapper .login{width:300px;margin-top:10%;position: absolute;left:40%;}
+
 .wrapper .login .ivu-card{border-radius: 5px;}
 .wrapper .login .ivu-card-head{border-radius: 5px 5px 0 0;}
 .wrapper .login .ivu-card-head p{color:#fff;}
 .wrapper .login .ivu-form-item-content button{float: right;}
-.wrapper .login .ivu-form-item .ivu-input{width:270px;}
+.wrapper .login .ivu-form-item .ivu-input{width:100%;}
 </style>
 <template>
     <div>
@@ -14,7 +14,7 @@
         </div>
         <div class="login">
         <Card>
-            <p slot="title">翼生涯 - 用户登录</p>
+            <p slot="title"><Icon type="person-stalker"></Icon>&nbsp;&nbsp;翼生涯 - 用户登录</p>
             <Form id="form">
                 <Form-item label="帐号">
                     <Input placeholder="请输入登录帐号" v-model="form.username" :maxlength="maxlength" name="username"></Input>
@@ -22,8 +22,8 @@
                 <Form-item label="密码">
                     <Input placeholder="请输入登录密码" v-model="form.passwd" type="password" :maxlength="maxlength" name="password"></Input>
                 </Form-item>
-                <Form-item>
-                    <Button type="primary" :loading="loading" @click="handleSubmit()">{{primary_text}}</Button>
+                <Form-item><br>
+                    <Button type="primary" icon="android-done" :loading="loading" @click="handleSubmit()">{{primary_text}}</Button>
                 </Form-item>
             </Form>
         </Card>

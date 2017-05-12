@@ -48,7 +48,7 @@ ol {
 .layout-main .ivu-row-flex h4{line-height:20px};
 
 /*登陆*/
-.wrapper .login{width:300px;margin-top:20%;position: absolute;left:45%;}
+.wrapper .login{width:350px;margin-top:20%;position: absolute;left:45%;}
 .wrapper .login .ivu-card{border-radius: 5px;}
 .wrapper .login .ivu-card-head{background: #3091f2;border-radius: 5px 5px 0 0;}
 .wrapper .login .ivu-card-head p{color:#fff;}
