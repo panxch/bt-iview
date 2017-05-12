@@ -43,10 +43,11 @@ export default {
 			localStorage.removeItem('school_tags');
 			window.config.last_school = null;
 			window.config.userinfo.id = null;
-			__.go(this,'/login');
+			location.href = '/'
 		},
 	},
 	mounted(){
+		// 消息通知
 		$('.list_lh li:even').addClass('lieven');
 		$("div.list_lh").myScroll({speed:40,rowHeight:68});
 	}

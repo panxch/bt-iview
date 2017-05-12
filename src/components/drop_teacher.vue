@@ -1,10 +1,10 @@
 <template>
-		<Select placeholder="请选择" style="width:200px" @on-change="teacher_change" filterable v-model="value" label-in-value>
-            <Option :value="info.id" :label="info.name + '/' + (info.gender == 1 ?'男' : '女') + '/' + info.username" v-for="info in teacher_list">
-	            <span>{{info.name}}/{{info.gender == 1 ?'男' : '女'}}/{{info.username}}</span>
-	            <span style="float:right;color:#ccc">#{{info.id}}</span>
-	        </Option>
-        </Select>
+	<Select placeholder="请选择" style="width:200px" @on-change="teacher_change" filterable v-model="value" label-in-value>
+        <Option :value="info.id" :label="info.name + '/' + (info.gender == 1 ?'男' : '女') + '/' + info.username" v-for="info in teacher_list">
+            <span>{{info.name}}/{{info.gender == 1 ?'男' : '女'}}/{{info.username}}</span>
+            <span style="float:right;color:#ccc">#{{info.id}}</span>
+        </Option>
+    </Select>
 </template>
 <script type="text/javascript">
 	import api from '../config/api/teacher'

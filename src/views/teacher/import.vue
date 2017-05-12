@@ -152,12 +152,10 @@
                     }(this.grade_list);
                     // 如果找到年级对应关系,再匹配课目
                     if(grade){
-                        log(list);
                         var courses = infos[1].split('#');
                         pass = true;
                         courses.forEach((c)=>{
                             var info = list.find(function(w){
-                                //log(c + '/' + w.name + '/' + w.grade_id + '/' + grade.id)
                                 if(c == w.name && w.grade_id == grade.id){
                                     pass_array.push(w.id);
                                     return c;

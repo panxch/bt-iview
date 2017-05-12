@@ -78,7 +78,7 @@ Array.prototype._join = function(filed){
       },
       loading : function(_text = '数据加载中...'){
         //layer.open( {type: 2 ,content: _text,shadeClose:false,shade: 'background-color: rgba(0,0,0,.5)'} );
-        let content = '<div class="loader"><div class="loader-inner square-spin"><div></div></div></div><br>加载中..';
+        let content = '<div class="loader"><div class="loader-inner square-spin"><div></div></div></div><br><span style="color:#fff;">加载中...</span>';
         layer.open({shadeClose : false,style: 'border:none; background:rgba(0,0,0,0);width:120px;',content:content})
       },
       msg : function(_text,_func){
@@ -118,9 +118,6 @@ Array.prototype._join = function(filed){
       // 在Array中返回指定value的info
       info : function(array,key,value){
         var info = array.find(function(c, index, arr){
-          //log(c.name);
-          //log(eval('c.' + key) + '/' + value)
-          //return eval('c.' + key) == value;
           return c[key] == value;
         })
         return info || null;
@@ -217,7 +214,7 @@ Array.prototype._join = function(filed){
       bind_list_dblclick : function(self,url){
         let _this = this;
         setTimeout(function(){
-            $('table tr').dblclick((c,i)=>{
+            $('div.ivu-table-body table tr').dblclick((c,i)=>{
                 let info = $(c.currentTarget);
                 let id = info.find('td:eq(1) span').html();
                 _this.go(self,url, {id : id })

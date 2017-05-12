@@ -1,28 +1,35 @@
 <style type="text/css">
 .wrapper .login{width:300px;margin-top:10%;position: absolute;left:40%;}
 .wrapper .login .ivu-card{border-radius: 5px;}
-.wrapper .login .ivu-card-head{background: #3091f2;border-radius: 5px 5px 0 0;}
+.wrapper .login .ivu-card-head{border-radius: 5px 5px 0 0;}
 .wrapper .login .ivu-card-head p{color:#fff;}
 .wrapper .login .ivu-form-item-content button{float: right;}
 .wrapper .login .ivu-form-item .ivu-input{width:270px;}
 </style>
 <template>
-	<div class="login">
+    <div>
+        <div id="mainBody">
+            <div id="cloud1" class="cloud"></div>
+            <div id="cloud2" class="cloud"></div>
+        </div>
+        <div class="login">
         <Card>
             <p slot="title">翼生涯 - 用户登录</p>
             <Form id="form">
-		        <Form-item label="用户名">
-		            <Input placeholder="请输入登录用户名" v-model="form.username" :maxlength="maxlength" name="username"></Input>
-		        </Form-item>
-		        <Form-item label="密码">
-		            <Input placeholder="请输入登录密码" v-model="form.passwd" type="password" :maxlength="maxlength" name="password"></Input>
-		        </Form-item>
-		        <Form-item>
-		            <Button type="primary" :loading="loading" @click="handleSubmit()">{{primary_text}}</Button>
-		        </Form-item>
-		    </Form>
+                <Form-item label="帐号">
+                    <Input placeholder="请输入登录帐号" v-model="form.username" :maxlength="maxlength" name="username"></Input>
+                </Form-item>
+                <Form-item label="密码">
+                    <Input placeholder="请输入登录密码" v-model="form.passwd" type="password" :maxlength="maxlength" name="password"></Input>
+                </Form-item>
+                <Form-item>
+                    <Button type="primary" :loading="loading" @click="handleSubmit()">{{primary_text}}</Button>
+                </Form-item>
+            </Form>
         </Card>
-	</div>
+    </div>
+
+    </div>
 </template>
 <script type="text/javascript">
     import api from '../config/api/login'
@@ -80,11 +87,11 @@
                             window.config.userinfo.is_admin = result.role_id == '0,999,0' ? true : false;
                             window.config.userinfo.photo = window.config.userinfo.photo ? 
                                                            
-                            (window.location.host == 'www.yishengya.cn' ?'http://www.yishengya.cn/' : 'http://localhost:9087/')
+                            (!dist ?'http://www.yishengya.cn/' : 'http://localhost:9087/')
                                                             + window.config.userinfo.photo : '/public/vue/dist/face.jpg';
                             // 存储到本地
                             localStorage.userinfo = JSON.stringify(window.config.userinfo);
-	    					log(window.config.userinfo)
+	    					$('.wrapper .layout').css('background','#f5f7f9');
 	    					this.$router.push({ path: '/' });
 	    				},1000)
     				}else{
@@ -94,6 +101,9 @@
     			})
     		}
     	},
+        mounted(){
+            $('.wrapper .layout').css('background','none');
+        },
         components : {  },
     }
 </script>

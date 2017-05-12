@@ -48,7 +48,6 @@
                 api_role.get_role_by_school(param,(result)=>{
                     result = JSON.parse(result);
                     this.table_data = result.list;
-                    log(result)
                     if(this.page_count === 0){
                         this.page_count = window.config.page_count = result.page_count;
                     }

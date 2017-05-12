@@ -1,0 +1,7 @@
+body{background:-webkit-gradient(linear,0% 0%, 0% 100%, from(#39f), to(#FAFAFA), color-stop(0.5,#FFFAFA));}
+#mainBody{width:100%;height:100%;}
+.cloud{position:absolute;top:0px;left:0px;width:100%;height:100%;background:url("images/cloud.png") no-repeat;opacity:0.8;}
+#weather{border-radius:90px;width:150px;height:150px;position:absolute;left:440px;top:30px;z-index:2;}
+#weather img{margin:30px -90px;}
+
+

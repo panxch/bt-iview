@@ -4,14 +4,7 @@
             <Alert>成绩管理
                     <template slot="desc">成绩综合管理</template>
             </Alert>
-            <Row type="flex">
-                <i-col span="20"></i-col>
-                <i-col span="4">
-                    <div class="float_right">
-                        <event_button @click="go_import" type="success" icon="android-arrow-down">导入</event_button>
-                    </div>
-                </i-col>
-            </Row>
+           <bt_school_filter ref="bt_school_filter" import_url="/score/import" @selection="selection"></bt_school_filter>
         </div>
         <Row>
              <i-col>
@@ -33,6 +26,7 @@
     import table_columns from '../../config/table_columns';
     import api from '../../config/api/scores'
     import event_button from '../../components/public/bt_save.vue'
+    import bt_school_filter from '../../components/public/bt_school_filter.vue'
     export default {
         data(){
             return {
@@ -41,6 +35,7 @@
                 page_count : 0,
                 page_index : 1,
                 page_size : setting.get_page_size,
+                selection : __.get_selection([]),
             }
         },
         created(){
@@ -56,10 +51,12 @@
             },
             set_page : function(index){
                 __.loading();
-                api.get_score_upload(window.config.userinfo.school_id,index,(result)=>{
-                    this.table_data = result.data.list;
+                var param = {school_ids : this.$refs.bt_school_filter.get_school_id(),page_index : index};
+                api.get_score_upload(param,(result)=>{
+                    result = JSON.parse(result);
+                    this.table_data = result.list;
                     if(this.page_count === 0){
-                        this.page_count = result.data.page_count;
+                        this.page_count = result.page_count;
                     }
                     __.closeAll();
               });
@@ -68,6 +65,6 @@
         mounted(){
            this.set_page(this.page_index);
         },
-        components : { event_button},
+        components : { event_button,bt_school_filter },
     }
 </script>

@@ -224,7 +224,6 @@
                 this.grade_current_array = [];
                 this.course_list.forEach((c,i)=>{
                     if(c.grade_id == grade_id){
-                        //log(c.name + '/' + c.id);
                         this.grade_current_array.push({name : c.name,id : c.id})
                     }
                 });
@@ -262,7 +261,6 @@
                 // 检测班年
                 var pass_class = false;
                 this.class_list.forEach((c,i)=>{
-                    //log(c.id + '/' +c.name + '/' + row.class)
                     if(c.name == row.class){
                         pass_class = true;
                         this.table_data[index].class_code = c.id;

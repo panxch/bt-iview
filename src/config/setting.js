@@ -1,22 +1,13 @@
 // 基础配置类
 
-var api_url = 'http://api2.yishengya.cn/';
+var api_url = 'http://manage.yishengya.cn/';
 if(dist){
 	api_url = 'http://localhost:9087/';	
 }
 
-function get_page_size(){
-	let _w = window.screen.height;
-	if(_w > 900)
-		return 20;
-	else if(_w > 800)
-		return 15;
-	return 10;
-}
-
 export default {
 	get_api_url : api_url,
-	get_page_size : get_page_size(),
+	get_page_size : 10,
 	title : '翼生涯',
 	get_api_setting : (url,data)=>{
 		data = data || window.$("#form").serialize();

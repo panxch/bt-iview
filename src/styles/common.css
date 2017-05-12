@@ -42,13 +42,13 @@ ol {
 .wrapper .ivu-btn{border-radius: 0;}
 .wrapper .ivu-alert-with-desc{padding: 7px;}
 
-.wrapper{background: #eee;position: relative;font-family: 'Microsoft YaHei';}
+.wrapper{position: relative;font-family: 'Microsoft YaHei';}
 .wrapper .layout .layout-logo-left img.logo{height: 40px;width:100%;max-width: 215px;min-width: 140px;}
 .wrapper .layout .layout-logo-left{background: #fff;height: 45px;}
 .layout-main .ivu-row-flex h4{line-height:20px};
 
 /*登陆*/
-.wrapper .login{width:300px;margin-top:10%;position: absolute;left:45%;}
+.wrapper .login{width:300px;margin-top:20%;position: absolute;left:45%;}
 .wrapper .login .ivu-card{border-radius: 5px;}
 .wrapper .login .ivu-card-head{background: #3091f2;border-radius: 5px 5px 0 0;}
 .wrapper .login .ivu-card-head p{color:#fff;}
@@ -96,7 +96,7 @@ ol {
     }
 .wrapper .layout-header{height: 40px;}    
 .wrapper .layout-header .ivu-row .ivu-col{height: 40px;line-height: 40px;}    
-.wrapper .layout-header .ivu-row .ivu-col .face{width:30px;height:30px;border-radius: 30px;margin-top:5px;float:left;}
+.wrapper .layout-header .ivu-row .ivu-col .face{width:30px;height:30px;border-radius: 30px;margin-top:5px;float:left;border: 1px solid #ccc;}
 .wrapper .layout-header .ivu-row .ivu-col h3{text-align: left;float:left;}
 .wrapper .layout-header .ivu-row .ivu-col h3.logout a{color:#bd2626;}
 .wrapper .layout-header .ivu-row .ivu-col .user-info{float: right;}

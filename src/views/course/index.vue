@@ -42,7 +42,6 @@
             window.config.active_name = '课程管理';
             this.table_columns.splice(2,1);
             this.table_columns.splice(5,2);
-            //log(this.table_columns)
         },
         methods :{
             set_page : function(index){

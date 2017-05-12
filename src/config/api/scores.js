@@ -12,8 +12,10 @@ export default {
 		return __.post( get('scores/score/do_import_score_upload_paset',array),func );
 	},
 	// 获取当前学校的有教师
-	get_score_upload(school_id = null,page_index,func = null){
-		return __.get( get('scores/score/get_score_upload/?school_id=' + school_id + '&page_size='+ setting.get_page_size +'&page_index=' + page_index),func );
+	get_score_upload(array,func = null){
+		array.page_size = setting.get_page_size
+		//return __.post( get('basics/role/get_role_by_school',array),func );
+		return __.post( get('scores/score/get_score_upload',array),func );
 	}
 	
 }

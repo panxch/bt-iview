@@ -12,7 +12,7 @@
                             <Col>
                                 <div class="float_right">
                                     <i-button type="text" @click="toggleClick" class="menu-toggle">
-                                        <Icon type="chevron-left" size="15">afdasf</Icon>
+                                        <Icon type="chevron-left" size="15"></Icon>
                                         收缩菜单
                                     </i-button>
                                 </div>

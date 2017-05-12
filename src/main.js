@@ -7,20 +7,26 @@ import App from './app.vue';
 import $ from './libs/jquery-vendor';
 import VueValidator from './libs/plugs/validator/validator.js'
 import 'iview/dist/styles/iview.css';
+// js tools
 import './libs/units';
+// layer
 import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
+// marquee
 import './libs/plugs/marquee/scroll.js';
+// globla
 import './styles/common.css'
-import './styles/loading/demo.css'
+// data loading ion
 import './styles/loading/loaders.css'
+// login backgound cloud
+import './libs/cloud/common.js';
+import './libs/cloud/style.css';
 
-window.$ = $;
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.use(VueValidator);
 
-// 路由配置
+// routs setting
 const RouterConfig = {
     routes: Routers
 };
@@ -43,7 +49,15 @@ router.afterEach((to, from, next) => {
     window.scrollTo(0, 0);
 });
 
-//log($(window).width())
+// 根据页高来设置page size;
+Setting.get_page_size = function(_w){
+    if(_w > 900)
+        return 20;
+    else if(_w > 800)
+        return 15;
+    return 10;
+}($(document).height());
+// 基础全局配置项
 window.config = {
 	userinfo : { id : null },
     active : 'home',
@@ -55,14 +69,10 @@ window.config = {
     last_school_district : null,
     page_index : 1,
     page_count : 0,
-    spanLeft : 3,
+    spanLeft : $(document).width() <= 1024 ? 4 : 3,
     disabled : disabled,
 };
-//document.title = Setting.title;
 
-if($(window).width() <= 1024){
-    window.config.spanLeft = 4;
-}
 var vue = new Vue({
     el: '#app',
     router: router,
