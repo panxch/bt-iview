@@ -2,13 +2,13 @@ var table_columns = {
 	school : [
 	            {
 	                type: 'selection',
-	                width: 60,
+	                width: 30,
 	                align: 'center'
 	            },
 	            {
 	                title : '#',
 	                key : 'id',
-	                width: 80,
+	                width: 60,
 	                align: 'center',
 	                sortable: true
 	            },
@@ -47,13 +47,13 @@ var table_columns = {
         return [
                 {
                     type: 'selection',
-                    width: 50,
+                    width: 30,
                     align: 'center',
                 },
                 {
                     title : '#',
                     key : 'tid',
-                    width: 80,
+                    width: 60,
                     align: 'center',
                 },
                 {
@@ -61,44 +61,37 @@ var table_columns = {
                     key: 'student_name',
                     sortable: true,
                     align: 'center',
-                    width:110,
-                },
-                {
-                    title: '学籍号',
-                    key: 'student_no',
-                    width:180,
-                    sortable: true,
-                    align: 'center',
+                    width:90,
                 },
                 {
                     title: '登陆用户名',
                     key: 'username',
-                    width: 140,
+                    align : 'center',
+                    width: 120,
                     sortable: true
                 },
                 {
                     title: '年级',
                     key: 'grade_name',
                     align: 'center',
-                    width:110,
+                    width:80,
                 },
                 {
                     title: '班级',
                     key: 'class_name',
                     align: 'center',
-                    width:110,
+                    width:80,
                 },
                 {
                     title: '是否毕业',
                     key: 'is_by',
                     align: 'center',
-                    width:90,
+                    width:60,
                     render : this.column_render
                 },
                 {
-                    title: '学校',
+                    title: '所属学校',
                     key: 'school_name',
-                    align: 'center',
                 },
                 {
                     title: '校区',
@@ -108,7 +101,7 @@ var table_columns = {
                 {
                     title : '创建时间',
                     key : 'create_time',
-                    width: 160,
+                    width: 140,
                     align: 'center',
                     sortable: true
                 },
@@ -173,13 +166,13 @@ var table_columns = {
     teacher : [
                 {
                     type: 'selection',
-                    width: 60,
+                    width: 30,
                     align: 'center',
                 },
                 {
                     title : '#',
                     key : 'id',
-                    width: 80,
+                    width: 60,
                     align: 'center',
                 },
                 {
@@ -191,13 +184,13 @@ var table_columns = {
                 {
                     title: '教师姓名',
                     key: 'name',
-                    width: 120,
+                    width: 100,
                     align: 'center',
                 },
                 {
                     title: '手机号',
                     key: 'tel',
-                    width: 160,
+                    width: 100,
                     sortable: true,
                     align: 'center',
                 },
@@ -212,7 +205,6 @@ var table_columns = {
                 {
                     title: '学校',
                     key: 'school_name',
-                    align: 'center',
                 },
                 {
                     title: '校区',
@@ -223,7 +215,7 @@ var table_columns = {
                     title: '创建时间',
                     key: 'create_time',
                     align: 'center',
-                    width : 160
+                    width : 140
                 },
             ],
     teacher_import : function(){
@@ -271,13 +263,13 @@ var table_columns = {
     score : [
                         {
                             type: 'selection',
-                            width: 60,
+                            width: 30,
                             align: 'center',
                         },
                         {
                             title : '#',
                             key : 'id',
-                            width: 80,
+                            width: 60,
                             align: 'center',
                         },
                         {
@@ -288,31 +280,31 @@ var table_columns = {
                         {
                             title: '创建人',
                             key: 'name',
-                            width: 200,
+                            width: 100,
                             align: 'center',
                         },
                         {
                             title: '入学时间',
                             key: 'year',
-                            width: 160,
+                            width: 60,
                             align: 'center',
                         },
                         {
                             title: '学期',
-                            width: 140,
+                            width: 60,
                             key: 'semester',
                             align: 'center',
                         },
                         {
                             title: '考试时间',
-                            width: 140,
+                            width: 100,
                             key: 'examTime',
                             align: 'center',
                         },
                         {
                             title : '创建时间',
                             key : 'create_time',
-                            width: 160,
+                            width: 140,
                             align: 'center',
                             sortable: true
                         }
@@ -412,13 +404,13 @@ var table_columns = {
         return [
                  {
                     type: 'selection',
-                    width: 60,
+                    width: 30,
                     align: 'center'
                 },
                 {
                     title : '#',
                     key : 'id',
-                    width: 80,
+                    width: 60,
                     align: 'center',
                     sortable: true
                 },
@@ -431,7 +423,7 @@ var table_columns = {
                 {
                     title: '班级人数',
                     key: 'student_cnt',
-                    width: 140,
+                    width: 70,
                     align: 'center'
                 },
                 {
@@ -454,7 +446,7 @@ var table_columns = {
                 {
                     title: '创建时间',
                     key: 'create_time',
-                    width: 160,
+                    width: 140,
                     align: 'center'
                 }
 
@@ -462,72 +454,71 @@ var table_columns = {
     },
     course : function(){
         return [
-                    {
+                {
                     type: 'selection',
-                    width: 60,
+                    width: 30,
                     align: 'center'
                 },
                 {
                     title : '#',
                     key : 'id',
-                    width: 80,
+                    width: 60,
                     align: 'center',
-                    sortable: true
+                    sortable: true,
+                    render : this.column_render
                 },
                 {
                     title: '课程码',
                     key: 'code',
-                    width: 100,
+                    width: 80,
                     align: 'center',
-                    render : this.column_render
                 },
                 {
                     title: '课程名',
                     key: 'name',
-                    width: 120,
+                    width: 60,
                     align: 'center'
                 },
                 {
                     title: '课程类别',
                     key: 'type',
-                    width: 120,
+                    width: 60,
                     align: 'center'
                 },
                 {
                     title: '学分',
                     key: 'credit',
-                    width: 90,
+                    width: 40,
                     align: 'center'
                 },
                 {
                     title: '授课方式',
                     key: 'teaching_method',
-                    width: 120,
+                    width: 90,
                     align: 'center'
                 },
                 {
                     title: '考核方式',
                     key: 'assessment_method',
-                    width: 120,
+                    width: 90,
                     align: 'center'
                 },
                 {
                     title: '学期',
                     key: 'study_section',
-                    width: 120,
+                    width: 80,
                     align: 'center'
                 },
                 {
                     title: '总分',
                     key: 'full_marks',
-                    width: 120,
+                    width: 40,
                     align: 'center'
                 },
                 {
                     title: '年级',
                     key: 'grade_name',
                     align: 'center',
-                    width: 140,
                 },
                 {
                     title: '学校',
@@ -541,7 +532,7 @@ var table_columns = {
                 {
                     title: '创建时间',
                     key: 'create_time',
-                    width: 160,
+                    width: 140,
                     align: 'center'
                 }
             ];
@@ -550,37 +541,41 @@ var table_columns = {
         return  [
                     {
                         type: 'selection',
-                        width: 60,
+                        width: 30,
                         align: 'center',
                     },
                     
                     {
                         title: '#',
-                        width: 100,
+                        width: 60,
                         key: 'id',
                         align: 'center',
                         sortable: true
                     },
                     {
                         title: '年级',
+                        width: 100,
                         key: 'name',
                         align: 'center',
                         sortable: true
                     },
                     {
                         title: '年级名称',
+                        width: 100,
                         key: 'grade_name',
                         align: 'center',
                         sortable: true
                     },
                     {
                         title: '学年',
+                        width: 100,
                         key: 'school_year',
                         align: 'center',
                         sortable: true
                     },
                      {
                         title: '入学年份',
+                        width: 100,
                         key: 'entrance',
                         align: 'center',
                         sortable: true
@@ -588,7 +583,6 @@ var table_columns = {
                     {
                         title: '所属学校',
                         key: 'school_name',
-                        align: 'center',
                         sortable: true
                     },
                     {
@@ -600,7 +594,7 @@ var table_columns = {
                         title: '创建时间',
                         key: 'create_time',
                         align: 'center',
-                        width : 160
+                        width : 140
                     },
             ]
     },
@@ -608,13 +602,13 @@ var table_columns = {
         return [
                     {
                     type: 'selection',
-                    width: 60,
+                    width: 30,
                     align: 'center'
                 },
                 {
                     title : '#',
                     key : 'id',
-                    width: 80,
+                    width: 60,
                     align: 'center',
                     sortable: true
                 },
@@ -626,12 +620,50 @@ var table_columns = {
                 },
                 {
                     title: '学校名称',
-                    key: 'name',
+                    key: 'school_name',
                     align: 'left',
                     width: 200,
                 },
                 {
                     title: '角色说明',
+                    key: 'description',
+                },
+            ];
+    },
+    func : function(){
+        return [
+                    {
+                    type: 'selection',
+                    width: 30,
+                    align: 'center'
+                },
+                {
+                    title : '#',
+                    key : 'id',
+                    width: 60,
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    title: '模块名称',
+                    key: 'name',
+                    align: 'left',
+                    width: 140,
+                },
+                {
+                    title: 'KEY',
+                    key: 'group_key',
+                    align: 'center',
+                    width: 120,
+                },
+                {
+                    title: '级别',
+                    key: 'menu_level',
+                    align: 'center',
+                    width: 40,
+                },
+                {
+                    title: '说明',
                     key: 'description',
                 },
             ];

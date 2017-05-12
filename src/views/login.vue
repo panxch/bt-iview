@@ -68,9 +68,16 @@
     			api.login(this.form.username,this.form.passwd,(result)=>{
                     result = JSON.parse(result);
     				if( result.id ){
+                        if(result.role_id != '0,999,0' && result.role_source_id.toString() != '2'){
+                            this.$Message.warning('登录失败,平台只限教务使用~');
+                            this.primary_text = '登录',this.loading = false;
+                            return;
+                        }
+
     					this.primary_text = '登录成功，正在跳转...';
 	    				setTimeout(()=>{
 	    					window.config.userinfo = result;
+                            window.config.userinfo.is_admin = result.role_id == '0,999,0' ? true : false;
                             window.config.userinfo.photo = window.config.userinfo.photo ? 
                                                            
                             (window.location.host == 'www.yishengya.cn' ?'http://www.yishengya.cn/' : 'http://localhost:9087/')

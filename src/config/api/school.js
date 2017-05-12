@@ -24,6 +24,6 @@ export default {
 	},
 	// 获取所有学校和校区的关系
 	get_school_district_union(func = null){
-		return __.get( get('school/school/get_school_district_union'),func );
+		return __.post( get('school/school/get_school_district_union'),func );
 	}
 }

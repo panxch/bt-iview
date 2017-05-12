@@ -9,12 +9,13 @@
                 <i-col :span="spanLeft" class="layout-menu-left" v-if="config.userinfo.id != null">
                     <bt_menu v-if="config.userinfo.id  != null " :config="config">
                          <Row>
-                            <Col span="14">&nbsp;</Col>
-                            <Col span="10">
-                                <i-button type="text" @click="toggleClick" class="menu-toggle">
-                                    <Icon type="chevron-left" size="15">afdasf</Icon>
-                                    收缩菜单
-                                </i-button>
+                            <Col>
+                                <div class="float_right">
+                                    <i-button type="text" @click="toggleClick" class="menu-toggle">
+                                        <Icon type="chevron-left" size="15">afdasf</Icon>
+                                        收缩菜单
+                                    </i-button>
+                                </div>
                             </Col>
                         </Row>
                     </bt_menu>
@@ -38,8 +39,8 @@
         data () {
             return {
                 config : window.config,
-                spanLeft : 3,
-                spanRight : 21,
+                spanLeft : window.config.spanLeft,
+                spanRight : 24 - window.config.spanLeft,
             }
         },
         methods: {
@@ -51,8 +52,8 @@
                     left.mouseover(function(){
                         left.unbind('mouseover');
                         left.removeClass('menu-open').animate({'left':'0px'});
-                        self.spanLeft = 3;
-                        self.spanRight = 21;
+                        self.spanLeft = window.config.spanLeft;
+                        self.spanRight = 24 - window.config.spanLeft;
                     })
                 },50)
                 this.spanLeft = 0;

@@ -2,7 +2,7 @@
    <div class="layout-main">
         <div class="layout-content">
             <Alert>学校管理
-                <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
+                <template slot="desc">学校信息的添加、修改、审核与删除</template>
             </Alert>
             <Row type="flex">
                 <i-col span="10"></i-col>
@@ -23,7 +23,7 @@
         <Row>
              <i-col>
                  <div style="float:right;">
-                     <Page :total="page_count" @on-change="handle_page_change" :page-size="20" :current="page_index"></Page>
+                     <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size" :current="page_index"></Page>
                  </div>
              </i-col>
         </Row>
@@ -78,8 +78,8 @@
         mounted(){
             __.loading();
             api.get_school((result)=>{
-                this.temp_table_data = result.data;
-                this.page_count = result.data.length;
+                this.temp_table_data = JSON.parse(result);
+                this.page_count = this.temp_table_data.length;
                 __.closeAll();
                 this.set_page(this.page_index);
           });

@@ -2,7 +2,7 @@
    <div class="layout-main">
         <div class="layout-content">
             <Alert>班级管理
-                <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
+                <template slot="desc">班级设置的添加、修改、删除</template>
             </Alert>
             <bt_school_filter ref="bt_school_filter" update_url="/class/update" import_url="/class/import" @selection="selection"></bt_school_filter>
         </div>
@@ -15,13 +15,14 @@
         <Row>
              <i-col>
                  <div style="float:right;">
-                     <Page :total="page_count" @on-change="handle_page_change" :page-size="20" :current="page_index"></Page>
+                     <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size" :current="page_index"></Page>
                  </div>
              </i-col>
         </Row>
     </div>
 </template>
 <script type="text/javascript">
+    import setting from '../../config/setting';
     import table_columns from '../../config/table_columns';
     import api_class from '../../config/api/class'
     import bt_school_filter from '../../components/public/bt_school_filter.vue'
@@ -33,6 +34,7 @@
                 selection : __.get_selection([]),
                 page_index : window.config.page_index,
                 page_count : window.config.page_count,
+                page_size : setting.get_page_size,
             }
         },
         created(){

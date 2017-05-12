@@ -3,9 +3,8 @@
          <Form :label-width="100" inline id="form">
             <div class="layout-content">
             <Row type="flex">
-                <Col span="20"></Col>
-                <Col span="1"></Col>
-                <Col span="3">
+                <Col span="18"></Col>
+                <Col span="6">
                     <div class="float_right">
                         <event_button @click="save" type="info" icon="checkmark-round">保存</event_button>
                         <back></back>

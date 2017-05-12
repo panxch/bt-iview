@@ -2,7 +2,7 @@
    <div class="layout-main">
         <div class="layout-content">
             <Alert>年级管理
-                <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
+                <template slot="desc">年级段设置的添加、修改、删除</template>
             </Alert>
             <bt_school_filter ref="bt_school_filter" add_url="/grade/add" update_url="/grade/update" @selection="selection"></bt_school_filter>
         </div>

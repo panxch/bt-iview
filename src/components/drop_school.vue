@@ -31,7 +31,7 @@
 		 mounted(){
             __.loading();
             api.get_school((result)=>{
-                this.school_list = result.data;
+                this.school_list = JSON.parse(result);
                 __.closeAll();
                 if(window.config.last_school){
 	            	this.school_list.unshift(window.config.last_school);

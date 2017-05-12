@@ -2,12 +2,11 @@
     <div class="layout-main">
         <div class="layout-content">
             <Alert>成绩管理
-                    <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案</template>
+                    <template slot="desc">成绩综合管理</template>
             </Alert>
             <Row type="flex">
                 <i-col span="20"></i-col>
-                <i-col span="1"></i-col>
-                <i-col span="3">
+                <i-col span="4">
                     <div class="float_right">
                         <event_button @click="go_import" type="success" icon="android-arrow-down">导入</event_button>
                     </div>
@@ -23,7 +22,7 @@
         <Row>
              <i-col>
                  <div style="float:right;">
-                     <Page :total="page_count" @on-change="handle_page_change" :page-size="20"></Page>
+                     <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size"></Page>
                  </div>
              </i-col>
         </Row>
@@ -41,6 +40,7 @@
                 table_data : [],
                 page_count : 0,
                 page_index : 1,
+                page_size : setting.get_page_size,
             }
         },
         created(){

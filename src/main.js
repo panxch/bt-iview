@@ -9,8 +9,9 @@ import 'iview/dist/styles/iview.css';
 import './libs/units';
 import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
+import './libs/plugs/marquee/scroll.js';
 import './styles/common.css'
-import VueValidator from './libs/plugs/validator.js'
+import VueValidator from './libs/plugs/validator/validator.js'
 
 window.$ = $;
 Vue.use(VueRouter);
@@ -40,6 +41,7 @@ router.afterEach((to, from, next) => {
     window.scrollTo(0, 0);
 });
 
+//log($(window).width())
 window.config = {
 	userinfo : { id : null },
     active : 'home',
@@ -48,11 +50,16 @@ window.config = {
     right_width : 20,
     // 下拉框中最后选择的一位学校
     last_school : null,
+    last_school_district : null,
     page_index : 1,
     page_count : 0,
+    spanLeft : 3,
 };
-document.title = Setting.title;
+//document.title = Setting.title;
 
+if($(window).width() <= 1024){
+    window.config.spanLeft = 4;
+}
 var vue = new Vue({
     el: '#app',
     router: router,

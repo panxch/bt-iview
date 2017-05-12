@@ -23,7 +23,9 @@ const routers = [
     {path: '/score/import',component: (resolve) => require(['../views/score/import.vue'], resolve)},
     {path: '/role',component: (resolve) => require(['../views/role/index.vue'], resolve)},
     {path: '/role/add',component: (resolve) => require(['../views/role/model.vue'], resolve)},
-    {path: '/role/update',component: (resolve) => require(['../views/role/model.vue'], resolve)}
+    {path: '/role/update',component: (resolve) => require(['../views/role/model.vue'], resolve)},
+    {path: '/func',component: (resolve) => require(['../views/func/index.vue'], resolve)},
+    {path: '/func/update',component: (resolve) => require(['../views/func/model.vue'], resolve)}
 ];
 
 export default routers;

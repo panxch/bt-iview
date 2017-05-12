@@ -15,13 +15,14 @@
         <Row>
              <i-col>
                  <div style="float:right;">
-                     <Page :total="page_count" @on-change="handle_page_change" :page-size="20" :current="page_index"></Page>
+                     <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size" :current="page_index"></Page>
                  </div>
              </i-col>
         </Row>
     </div>
 </template>
 <script type="text/javascript">
+    import setting from '../../config/setting';
     import table_columns from '../../config/table_columns';
     import api_role from '../../config/api/role'
     import bt_school_filter from '../../components/public/bt_school_filter.vue'
@@ -33,6 +34,7 @@
                 selection : __.get_selection([]),
                 page_index : window.config.page_index,
                 page_count : window.config.page_count,
+                page_size : setting.get_page_size,
             }
         },
         created(){

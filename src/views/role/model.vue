@@ -8,9 +8,8 @@
          <Form :label-width="80" inline id="form">
             <div class="layout-content">
             <Row type="flex">
-                <i-col span="20"></i-col>
-                <i-col span="1"></i-col>
-                <i-col span="3">
+                <i-col span="18"></i-col>
+                <i-col span="6">
                     <div class="float_right">
                         <event_button @click="save" type="info" load="true" icon="checkmark-round">保存</event_button>
                         <back></back>
@@ -41,6 +40,13 @@
                         <input placeholder="请输入..." class="ivu-input" v-model="info.name" name="name" v-bt-validator:rules="['required']" empty_err="角色名称">
                     </Form-item>
                 </i-col>
+            </Row>
+            <Row>
+                <Col class="col-my-width">
+                    <Form-item label="角色说明">
+                        <Input type="textarea" placeholder="请输入..." style="width:100%;" :value="info.description" name="description"></Input>
+                    </Form-item>
+                </Col>
             </Row>
             <div class="line"><h3>模块设置</h3></div>
             <Row type="flex">
@@ -77,7 +83,6 @@
         },
         created(){
             this._init();
-            this.tree_bind();
             window.config.active = 'role';
             window.config.active_name = '角色/功能管理';
         },
@@ -87,6 +92,8 @@
                 if(this.$route.query.hasOwnProperty('id')){
                     this.query = this.$route.query
                     this.update(this.query.id);
+                }else{
+                    this.tree_bind();
                 }
             },
             // 校区回调
@@ -100,43 +107,39 @@
                 api_role.get_role(id,result =>{
                     this.info = JSON.parse(result);
                     this.$refs.drop_school.set_value(this.info.school_id);
+                    this.tree_bind();
                 })
             },
             // 将已知选择的模块加入到选择项中
             tree_select : function(){
-                let funcs_id = this.info.funcs.func_id.split(',');
-                let _base = this.tree_data;
-                    ~function(tree_data){
-                        function get_parent(tree_data,_self){
-                            let p = _self;
-                            tree_data.forEach((c,i)=>{
-                                if(funcs_id.indexOf(c.id) > -1){
-                                    c.checked = true;
-                                    _self.checked = true;
-                                    let base = __.info(_base,'id',_self.menu_parent);
-                                    if(base){
-                                        base.checked = true;
-                                    }
-                                }
-                                if(c.children){
-                                    if(c.children.length > 0){
-                                        get_parent(c.children,c);
-                                    }
-                                }
-                            })
-                        }
-                        get_parent(tree_data,this);
-                    }.bind(this)(this.tree_data);
+            //     let funcs_id = this.info.funcs.func_id.split(',');
+            //     let _base = this.tree_data;
+            //         ~function(tree_data){
+            //             function get_parent(tree_data,_self){
+            //                 let p = _self;
+            //                 tree_data.forEach((c,i)=>{
+            //                     if(funcs_id.indexOf(c.id) > -1){
+            //                         c.checked = true;
+            //                         _self.checked = true;
+            //                         let base = __.info(_base,'id',_self.menu_parent);
+            //                         if(base){
+            //                             base.checked = true;
+            //                         }
+            //                     }
+            //                     if(c.children){
+            //                         if(c.children.length > 0){
+            //                             get_parent(c.children,c);
+            //                         }
+            //                     }
+            //                 })
+            //             }
+            //             get_parent(tree_data,this);
+            //         }.bind(this)(this.tree_data);
             },
             tree_bind : function(){
-                api_role.get_funcs(result =>{
+                api_role.get_funcs(this.info.funcs || null,result =>{
                     result = JSON.parse(result);
                     this.tree_data = result;
-                     if(this.info.funcs && 'func_id' in this.info.funcs){
-                        // 将已知选择的模块加入到选择项中
-                        this.tree_select();
-                        
-                    }
                 })
             },
             // 保存或更新

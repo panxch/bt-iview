@@ -9,7 +9,7 @@ var get = setting.get_api_setting;
 export default {
 	// 获取所有学校
 	get_school(func = null) {
-		return __.get( get('basics/base/get_school/'),func );
+		return __.post( get('basics/base/get_school/'),func );
 	},
 	// 返回当前用户所在学校的所有年级
 	get_grade(school_id,district_id = null,func = null) {

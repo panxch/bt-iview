@@ -1,8 +1,19 @@
+<style type="text/css">
+.list_lh{ height:30px; overflow:hidden;}
+.list_lh li p{ height:24px; line-height:24px;}
+
+
+</style>
 <template>
 	<div class="layout-header">
 		<Row>
 	        <Col span="16 padding-left">
-	        	通知：系统更新中...
+	        	<div class="list_lh">
+					<ul>
+						<li>通知：软件更新中...</li>
+						<li>通知：软件更新中...</li>
+					</ul>
+				</div>
 	        </Col>
 	        <Col span="8">
 	        	<div class="user-info margin-right">
@@ -29,9 +40,15 @@ export default {
 		logout : function(){
 			api.loginOut();
 			localStorage.removeItem('userinfo');
+			localStorage.removeItem('school_tags');
+			window.config.last_school = null;
 			window.config.userinfo.id = null;
 			__.go(this,'/login');
 		},
+	},
+	mounted(){
+		$('.list_lh li:even').addClass('lieven');
+		$("div.list_lh").myScroll({speed:40,rowHeight:68});
 	}
 }		
 </script>

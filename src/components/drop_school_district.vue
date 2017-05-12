@@ -22,7 +22,7 @@
 		 mounted(){
             __.loading();
             api.get_school_district_union((result)=>{
-                this.school_list = result.data;
+                this.school_list = JSON.parse(result);
                 __.closeAll();
             });
         },

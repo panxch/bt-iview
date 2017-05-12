@@ -35,10 +35,10 @@ module.exports = merge(webpackBaseConfig, {
                 warnings: false
             }
         }),
-        new HtmlWebpackPlugin({
-            filename: '../index_prod.html',
-            template: './src/template/index.ejs',
-            inject: false
-        })
+        // new HtmlWebpackPlugin({
+        //     filename: '../index_prod.html',
+        //     template: './src/template/index.ejs',
+        //     inject: false
+        // })
     ]
 });
