@@ -77,7 +77,9 @@ Array.prototype._join = function(filed){
         return result;
       },
       loading : function(_text = '数据加载中...'){
-        layer.open( {type: 2 ,content: _text,shadeClose:false,shade: 'background-color: rgba(0,0,0,.5)'} );
+        //layer.open( {type: 2 ,content: _text,shadeClose:false,shade: 'background-color: rgba(0,0,0,.5)'} );
+        let content = '<div class="loader"><div class="loader-inner square-spin"><div></div></div></div><br>加载中..';
+        layer.open({shadeClose : false,style: 'border:none; background:rgba(0,0,0,0);width:120px;',content:content})
       },
       msg : function(_text,_func){
         layer.closeAll();

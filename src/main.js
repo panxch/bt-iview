@@ -5,13 +5,15 @@ import Routers from './config/router';
 import Setting from './config/setting';
 import App from './app.vue';
 import $ from './libs/jquery-vendor';
+import VueValidator from './libs/plugs/validator/validator.js'
 import 'iview/dist/styles/iview.css';
 import './libs/units';
 import './libs/layer/layer.js'
 import './libs/layer/need/layer.css'
 import './libs/plugs/marquee/scroll.js';
 import './styles/common.css'
-import VueValidator from './libs/plugs/validator/validator.js'
+import './styles/loading/demo.css'
+import './styles/loading/loaders.css'
 
 window.$ = $;
 Vue.use(VueRouter);
@@ -54,6 +56,7 @@ window.config = {
     page_index : 1,
     page_count : 0,
     spanLeft : 3,
+    disabled : disabled,
 };
 //document.title = Setting.title;
 

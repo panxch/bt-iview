@@ -1,12 +1,13 @@
 <template>
-	 <Button :type="type" :icon="icon" @click="save" :loading="loading"><slot></slot></Button>
+	 <Button :type="type" :icon="icon" @click="save" :loading="loading" :disabled="disabled"><slot></slot></Button>
 </template>
 <script type="text/javascript">
 	export default {
 		props : ['icon','type','load'],
 		data : function(){
 			return {
-				loading : false
+				loading : false,
+				disabled : window.config.disabled,
 			}
 		},
 		methods : {
