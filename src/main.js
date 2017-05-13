@@ -62,14 +62,12 @@ window.config = {
 	userinfo : { id : null },
     active : 'home',
     active_name : '应用中心',
-    left_width : 4,
-    right_width : 20,
     // 下拉框中最后选择的一位学校
     last_school : null,
     last_school_district : null,
     page_index : 1,
     page_count : 0,
-    spanLeft : $(document).width() <= 1024 ? 4 : 3,
+    spanLeft : $(document).width() <= 1280 ? 4 : 3,
     disabled : disabled,
 };
 

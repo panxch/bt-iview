@@ -92,6 +92,7 @@
                             // 存储到本地
                             localStorage.userinfo = JSON.stringify(window.config.userinfo);
 	    					$('.wrapper .layout').css('background','#f5f7f9');
+                            $('body').css('background','none');
 	    					this.$router.push({ path: '/' });
 	    				},1000)
     				}else{
