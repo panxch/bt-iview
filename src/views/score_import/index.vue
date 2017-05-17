@@ -4,7 +4,7 @@
             <Alert>成绩管理
                     <template slot="desc">成绩综合管理</template>
             </Alert>
-           <bt_school_filter ref="bt_school_filter" import_url="/score/import" @selection="selection"></bt_school_filter>
+           <bt_school_filter ref="bt_school_filter" import_url="/score_import/import" @selection="selection"></bt_school_filter>
         </div>
         <Row>
              <i-col>
@@ -30,7 +30,7 @@
     export default {
         data(){
             return {
-                table_columns : table_columns.score,
+                table_columns : table_columns.score.call(this),
                 table_data : [],
                 page_count : 0,
                 page_index : 1,
@@ -39,7 +39,7 @@
             }
         },
         created(){
-            window.config.active = 'score';
+            window.config.active = 'score_import';
             window.config.active_name = '成绩上传管理';
         },
         methods :{
@@ -47,7 +47,7 @@
                 this.set_page(index);
             },
             go_import : function(){
-                __.go(this,'/score/import');
+                __.go(this,'/score_import/import');
             },
             set_page : function(index){
                 __.loading();
@@ -59,8 +59,17 @@
                         this.page_count = result.page_count;
                     }
                     __.closeAll();
-              });
-            }
+                });
+                __.bind_list_dblclick(this,'score_import/view');
+            },
+            column_render : function(row,column,index){
+                let exam_list = [{id:5,name :'1月考'},{id:7,name :'3月考'},{id:9,name :'5月考'},{id:1,name :'9月考'},{id:2,name :'10月考'},{id:4,name :'12月考'},{id:3,name :'期中考'},{id:6,name :'期末考'},{id:8,name :'期中考'},{id:10,name :'期末考'}];
+                let info = __.info(exam_list,'id',row.exam_type);
+                if(info){
+                    return info.name;
+                }
+                return '-';
+            },
         },
         mounted(){
            this.set_page(this.page_index);

@@ -128,7 +128,7 @@
         },
         created(){
             this._init();
-            window.config.active = 'score';
+            window.config.active = 'score_import';
             window.config.active_name = '成绩数据导入';
         },
         methods : {

@@ -27,7 +27,7 @@
                 <Menu-item name="student"><Icon type="person-stalker"></Icon>学生管理</Menu-item>
             </Menu-group>
             <Menu-group title="成绩">
-                <Menu-item name="score"><Icon type="android-clipboard"></Icon>成绩管理</Menu-item>
+                <Menu-item name="score_import"><Icon type="android-clipboard"></Icon>导入管理</Menu-item>
             </Menu-group>
         </Submenu>
         <Submenu name="2" v-if="is_admin">

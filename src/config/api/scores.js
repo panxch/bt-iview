@@ -16,6 +16,11 @@ export default {
 		array.page_size = setting.get_page_size
 		//return __.post( get('basics/role/get_role_by_school',array),func );
 		return __.post( get('scores/score/get_score_upload',array),func );
-	}
-	
+	},
+	// 获取某个上传成绩的所有学生成绩
+	get_student_score_list(array,func = null){
+		array.page_size = setting.get_page_size
+		//return __.post( get('basics/role/get_role_by_school',array),func );
+		return __.post( get('scores/score/get_student_score_list',array),func );
+	}	
 }

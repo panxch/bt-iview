@@ -16,8 +16,6 @@ import './libs/layer/need/layer.css'
 import './libs/plugs/marquee/scroll.js';
 // globla
 import './styles/common.css'
-// data loading ion
-import './styles/loading/loaders.css'
 // login backgound cloud
 import './libs/cloud/common.js';
 import './libs/cloud/style.css';

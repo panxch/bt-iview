@@ -45,7 +45,6 @@
         created(){
             window.config.active = 'student';
             window.config.active_name = '学生管理';
-            this.tags = JSON.parse(localStorage.school_tags);
         },
         methods :{
             column_render : function(row,column,index){
@@ -60,7 +59,7 @@
             // page change
             handle_page_change : function(index){
                 window.config.page_index = index;
-                this.set_page(index);
+                this.set_page(index);;
             },
             // checked change
             selection_change : function(selection){

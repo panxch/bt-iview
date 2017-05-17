@@ -149,7 +149,6 @@
                     entrance : this.info.entrance
                 };
                 this.msg_error = this.validator(this.$data,rules);
-                log(rules);
                 if(this.is_validator()){
                     api_grade.save(result =>{
                         result = JSON.parse(result)

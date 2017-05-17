@@ -260,7 +260,8 @@ var table_columns = {
                     }
                 ];
     },
-    score : [
+    score : function(){
+        return  [
                         {
                             type: 'selection',
                             width: 30,
@@ -302,13 +303,21 @@ var table_columns = {
                             align: 'center',
                         },
                         {
+                            title: '考试类型',
+                            width: 100,
+                            key: 'exam_type',
+                            align: 'center',
+                            render : this.column_render
+                        },
+                        {
                             title : '创建时间',
                             key : 'create_time',
                             width: 140,
                             align: 'center',
                             sortable: true
                         }
-                ],
+                ];
+    },
     score_import : function(){
         return [
                     {
@@ -398,6 +407,25 @@ var table_columns = {
                         width: 70,
                         align : 'center'
                     }
+                ];
+    },
+    score_view : function(){
+        return [
+                    {
+                        type: 'index',
+                        width: 70,
+                        align: 'center'
+                    },
+                    {
+                        title : '姓名',
+                        key : 'name',
+                        width: 140,
+                        render : this.column_render
+                    },
+                    {
+                        title: '成绩',
+                        key : 'tip',
+                    },
                 ];
     },
     class : function(){

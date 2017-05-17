@@ -1,4 +1,5 @@
 import axios from 'axios'
+import '../styles/loading/loaders.css'
 /**
  * @author brandon fang (Q:1206144309)
  * @dateTime 2017-02-28T17:32:10+0800

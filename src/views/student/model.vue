@@ -159,7 +159,6 @@
             },
             // 校区回调
             handle_school_district_change : function(value){
-                //log(this.$refs.grade_class.$children[0].toggleOpen())
                 this.$refs.grade_class.$children[0].toggleOpen();
                 this.class_bind(value[0],value[1]);
                 this.student_info.school_id = value[0];

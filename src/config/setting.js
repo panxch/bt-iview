@@ -18,7 +18,6 @@ export default {
 		let school_id = window.config.userinfo.school_id;
 		let pass_route = ['school/school/get_school_district_union','basics/base/get_school/'];
 		if(role_id != '0,999,0' && pass_route.indexOf(url) > -1){
-			log(data)
 			if(Object.prototype.toString.call(data) == '[object String]'){
 				data += '&safe_school_id=' + school_id;
 			}

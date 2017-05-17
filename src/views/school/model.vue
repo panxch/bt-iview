@@ -170,7 +170,6 @@
                     let info = { campus_name : this.school_district_name,official : this.school_district_official,tel : this.school_district_tel};
                     this.school_district_list.push(info);
                     this.school_district_name = this.school_district_official = this.school_district_tel = null;
-                    log(this.school_district_list)
                 }
             },
         },
