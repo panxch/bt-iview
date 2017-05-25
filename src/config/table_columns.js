@@ -52,7 +52,7 @@ var table_columns = {
                 },
                 {
                     title : '#',
-                    key : 'tid',
+                    key : 'id',
                     width: 60,
                     align: 'center',
                 },
@@ -61,13 +61,13 @@ var table_columns = {
                     key: 'student_name',
                     sortable: true,
                     align: 'center',
-                    width:90,
+                    width:120,
                 },
                 {
                     title: '登陆用户名',
                     key: 'username',
                     align : 'center',
-                    width: 120,
+                    width: 140,
                     sortable: true
                 },
                 {
@@ -80,7 +80,7 @@ var table_columns = {
                     title: '班级',
                     key: 'class_name',
                     align: 'center',
-                    width:80,
+                    width:160,
                 },
                 {
                     title: '是否毕业',

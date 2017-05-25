@@ -1,4 +1,3 @@
-</style>
 <style scoped>
     @import 'styles/common.css';
 </style>
