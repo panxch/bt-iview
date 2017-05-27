@@ -493,7 +493,7 @@ var table_columns = {
                     width: 60,
                     align: 'center',
                     sortable: true,
-                    render : this.column_render
+                    //render : this.column_render
                 },
                 {
                     title: '课程码',

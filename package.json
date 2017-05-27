@@ -18,6 +18,11 @@
     "vue": "^2.2.6",
     "vue-router": "^2.2.1"
   },
+  "browser": {
+    "net": false,
+    "fs": false,
+    "child_process":false
+  },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
     "babel": "^6.23.0",

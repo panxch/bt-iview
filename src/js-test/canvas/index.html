@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        html,body{margin:0;padding:0;}
+        div{width:1800px;height:900px;margin:auto;border:1px solid #ccc}
+    </style>
+</head>
+<body>
+    <div>
+        <canvas id="myCanvas" width="1800px" height="900px">
+    </div>
+</body>
+</html>
+
+<script>
+    function log(val){
+        console.log(val);
+    }
+
+    var options = {
+        width : 1800,
+        height : 900,
+    }
+    var Ctx = function(){
+        ctx = document.getElementById("myCanvas").getContext("2d");
+        this.init();
+    };
+    var p = Ctx.prototype;
+    p.init = function(){
+        // ctx.beginPath();
+        // ctx.arc(95,50,40,0,2*Math.PI);
+        // ctx.stroke();
+        this.time();
+    }
+
+    p.time = function(){
+        let _w = 150;
+        setInterval(()=>{
+            ctx.fillStyle="black";
+        ctx.fillRect(20,20,25,25);
+        
+        
+        ctx.setTransform(1,0,0,1,0,0);
+        var angleInRadians = 45 * Math.PI / 180;
+        var x = 100;
+        var y = 100;
+        var width = 50;
+        var height = 50;
+        ctx.translate(x+.5*width,y+.5*height);
+        ctx.rotate(angleInRadians);
+        ctx.fillStyle="red";
+        ctx.fillRect(-.5*width,-.5*height,width,height);
+
+
+        },100);
+    }
+
+    p.react = function(_w = 150,_h = 30){
+        return [
+                (options.width - _w)/2,
+                (options.height - _h)/2
+            ];
+    }
+
+    new Ctx();
+</script>

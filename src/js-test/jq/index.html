@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .add{color:#ff0000;}
+    </style>
+</head>
+<body>
+    <input type="text" id="input"><button id="button">Button</button>
+    <h2 id="jq" class="jq">这里是H2标记</h2>
+    <p id="p" class="add">这里是一段长文本</p>
+    <script src="jq.js"></script>
+
+    <script>
+        var btn = document.getElementById('button');
+        btn.addEventListener('click',function(){
+            _('input').val("OK");
+            _('button').text("Update");
+            _("#jq").color('#ccc').text("Hello Worlds");
+        });
+    </script>
+</body>
+</html>

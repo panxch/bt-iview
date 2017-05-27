@@ -22,6 +22,6 @@ module.exports = merge(webpackBaseConfig, {
             drop_debugger: true,
             drop_console: true
           }
-        })
+        }),
     ]
 });

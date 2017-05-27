@@ -260,7 +260,7 @@
             },
         },
         mounted(){
-            $(document.body).unbind('paste');
+            
         },
         components : { back ,event_button,drop_school_district },
     }

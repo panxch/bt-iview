@@ -19,6 +19,8 @@ import './styles/common.css'
 // login backgound cloud
 import './libs/cloud/common.js';
 import './libs/cloud/style.css';
+// 自己的模块
+import 'bt-utils';
 
 Vue.use(VueRouter);
 Vue.use(iView);

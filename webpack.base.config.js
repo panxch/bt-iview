@@ -10,6 +10,10 @@ module.exports = {
     output: {
         path: path.join(__dirname, './dist')
     },
+    node: {
+        fs: 'empty',
+        child_process: 'empty'
+    },
     module: {
         rules: [
             {

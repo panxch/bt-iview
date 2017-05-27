@@ -200,7 +200,6 @@
         computed : {
         },
         mounted(){
-            $(document.body).unbind('paste');
         },
         components : { back,drop_school_district,drop_grade_class,event_button },
     }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        name = 'window';
+        var log = function(val){
+            console.log(val);
+        }
+        var get_name = function(val){
+            this.get();
+            log(`这里是形参${val}`);
+        }
+        var local = function(){
+            this.name = 'local';
+        };
+        local.get = function(){
+            log('function get');
+        };
+        get_name.apply(local,['ts']);
+
+        function s(x){
+            var _x = x;
+            var add = function(){
+                log(_x ++);
+            }
+            return add;
+        }
+
+        var result = s(1);
+        result();
+        result();
+        result();
+
+        var result2 = s(10);
+        result2();
+        result2();
+        result2();
+
+        var name = "全局对象名字";
+        var obj = {
+            "name": "我的花名改为云溪了，就是为了好玩",
+            getName: function(){
+                console.log(this.name); // 全局对象名字
+            }
+        };
+        var yunxi = obj.getName; 
+        yunxi();
+        obj.getName();
+
+
+        var obj = [1,2,3,4];
+
+        var obj2 = obj.sli()
+        obj2[0] = 100;
+
+        log(obj);
+        log(obj2);
+    </script>
+</body>
+</html>
