@@ -4,11 +4,11 @@
             <Alert>成绩管理
                     <template slot="desc">成绩综合管理</template>
             </Alert>
-           <bt_school_filter ref="bt_school_filter" import_url="/score_import/import" @selection="selection"></bt_school_filter>
+           <bt_school_filter ref="bt_school_filter" import_url="/score_import/import" update_url="/score_import/view" @selection="selection"></bt_school_filter>
         </div>
         <Row>
              <i-col>
-                 <Table border highlight-row :columns="table_columns" :data="table_data" stripe></Table>
+                 <Table border highlight-row :columns="table_columns" :data="table_data" stripe @on-selection-change="selection_change"></Table>
              </i-col>
         </Row>
         <div class="space"></div>
@@ -48,6 +48,17 @@
             },
             go_import : function(){
                 __.go(this,'/score_import/import');
+            },
+            go_update : function(){
+                let info = __.get_list_update_check(this.selection);
+                if(! info.pass){
+                    this.$Message.error(info.error);
+                    return;
+                }
+                __.go(this,'score_import/view',{id : info.ids });
+            },
+            selection_change : function(selection){
+                this.selection = __.get_selection(selection);
             },
             set_page : function(index){
                 __.loading();

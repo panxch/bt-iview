@@ -67,7 +67,6 @@
                 this.set_page(index);
             },
             column_render : function(row,column,index){
-                bt.log(column.row.study_section);
                 // 授课方式
                 if(row.teaching_method == 'onLine')
                     this.table_data[index].teaching_method = '线上';
@@ -84,11 +83,11 @@
                 else if(row.assessment_method == 'other')
                     this.table_data[index].assessment_method = '其他';
                 //学期
-                if(column.row.study_section == '02')
+                if(row.study_section == '02')
                     this.table_data[index].study_section = '上学期';
-                else if(column.row.study_section == '01')
+                else if(row.study_section == '01')
                     this.table_data[index].study_section = '下学期';
-                return `<span>${column.row.id}</span>`;
+                return `<span>${row.id}</span>`;
             },
         },
         mounted(){
