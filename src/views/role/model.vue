@@ -32,7 +32,7 @@
                     </Form-item>
                     <Form-item label="角色类别">
                         <Select placeholder="老师、学生、教务？" style="width:200px" v-model="info.type">
-                            <Option :value="info.value" :label="info.label" v-for="info in type_list">
+                            <Option :value="info.value" :label="info.label" v-for="info in type_list" :key="info.value">
                             </Option>
                         </Select>
                     </Form-item>

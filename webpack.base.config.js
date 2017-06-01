@@ -4,11 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: './src/main',
-        // vendors: './src/config/vendors'
-    },
-    output: {
-        path: path.join(__dirname, './dist')
+        app: './src/main',
+        vendors : './src/libs/jquery-2.0.3'
     },
     node: {
         fs: 'empty',

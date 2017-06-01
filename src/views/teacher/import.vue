@@ -12,7 +12,7 @@
                         <drop_school @handle_school_change="handle_school_change"></drop_school>
                         <Form-item label="角色">
                             <Select placeholder="请选择" style="width:200px" v-model="role_value">
-                                <Option :value="info.id" v-for="info in role_list">{{info.name}}</Option>
+                                <Option :value="info.id" v-for="info in role_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                     </Form>

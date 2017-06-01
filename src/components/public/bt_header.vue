@@ -27,8 +27,8 @@
 </template>
 
 <script type="text/javascript">
-import api from '../../config/api/login'
-import $ from '../../libs/jquery-vendor';
+import api from '../../config/api/login';
+
 export default {
 	name: 'bt_header',
 	data () {

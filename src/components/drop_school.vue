@@ -1,6 +1,6 @@
 <template>
 		<Select placeholder="请选择" v-model="value" style="width:200px" @on-change="school_change" filterable>
-            <Option :value="info.id" :label="info.name" v-for="info in school_list">
+            <Option :key="info.id" :value="info.id" :label="info.name" v-for="info in school_list">
 	            <span>{{info.name}}</span>
 	            <span style="float:right;color:#ccc">#{{info.id}}</span>
 	        </Option>

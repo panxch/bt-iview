@@ -4,7 +4,6 @@ import VueRouter from 'vue-router';
 import Routers from './config/router';
 import Setting from './config/setting';
 import App from './app.vue';
-import $ from './libs/jquery-vendor';
 import VueValidator from './libs/plugs/validator/validator.js'
 import 'iview/dist/styles/iview.css';
 // js tools

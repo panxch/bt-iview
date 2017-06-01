@@ -20,17 +20,17 @@
                     <Form :label-width="80" inline>
                         <Form-item label="入学年份">
                             <Select placeholder="请选择" style="width:200px" @on-change="do_grade_select">
-                                <Option :value="info.name" v-for="info in grade_list">{{info.name}}</Option>
+                                <Option :value="info.name" v-for="info in grade_list" :key="info.name">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                         <Form-item label="所在年级">
                             <Select placeholder="请选择" style="width:200px" :clearable="true" @on-change="do_grade_nianji_select" v-model="m_grade_value" name="grade_value" v-bt-validator:rules="['required']" empty_err="所在年级">
-                                <Option :value="info.id" v-for="info in grade_nianji_list">{{info.name}}</Option>
+                                <Option :value="info.id" v-for="info in grade_nianji_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                         <Form-item label="所在学期">
                             <Select placeholder="请选择" style="width:200px" v-model="m_semester_value" name="semester_value" v-bt-validator:rules="['required']" empty_err="所在学期">
-                                <Option :value="info.id" v-for="info in semester_list">{{info.name}}</Option>
+                                <Option :value="info.id" v-for="info in semester_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                     </Form>
@@ -41,7 +41,7 @@
                     <Form :label-width="80" inline>
                         <Form-item label="考试类型">
                             <Select placeholder="请选择" style="width:200px" v-model="m_exam_value" name="exam_value" empty_err="考试类型" v-bt-validator:rules="['required']">
-                                <Option :value="info.id" v-for="info in exam_type_list">{{info.name}}</Option>
+                                <Option :value="info.id" v-for="info in exam_type_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                         <Form-item label="考试时间">
@@ -49,7 +49,7 @@
                         </Form-item>
                         <Form-item label="班级类型">
                             <Select placeholder="请选择" style="width:200px" v-model="m_class_value" name="class_value" empty_err="班级类型" v-bt-validator:rules="['required']">
-                                <Option :value="info.id" v-for="info in class_type_list">{{info.name}}</Option>
+                                <Option :value="info.id" v-for="info in class_type_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                     </Form>

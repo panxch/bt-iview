@@ -27,7 +27,7 @@
                     </Form-item>
                     <Form-item label="学校类别">
                         <Select class="ivu-select-options" name="school_type" v-model="school_info.school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
-                            <Option :value="info.id" v-for="info in school_type_list">{{info.name}}</Option>
+                            <Option :value="info.id" v-for="info in school_type_list" :key="info.id">{{info.name}}</Option>
                         </Select>
                     </Form-item>
                     <Form-item label="所在地区">
@@ -133,9 +133,10 @@
             update : function(id){
                 api_school.get_school_by_id(id,(result)=>{
                     let info = result.data;
+                    bt.log(info);
                     this.school_info = info;
                     this.school_info.school_type = parseInt(info.school_type);
-                    if(this.school_info.location.split(',').length == 1){
+                    if(this.school_info.location && this.school_info.location.split(',').length == 1){
                         this.school_info.location = ['',this.school_info.location];
                     }else{
                         this.school_info.location = ['',''];

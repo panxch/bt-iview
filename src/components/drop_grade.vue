@@ -1,6 +1,6 @@
 <template>
 		<Select placeholder="请选择" style="width:200px" @on-change="grade_change" filterable v-model="value">
-            <Option :value="info.id" :label="info.name + '/' + info.grade_name" v-for="info in grade_list">
+            <Option  :key="info.id" :value="info.id" :label="info.name + '/' + info.grade_name" v-for="info in grade_list">
 	        </Option>
         </Select>
 </template>

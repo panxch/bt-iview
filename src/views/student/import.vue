@@ -17,7 +17,7 @@
                         </Form-item>
                         <Form-item label="角色">
                             <Select placeholder="请选择" style="width:200px" v-model="info.role_id" name="role_id" v-bt-validator:rules="['required']" empty_err="角色">
-                                <Option :value="info.id" v-for="info in role_list">{{info.name}}</Option>
+                                <Option :value="info.id" v-for="info in role_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
                     </Form>

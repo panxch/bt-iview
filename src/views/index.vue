@@ -8,13 +8,6 @@
     </div>
 </template>
 <script type="text/javascript">
-    var fn = function () {
-            this.x = 99;
-        };
-    var f = new fn();
-    f.x = 100;
-    log(f)
-    log(new fn)
     export default {
         data(){
             return {
