@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
@@ -9,7 +10,8 @@ module.exports = merge(webpackBaseConfig, {
     output: {
         publicPath: '/dist/',
         filename: '[name].js',
-        chunkFilename: '[name].chunk.js'
+        chunkFilename: '[name].chunk.js',
+        path: '/dist/'
     },
     plugins: [
         new ExtractTextPlugin({

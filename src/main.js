@@ -24,7 +24,6 @@ import 'bt-utils';
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.use(VueValidator);
-
 // routs setting
 const RouterConfig = {
     routes: Routers

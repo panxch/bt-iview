@@ -456,7 +456,7 @@ var table_columns = {
                 },
                 {
                     title: '班主任',
-                    key: 'teachers',
+                    key: 'tname',
                     width: 140,
                     align: 'center',
                     render : this.column_render
