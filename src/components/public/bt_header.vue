@@ -8,12 +8,12 @@
 <template>
 	<div class="layout-header">
 		<Row>
-			<Col span="4">
+			<Col span="3">
 				<div class="layout-logo-left margin-remove">
 					<img src="/public/vue/dist/logo.png" class="logo">
 				</div>
 			</Col>
-	        <Col span="14" class="padding-left">
+	        <Col span="15" class="padding-left">
 	        	<!--<div class="list_lh">
 					<ul>
 						<li>通知：软件更新中...</li>
@@ -21,9 +21,14 @@
 					</ul>
 				</div>-->
 				<Menu mode="horizontal" theme="primary" active-name="1">
+					<Menu-item name="kzt">
+						<a href="start.html">
+						<Icon type="social-windows"></Icon>
+						控制台</a>
+					</Menu-item>
 					<Menu-item name="1">
 						<Icon type="ios-paper"></Icon>
-						内容管理
+						基础数据
 					</Menu-item>
 					<Menu-item name="2">
 						<Icon type="ios-people"></Icon>

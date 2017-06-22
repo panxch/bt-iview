@@ -93,7 +93,8 @@
                             localStorage.userinfo = JSON.stringify(window.config.userinfo);
 	    					$('.wrapper .layout').css('background','#f5f7f9');
                             $('body').css('background','none');
-	    					this.$router.push({ path: '/' });
+	    					//this.$router.push({ path: '/' });
+                            bt.https.go('/start.html');
 	    				},1000)
     				}else{
     					this.primary_text = '登录',this.loading = false;

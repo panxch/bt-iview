@@ -88,12 +88,6 @@ ol {
         color:#fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
-.wrapper .layout-logo-left{
-        width: 90%;
-        height: 30px;
-        border-radius: 3px;
-        /*margin: 15px auto;*/
-    }
 .wrapper .layout-header .ivu-row .ivu-col{height: 50px;line-height: 50px;}    
 .wrapper .layout-header .ivu-row .ivu-col .face{width:40px;height:40px;border-radius: 40px;margin-top:5px;float:left;border: 1px solid #ccc;}
 .wrapper .layout-header .ivu-row .ivu-col h3{text-align: left;float:left;}
@@ -103,7 +97,7 @@ ol {
 .ivu-menu-dark{background: none;}
 .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title{color:#fff;}
 .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):hover, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu):hover{background:#fff; }
-.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover{background: #2086bf;}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover{background: #fff;color:#000;}
 .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu){border-right: 0px;color:#212121;}
 .ivu-menu-primary.ivu-menu-horizontal .ivu-menu-item-active, .ivu-menu-primary.ivu-menu-horizontal .ivu-menu-item:hover, .ivu-menu-primary.ivu-menu-horizontal .ivu-menu-submenu-active, .ivu-menu-primary.ivu-menu-horizontal .ivu-menu-submenu:hover{background: #005696;}
 .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-group-title{display: none;}
@@ -113,3 +107,4 @@ ol {
 .wrapper .sys-msg li.ivu-menu-item{padding:0 20px;}
 
 .wrapper .sys-msg .ivu-menu-item>i{width:20px;font-size: 20px;}
+.ivu-btn-text:hover{color:#fff;}
