@@ -4,6 +4,9 @@
 <template>
     <div class="wrapper">
        <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+           <div class="sys-msg">
+               <bt_header v-if="config.userinfo.id  != null "></bt_header>
+           </div>
             <Row type="flex">
                 <i-col :span="spanLeft" class="layout-menu-left" v-if="config.userinfo.id != null">
                     <bt_menu v-if="config.userinfo.id  != null " :config="config">
@@ -20,7 +23,6 @@
                     </bt_menu>
                 </i-col>
                 <i-col :span="spanRight">
-                    <bt_header v-if="config.userinfo.id  != null "></bt_header>
                     <bt_breadcrumb v-if="config.userinfo.id  != null " :config="config"></bt_breadcrumb>
                     <div class="layout-box">
                         <router-view></router-view>
