@@ -34,7 +34,6 @@
 <script type="text/javascript">
     import api from '../config/api/login'
     import setting from '../config/setting';
-
     export default {
     	data(){
     		return {
@@ -91,11 +90,12 @@
                                                             + window.config.userinfo.photo : '/public/vue/dist/face.jpg';
                             // 存储到本地
                             localStorage.userinfo = JSON.stringify(window.config.userinfo);
-	    					$('.wrapper .layout').css('background','#f5f7f9');
-                            $('body').css('background','none');
+	    					// $('.wrapper .layout').css('background','#f5f7f9');
+                            // $('body').css('background','none');
 	    					//this.$router.push({ path: '/' });
+                            bt.cookie.set('id',result.id);
                             bt.https.go('/start.html');
-	    				},1000)
+	    				},0)
     				}else{
     					this.primary_text = '登录',this.loading = false;
     					this.$Message.warning('登录用户名或密码错误，请重新输入');

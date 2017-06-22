@@ -83,7 +83,8 @@ export default {
 			localStorage.removeItem('school_tags');
 			window.config.last_school = null;
 			window.config.userinfo.id = null;
-			location.href = '/'
+			bt.cookie.remove('id');
+			bt.https.go('/');
 		},
 	},
 	mounted(){

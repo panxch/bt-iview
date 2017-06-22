@@ -21,6 +21,8 @@ import './libs/cloud/style.css';
 // 自己的模块
 import 'bt-utils';
 
+//bt.log(bt);
+
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.use(VueValidator);

@@ -56,6 +56,9 @@
     </style>
 
     <script>
+        if(bt.cookie.get('id') == undefined){
+            bt.https.go('/');
+        }
         /*
          * Do not use this is a google analytics fro Metro UI CSS
          * */
@@ -254,7 +257,7 @@
     </div>
 
     <div class="tile-area tile-area-scheme-dark fg-white" style="height: 100%; max-height: 100% !important;margin:auto;position: relative;">
-        <h1 class="tile-area-title"><a href="index.html">Start</a></h1>
+        <h1 class="tile-area-title"><a href="/">Start</a></h1>
         <div class="tile-group double">
             <span class="tile-group-title">天气</span>
 
@@ -412,8 +415,5 @@
             </div>
         </div>
     </div>
-    <script>
-        bt.log("OK");
-    </script>
 </body>
 </html>
