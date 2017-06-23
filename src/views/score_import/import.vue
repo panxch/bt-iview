@@ -73,7 +73,7 @@
                             <i-col span="5">
                                 <div class="float_right">
                                     <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
-                                    <Button type="success" @click="import_paset" :disabled="table_data.length == 0">导入</Button>
+                                    <Button type="success" @click="import_paset" :disabled="table_data.length == 0" :loading="loading">{{primary_text}}</Button>
                                     <back></back>
                                 </div>
                             </i-col>
@@ -123,6 +123,8 @@
                 m_time_value : '',
                 year_value : '',
                 m_grade_value : '',
+                primary_text : '导入',
+                loading : false,
                 table_height : $(window).height() - 400,
             }
         },
@@ -145,6 +147,8 @@
             // 导入成功后
             import_success : function(){
                 __.go_success(this);
+                this.primary_text = '导入';
+                this.loading = false;
             },
             // 数据导入
             import_paset : function(){
@@ -161,6 +165,8 @@
                         grade_id : this.grade_id,
                         year : this.year_value
                     };
+                    this.primary_text = '导入中...';
+                    this.loading = true;
                     api_scores.do_import_score_upload_paset(param,(result)=>{
                         this.import_success();
                     })
@@ -203,6 +209,7 @@
             handle_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
+                bt.log(result);
                 if(result.length > 0){
                     this.msg_error = '';
                     this.table_data = result;
@@ -264,9 +271,9 @@
                     if(c.name == row.class){
                         pass_class = true;
                         this.table_data[index].class_code = c.id;
-                        return false;
+                        return true;
                     }
-                })
+                });
                 if(! pass_class){
                     this.msg_error += '<br>学号' + row.student_no + '班级验证失败';
                 }

@@ -23,7 +23,7 @@ span.red{color:#ff0000;padding-left:3px;width:2px;display:inline-block;}
 .menu-toggle span{font-size:14px;}
 .wrapper .ivu-icon-chevron-left:before{color:#fff;}
 .wrapper .ivu-table-cell{padding-left: 5px;padding-right: 5px;word-break:normal;}
-// .wrapper table th{text-align: center;}
+/*// .wrapper table th{text-align: center;}*/
 ol {
     display: block;
     list-style-type: decimal;
@@ -47,7 +47,7 @@ ol {
 .layout-main .ivu-row-flex h4{line-height:20px};
 
 /*登陆*/
-.wrapper .login{width:350px;margin-top:20%;position: absolute;left:45%;}
+.wrapper .login{width:350px;margin-top:12%;position: absolute;left:45%;}
 .wrapper .login .ivu-card{border-radius: 5px;}
 .wrapper .login .ivu-card-head{background: #3091f2;border-radius: 5px 5px 0 0;}
 .wrapper .login .ivu-card-head p{color:#fff;}
