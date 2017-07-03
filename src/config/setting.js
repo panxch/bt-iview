@@ -27,4 +27,20 @@ export default {
 		}
 		return { url : api_url + ''+ (!dist ? 'index' : 'api') +'.php/' + url ,data : data };
 	},
+	get_menu : 
+		{
+			base : [
+				{name : '年级管理',key : 'grade',icon : 'cube'},
+				{name : '课程管理',key : 'course',icon : 'compose'},
+				{name : '行政班级',key : 'class',icon : 'bookmark'},
+				{name : '教师管理',key : 'teacher',icon : 'person'},
+				{name : '学生管理',key : 'student',icon : 'person-stalker'},
+				{name : '导入管理',key : 'score_import',icon : 'android-clipboard'}
+			],
+			setting : [
+				{name : '学校管理',key : 'school',icon : 'ios-home'},
+				{name : '角色管理',key : 'role',icon : 'ios-people'},
+				{name : '模块管理',key : 'func',icon : 'settings'}
+			],
+		}
 };

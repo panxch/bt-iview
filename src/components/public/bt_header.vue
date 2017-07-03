@@ -20,19 +20,10 @@
 						<li>通知：软件更新中...</li>
 					</ul>
 				</div>-->
-				<Menu mode="horizontal" theme="primary" active-name="1">
-					<Menu-item name="kzt">
-						<a href="start.html">
-						<Icon type="social-windows"></Icon>
-						控制台</a>
-					</Menu-item>
-					<Menu-item name="1">
+				<Menu mode="horizontal" theme="primary" active-name="base" @on-select="handleSelect">
+					<Menu-item name="base">
 						<Icon type="ios-paper"></Icon>
 						基础数据
-					</Menu-item>
-					<Menu-item name="2">
-						<Icon type="ios-people"></Icon>
-						用户管理
 					</Menu-item>
 					<Submenu name="3">
 						<template slot="title">
@@ -49,7 +40,7 @@
 							<Menu-item name="3-5">流失用户</Menu-item>
 						</Menu-group>
 					</Submenu>
-					<Menu-item name="4">
+					<Menu-item name="setting" v-if="is_admin">
 						<Icon type="settings"></Icon>
 						综合设置
 					</Menu-item>
@@ -68,12 +59,14 @@
 
 <script type="text/javascript">
 import api from '../../config/api/login';
+import setting from '../../config/setting';
 
 export default {
 	name: 'bt_header',
 	data () {
 		return { 
-			userInfo : window.config.userinfo
+			userInfo : window.config.userinfo,
+			is_admin :  window.config.userinfo.is_admin
 		}
 	},
 	methods : {
@@ -83,14 +76,16 @@ export default {
 			localStorage.removeItem('school_tags');
 			window.config.last_school = null;
 			window.config.userinfo.id = null;
-			bt.cookie.remove('id');
 			bt.https.go('/');
 		},
+		handleSelect(name){
+			window.config.menu = setting.get_menu[ name ];
+		}
 	},
 	mounted(){
 		// 消息通知
-		$('.list_lh li:even').addClass('lieven');
-		$("div.list_lh").myScroll({speed:40,rowHeight:68});
+		// $('.list_lh li:even').addClass('lieven');
+		// $("div.list_lh").myScroll({speed:40,rowHeight:68});
 	}
 }		
 </script>

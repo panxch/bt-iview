@@ -5,7 +5,7 @@
     <div class="wrapper">
        <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
            <div class="sys-msg">
-               <bt_header v-if="config.userinfo.id  != null "></bt_header>
+               <bt_header v-if="config.userinfo.id  != null " :config="config"></bt_header>
            </div>
             <Row type="flex">
                 <i-col :span="spanLeft" class="layout-menu-left" v-if="config.userinfo.id != null">

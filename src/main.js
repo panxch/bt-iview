@@ -54,18 +54,19 @@ Setting.get_page_size = function(_w){
     else if(_w > 800)
         return 15;
     return 10;
-}($(document).height());
+}(bt.window.height);
 // 基础全局配置项
 window.config = {
 	userinfo : { id : null },
     active : 'home',
+    menu : Setting.get_menu.base,
     active_name : '应用中心',
     // 下拉框中最后选择的一位学校
     last_school : null,
     last_school_district : null,
     page_index : 1,
     page_count : 0,
-    spanLeft : $(document).width() <= 1280 ? 4 : 3,
+    spanLeft : bt.window.width <= 1280 ? 4 : 3,
     disabled : disabled,
 };
 

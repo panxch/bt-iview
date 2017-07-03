@@ -90,11 +90,9 @@
                                                             + window.config.userinfo.photo : '/public/vue/dist/face.jpg';
                             // 存储到本地
                             localStorage.userinfo = JSON.stringify(window.config.userinfo);
-	    					// $('.wrapper .layout').css('background','#f5f7f9');
-                            // $('body').css('background','none');
-	    					//this.$router.push({ path: '/' });
-                            bt.cookie.set('id',result.id);
-                            bt.https.go('/start.html');
+	    					$('.wrapper .layout').css('background','#f5f7f9');
+                            $('body').css('background','none');
+	    					__.go(this,'/');
 	    				},0)
     				}else{
     					this.primary_text = '登录',this.loading = false;
