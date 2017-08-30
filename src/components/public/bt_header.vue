@@ -25,21 +25,6 @@
 						<Icon type="ios-paper"></Icon>
 						基础数据
 					</Menu-item>
-					<Submenu name="3">
-						<template slot="title">
-							<Icon type="stats-bars"></Icon>
-							统计分析
-						</template>
-						<Menu-group title="使用">
-							<Menu-item name="3-1">新增和启动</Menu-item>
-							<Menu-item name="3-2">活跃分析</Menu-item>
-							<Menu-item name="3-3">时段分析</Menu-item>
-						</Menu-group>
-						<Menu-group title="留存">
-							<Menu-item name="3-4">用户留存</Menu-item>
-							<Menu-item name="3-5">流失用户</Menu-item>
-						</Menu-group>
-					</Submenu>
 					<Menu-item name="setting" v-if="is_admin">
 						<Icon type="settings"></Icon>
 						综合设置
@@ -80,6 +65,9 @@ export default {
 		},
 		handleSelect(name){
 			window.config.menu = setting.get_menu[ name ];
+			setTimeout(function() {
+				$('.ivu-menu-item-group ul li:first').click();
+			}, 200);
 		}
 	},
 	mounted(){

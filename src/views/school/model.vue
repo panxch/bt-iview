@@ -1,3 +1,7 @@
+<style>
+.school_logo{width:30px;height:30px;}
+</style>
+
 <template>   
     <div class="layout-main">
          <Form :label-width="80" inline id="form">
@@ -25,11 +29,6 @@
                     <Form-item label="学校名称">
                         <input placeholder="请输入..." class="ivu-input" v-model="school_info.name" name="name" v-bt-validator:rules="['required']" empty_err="学校名称">
                     </Form-item>
-                    <Form-item label="学校类别">
-                        <Select class="ivu-select-options" name="school_type" v-model="school_info.school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
-                            <Option :value="info.id" v-for="info in school_type_list" :key="info.id">{{info.name}}</Option>
-                        </Select>
-                    </Form-item>
                     <Form-item label="所在地区">
                         <Cascader :data="city_list" v-model="school_info.location" @on-change="location_change" name="city" trigger="hover" empty_err="所在地区" v-bt-validator:rules="['required']" placeholder="请选择学校所在地区"></Cascader>
                     </Form-item>
@@ -49,18 +48,36 @@
                     </Form-item>
                 </i-col>
             </Row>
+            <div class="line"></div>
+            <Row type="flex">
+                <i-col>
+                    <Form-item label="学校校徽">
+                        <Upload :action="school_logo_action" :show-upload-list="false" :on-success="school_logo_success_handle">
+                            <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                        </Upload>
+                    </Form-item>
+                </i-col>
+                <i-col>
+                    <img :src="school_info.image_path" class="school_logo">
+                </i-col>
+            </Row>
             <div v-if="query">
                 <div class="line"><h3>校区信息</h3></div>
                 <Row type="flex">
                     <Col>
                         <Form-item label="校区名称">
-                        <input placeholder="请输入..." class="ivu-input" v-model="school_district_name">
+                            <input placeholder="请输入..." class="ivu-input" v-model="school_district_name">
                         </Form-item>
                         <Form-item label="负责人">
-                        <input placeholder="请输入负责人姓名..." class="ivu-input" v-model="school_district_official">
+                            <input placeholder="请输入负责人姓名..." class="ivu-input" v-model="school_district_official">
+                        </Form-item>
+                        <Form-item label="学校类别">
+                            <Select class="ivu-select-options" name="school_type" v-model="school_info.school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
+                                <Option :value="info.id" v-for="info in school_type_list" :key="info.id">{{info.name}}</Option>
+                            </Select>
                         </Form-item>
                         <Form-item label="联系方式">
-                        <input placeholder="请输入联系电话..." class="ivu-input" v-model="school_district_tel">
+                            <input placeholder="请输入联系电话..." class="ivu-input" v-model="school_district_tel">
                         </Form-item>
                     </Col>
                     <Col>
@@ -72,7 +89,7 @@
                     <Form-item label="校区列表">
                         <ol class="school_district_list">
                             <li v-for="info in school_district_list">
-                                {{info.campus_name}}/{{info.official}}/{{info.tel}}
+                                {{info.campus_name}}/{{info.official}}/{{info.school_type_name}}/{{info.tel}}
                             </li>
                         </ol>
                         </Form-item>
@@ -80,9 +97,10 @@
                 </Row>
             </div>
             </div>
-            <input type="hidden" name="school_type" :value="school_info.school_type">
+            <input type="hidden" name="school_type" :value="3">
             <input type="hidden" name="location" :value="school_info.location[1]">
             <input type="hidden" name="id" :value="query.id" v-if="query">
+            <input type="hidden" name="image" :value="school_info.image">
             <input type="hidden" name="school_district" :value="JSON.stringify(school_district_list)">
         </Form>
     </div>
@@ -95,13 +113,14 @@
     export default {
         data(){
             return {
-                school_type_list : [{id : '1',name : '小学'},{id : 2,name : '初中'},{id : 3,name : '高中'}],
+                school_type_list : setting.get_school_type,
                 msg_error : [],
                 city_list : [],
                 school_district_list : [],
-                school_district_name : '',school_district_official : '',school_district_tel :'',
-                school_info : { school_type : '',location : ['','']},
+                school_district_name : '',school_district_official : '',school_district_tel :'',school_district_school_type : 3,
+                school_info : { school_type : '',location : ['',''],image : ''},
                 query : null,
+                school_logo_action : setting.get_api_url  + 'basics/handle/up_school_logo'
             }
         },
         created(){
@@ -133,8 +152,8 @@
             update : function(id){
                 api_school.get_school_by_id(id,(result)=>{
                     let info = result.data;
-                    bt.log(info);
                     this.school_info = info;
+                    this.school_info.image_path = setting.get_host + info.image;
                     this.school_info.school_type = parseInt(info.school_type);
                     if(this.school_info.location && this.school_info.location.split(',').length == 1){
                         this.school_info.location = ['',this.school_info.location];
@@ -167,12 +186,19 @@
             },
             // 添加校区
             add_school_district : function(){
-                if(__.check_string(this.school_district_name.toString())){
-                    let info = { campus_name : this.school_district_name,official : this.school_district_official,tel : this.school_district_tel};
+                if(this.school_district_name){
+                    let info = { campus_name : this.school_district_name,official : this.school_district_official,tel : this.school_district_tel };
+                    info.school_type = this.school_info.school_type;
+                    info.school_type_name = this.school_type_list.find((info)=>{return info.id == this.school_info.school_type}).name
                     this.school_district_list.push(info);
-                    this.school_district_name = this.school_district_official = this.school_district_tel = null;
+                    this.school_district_name = this.school_district_official = this.school_district_tel = this.school_district_school_type = null;
                 }
             },
+            // 校徽上传成功
+            school_logo_success_handle : function(response, file, fileList){
+                this.school_info.image = file.response.file;
+                this.school_info.image_path =  setting.get_host + file.response.file;
+            }
         },
         mounted(){
         },

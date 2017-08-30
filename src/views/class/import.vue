@@ -5,6 +5,11 @@
                 <a href="/public/templates/tpl_class.xlsx"><Button type="dashed" icon="arrow-down-a">模板下载</Button></a>    
                 </template>
         </Alert>
+         <Form :label-width="80" inline>
+            <Form-item label="更新班主任">
+                <i-switch v-model="is_update"></i-switch>
+            </Form-item>
+        </Form>                
     </base_import>
 </template>
 <script type="text/javascript">
@@ -18,6 +23,7 @@
                 table_columns : table_columns.class.call(this),
                 fields_array : ['name','student_cnt','teachers','class_room'],
                 table_data : [],
+                is_update : false
             }
         },
         methods : {
@@ -31,7 +37,8 @@
                     data : JSON.stringify(this.table_data),
                     grade_id : object.grade_id,
                     school_id : object.school_id,
-                    school_district : object.school_district
+                    school_district : object.school_district,
+                    is_update : this.is_update
                 };
                 api.do_import_grade_paset(param,(result)=>{
                     result = eval(result);
@@ -49,16 +56,18 @@
                 }
             },
             column_render : function(row,column,index){
-                let list = this.$refs.import.teacher_list;
-                if(list.length == 0){
-                    this.$refs.import.msg_error = ['教师匹配失败'];
-                }else{
-                    var info = __.info(list,'name',row.teachers);
-                    if(! info){
-                        let err = row.teachers + '匹配失败';
-                        this.$refs.import.msg_error.push(err);
+                if(this.is_update){
+                    let list = this.$refs.import.teacher_list;
+                    if(list.length == 0){
+                        this.$refs.import.msg_error = ['教师匹配失败'];
                     }else{
-                        this.table_data[index].teacher_id = info.id;
+                        var info = __.info(list,'name',row.teachers);
+                        if(! info){
+                            let err = row.teachers + '匹配失败';
+                            this.$refs.import.msg_error.push(err);
+                        }else{
+                            this.table_data[index].teacher_id = info.id;
+                        }
                     }
                 }
                 return row.teachers;

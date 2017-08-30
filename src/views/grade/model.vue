@@ -26,13 +26,13 @@
                         <drop_school_district ref="school_district" @handle_school_district_change="handle_school_district_change"></drop_school_district>
                     </Form-item>
                     <Form-item label="所在学年">
-                        <Select style="width:200px" v-model="info.name">
+                        <Select style="width:200px" v-model="info.name" >
                             <Option v-for="item in year_list" :value="item.id" :key="item">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
                     <Form-item label="年级名称">
-                        <Select style="width:200px" v-model="info.grade_name">
-                            <Option v-for="item in grade_list" :value="item.name" :key="item">{{ item.name }}</Option>
+                         <Select style="width:200px" v-model="info.grade_name" @on-change="grade_change" >
+                            <Option v-for="item in grade_list" :value="item.name" :key="item" >{{ item.name }}</Option>
                         </Select>
                     </Form-item>
                 </i-col>
@@ -81,6 +81,7 @@
             <input type="hidden" name="graduation_diploma" :value="info.graduation_diploma" v-bt-validator:rules="['required']" empty_err="学历">
             <input type="hidden" name="total_semester" :value="info.total_semester" v-bt-validator:rules="['required']" empty_err="学期总数">
             <input type="hidden" name="entrance" :value="info.entrance" v-bt-validator:rules="['required']" empty_err="入学日期">
+            <input type="hidden" name="grade_sort" :value="info.grade_sort">
         </Form>
     </div>
 </template>
@@ -100,7 +101,7 @@
                 graduation_list : [{name:'小学文凭'},{name:'初中文凭'},{name:'高中文凭'}],
                 semester_list : [{"id":6,"name":"6学期"},{"id":12,"name":"12学期"}],
                 msg_error : [],
-                info : { school_district : ['',''],name:null,grade_name:null,school_year:null,graduation_diploma:null,total_semester:null,entrance:null,head_name:null},
+                info : { school_district : ['',''],name:null,grade_name:null,school_year:null,graduation_diploma:null,total_semester:null,entrance:null,head_name:null,grade_sort:null},
                 query : null,
             }
         },
@@ -134,6 +135,9 @@
                     this.$refs.school_district.set_value(this.info.school_district);
                 })
             },
+            grade_change : function(value){
+                this.info.grade_sort = (this.grade_list.find(info=>{return info.name == value})).id;
+            },
             date_change : function(value){
                 this.info.entrance = value
             },
@@ -158,7 +162,6 @@
                     })
                 };
             },
-
         },
         mounted(){
         },

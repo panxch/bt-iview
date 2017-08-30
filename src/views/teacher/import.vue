@@ -9,7 +9,10 @@
             <Row type="flex">
                 <i-col>
                     <Form :label-width="80" inline>
-                        <drop_school @handle_school_change="handle_school_change"></drop_school>
+                        <Form-item label="所属校区">
+                            <drop_school_district ref="school_district" @handle_school_district_change="handle_school_district_change" name="district_id" v-bt-validator:rules="['required']" empty_err="所属校区"></drop_school_district>
+                        </Form-item>
+                        <!--<drop_school @handle_school_change="handle_school_change"></drop_school>-->
                         <Form-item label="角色">
                             <Select placeholder="请选择" style="width:200px" v-model="role_value">
                                 <Option :value="info.id" v-for="info in role_list" :key="info.id">{{info.name}}</Option>
@@ -60,6 +63,7 @@
 <script type="text/javascript">
     import setting from '../../config/setting';
     import base_import from '../../components/base_import.vue'
+    import drop_school_district from '../../components/drop_school_district.vue'
     import api from '../../config/api/basics'
     import api_teacher from '../../config/api/teacher'
     import api_member from '../../config/api/member'
@@ -83,6 +87,7 @@
                 role_value : '',
                 page_size : setting.get_page_size,
                 school_id : null,
+                district_id : null,
                 msg_error : '',
             }
         },
@@ -205,37 +210,40 @@
                         this.msg_error = '请选择一个角色~';
                         return;
                     }
-                    var param = {data : JSON.stringify(this.temp_table_data),school_id : this.school_id,role_id : this.role_value};
+                    var param = {data : JSON.stringify(this.temp_table_data),school_id : this.school_id,district_id:this.district_id,role_id : this.role_value};
                     api_teacher.do_import_teacher_paset(param,(result)=>{
                         this.import_success();
                     })
                 }
             },
             // 获取学校所有的角色
-            handle_school_change : function(value){
-                this.school_id = value;
+            handle_school_district_change : function(value){
+                this.school_id = value[0];
+                this.district_id = value[1];
                 __.loading();
                 // 取所有角色
-                api.get_role(value,(result)=>{
+                api.get_role(this.school_id,(result)=>{
                     this.role_list = result.data;
                     __.closeAll();
                 });
                 // 取所有课目
-                api_course.get_course(value,(result)=>{
+                api_course.get_course(this.school_id,this.district_id,(result)=>{
                     this.course_list = [];
                     if(result.data.length > 0){
-                        this.course_list = result.data;
+                        this.course_list = result.data.filter((info) => {
+                            return info.school_district == this.district_id
+                        });
                     }
                 });
                 // 取所有班级
-                api.get_class(value,(result)=>{
+                api.get_class(this.school_id,(result)=>{
                     this.class_list = [];
                     if(result.data.length > 0){
                         this.class_list = result.data;
                     }
                 });
                 // 取所有角色
-                api.get_grade(value,null,(result)=>{
+                api.get_grade(this.school_id,this.district_id,(result)=>{
                      this.grade_list = result.data;
                     __.closeAll();
                 }); 
@@ -243,6 +251,6 @@
         },
         mounted(){
         },
-        components : { drop_school,back,event_button},
+        components : { drop_school,back,event_button,drop_school_district},
     }
 </script>

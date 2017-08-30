@@ -61,7 +61,7 @@ var table_columns = {
                     key: 'student_name',
                     sortable: true,
                     align: 'center',
-                    width:120,
+                    width:180,
                 },
                 {
                     title: '登陆用户名',
@@ -74,7 +74,7 @@ var table_columns = {
                     title: '年级',
                     key: 'grade_name',
                     align: 'center',
-                    width:80,
+                    width:140,
                 },
                 {
                     title: '班级',

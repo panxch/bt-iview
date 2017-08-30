@@ -198,10 +198,14 @@
                 })
             },
             course_change : function(value,data){
-                this.tag_course_list.push({name : data[0].label + '/' + data[1].label , id : data[1].value});
+                if( !this.tag_course_list.find(info=>{return info.id == data[1].value}) ){
+                    this.tag_course_list.push({name : data[0].label + '/' + data[1].label , id : data[1].value});
+                }
             }, 
             class_change : function(value,data){
-                this.tag_class_list.push({name : data[0].label + '/' + data[1].label , id : data[1].value});
+                if( !this.tag_class_list.find(info=>{return info.id == data[1].value}) ){
+                    this.tag_class_list.push({name : data[0].label + '/' + data[1].label , id : data[1].value});
+                }
             },
             // 关闭Tag
             handle_tag_close : function(event, name,object){

@@ -13,8 +13,8 @@ export default {
 		return __.post( get('basics/course/get_course_by_school',array),func );
 	},
 	// 返回当前用户所在学校的所有课目
-	get_course(school_id,func = null) {
-		return __.get( get('basics/base/get_course/?school_id=' + school_id),func );
+	get_course(school_id,district_id,func = null) {
+		return __.get( get('basics/base/get_course/?school_id=' + school_id + '&school_district=' + district_id),func );
 	},
 	// 剪贴板课程导入
 	do_import_course_paset(array,func = null){

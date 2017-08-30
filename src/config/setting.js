@@ -1,12 +1,16 @@
 // 基础配置类
 
-var api_url = 'http://manage.yishengya.cn/';
+var __host = 'http://manage.yishengya.cn/';
+var __index = 'index.php/';
 if(dist){
-	api_url = 'http://localhost:9087/';	
+	__host = 'http://localhost:9087/';
+	__index = 'api.php/';
 }
 
+
 export default {
-	get_api_url : api_url,
+	get_host : __host,
+	get_api_url : __host + __index,
 	get_page_size : 10,
 	title : '翼生涯',
 	get_api_setting : (url,data)=>{
@@ -25,10 +29,9 @@ export default {
 				data.safe_school_id = school_id;
 			}
 		}
-		return { url : api_url + ''+ (!dist ? 'index' : 'api') +'.php/' + url ,data : data };
+		return { url : __host + __index + url ,data : data };
 	},
-	get_menu : 
-		{
+	get_menu : {
 			base : [
 				{name : '年级管理',key : 'grade',icon : 'cube'},
 				{name : '课程管理',key : 'course',icon : 'compose'},
@@ -42,5 +45,6 @@ export default {
 				{name : '角色管理',key : 'role',icon : 'ios-people'},
 				{name : '模块管理',key : 'func',icon : 'settings'}
 			],
-		}
+	},
+	get_school_type : [{id : '1',name : '小学'},{id : 2,name : '初中'},{id : 3,name : '高中'}]
 };
