@@ -9,7 +9,10 @@
         <i-col span="8">
             <Tag closable color="blue" @on-close="handle_tag_close" :key="tag" :name="tag.name" v-for="tag in tags">{{tag.name}}</Tag>
         </i-col>
-        <i-col span="10">
+        <i-col span="6">
+            <slot></slot>
+        </i-col>
+        <i-col span="4">
             <div class="float_right">
                 <event_button @click="go_update" type="info" icon="ios-checkmark-outline" v-if="update_url">修改</event_button>
                 <event_button @click="go_add" type="success" icon="plus-round" v-if="add_url">添加</event_button>
@@ -34,10 +37,12 @@
             handle_school_change : function(value){
                 if(this.tags.length <3){
                     let last = window.config.last_school;
-                    this.tags.push({id : last.id,name : last.name});
-                    // 页码 reset
-                    this.$parent.page_count = 0;
-                    this.$parent.set_page();
+                    if(! this.tags.find(info => {return info.id == last.id})){
+                        this.tags.push({id : last.id,name : last.name});
+                        // 页码 reset
+                        this.$parent.page_count = 0;
+                        this.$parent.set_page();
+                    }
                 }else{
                     this.$Message.warning('多学校筛选最多同时只能选择3所~');
                 }

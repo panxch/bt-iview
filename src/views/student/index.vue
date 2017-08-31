@@ -7,7 +7,9 @@
         <Alert>学生管理
                 <template slot="desc">学生管理的添加、修改、审核与删除</template>
         </Alert>
-        <bt_school_filter ref="bt_school_filter" update_url="/student/update" import_url="/student/import" @selection="selection"></bt_school_filter>
+        <bt_school_filter ref="bt_school_filter" update_url="/student/update" import_url="/student/import" @selection="selection">
+            <bt_search ref="student_search" @on-search="search_handle"></bt_search>
+        </bt_school_filter>
     </div>
     <Row>
          <i-col>
@@ -29,6 +31,7 @@
     import table_columns from '../../config/table_columns';
     import api_student from '../../config/api/student'
     import bt_school_filter from '../../components/public/bt_school_filter.vue'
+    import bt_search from '../../components/public/bt_search.vue'
 
     export default {
         data(){
@@ -59,30 +62,34 @@
             // page change
             handle_page_change : function(index){
                 window.config.page_index = index;
-                this.set_page(index);;
+                this.set_page(index,window.config.keyword || '');
             },
             // checked change
             selection_change : function(selection){
                 this.selection = __.get_selection(selection);
-            },            
+            },          
             // set page
-            set_page : function(index){
+            set_page : function(index,keyword){
                 __.loading();
-                var param = {school_ids : this.$refs.bt_school_filter.get_school_id(),page_index : index};
+                var param = {school_ids : this.$refs.bt_school_filter.get_school_id(),page_index : index,keyword : keyword};
                 api_student.get_student_by_school_ids(param,(result)=>{
                     result = JSON.parse(result);
                     this.table_data = result.list;
-                    if(this.page_count === 0){
+                    if(this.page_count === 0 || result.page_count > 0){
                         this.page_count = window.config.page_count = result.page_count;
                     }
                     __.closeAll();
                 });
                 __.bind_list_dblclick(this,'student/update');
             },
+            // search world
+            search_handle(keyword){
+                this.set_page(1,keyword);
+            },  
         },
         mounted(){
-            this.set_page(this.page_index);
+            this.set_page(this.page_index,window.config.keyword || '');
         },
-        components : { bt_school_filter },
+        components : { bt_school_filter,bt_search },
     }
 </script>

@@ -41,7 +41,7 @@
                         <i-col span="5">
                             <div class="float_right">
                                 <event_button @click="clear" type="warning" icon="android-close" :disabled="table_data.length == 0">清除</event_button>
-                                <event_button @click="import_paset" type="info" icon="android-arrow-down" :disabled="table_data.length == 0">导入</event_button>
+                                <event_button @click="import_paset" type="info" icon="android-arrow-down" load="true" :disabled="table_data.length == 0">导入</event_button>
                                 <back></back>
                             </div>
                         </i-col>
@@ -84,6 +84,7 @@
                 page_size : setting.get_page_size,
                 msg_error : '',
                 info : {},
+                paste_list : []
             }
         },
         created(){
@@ -109,6 +110,7 @@
             clear : function(){
                 this.temp_table_data = this.table_data = [];
                 this.msg_error = '';
+                this.paste_list = [];
             },
             // 匹配数据
             handle_paste : function(data){
@@ -167,15 +169,18 @@
                     })
                 }
             },
-            column_render : function(row,columns,index){
-                api_member.get_member(row.username,(result)=>{
-                    let info = JSON.parse(result);
-                    if(info.id){
-                        this.temp_table_data[index].reg_username = 'F';
-                        this.msg_error += row.username + '已经存在<br>';
-                    }
-                })
-                return row.username;
+            column_render : function(row,column){
+                if(this.paste_list.indexOf(column.index) == -1){
+                    api_member.get_member(column.row.username,(result)=>{
+                        let info = JSON.parse(result);
+                        if(info.id){
+                            this.temp_table_data[column.index].reg_username = 'F';
+                            this.msg_error += column.row.username + '已经存在<br>';
+                        }
+                    })
+                    this.paste_list.push(column.index);
+                }
+                return column.row.username;
             },
             // 获取学校所有的角色
             handle_school_change : function(value){

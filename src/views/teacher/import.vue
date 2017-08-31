@@ -39,7 +39,7 @@
                         <i-col span="5">
                             <div class="float_right">
                                 <event_button @click="clear" type="warning" icon="android-close" :disabled="table_data.length == 0">清除</event_button>
-                                <event_button @click="import_paset" type="info" icon="android-arrow-down" :disabled="table_data.length == 0">导入</event_button>
+                                <event_button @click="import_paset" type="info" icon="android-arrow-down" load="true" :disabled="table_data.length == 0">导入</event_button>
                                 <back></back>
                             </div>
                         </i-col>
@@ -89,6 +89,7 @@
                 school_id : null,
                 district_id : null,
                 msg_error : '',
+                paste_list : []
             }
         },
         created(){
@@ -100,6 +101,7 @@
             _init : function(){
                 // 设置剪贴板侦听
                 __.pasteListen((data)=>{
+                    this.paste_list = [];
                     this.handle_paste(data + 'RR');
                 })
             },
@@ -180,22 +182,25 @@
                 return { pass : pass, data : pass_array};
             },
             // 列检测规则验证
-            column_render : function(row,column,index){
-                if(! row.course_mapping_pass){
-                    this.msg_error += row.username + '所带科目匹配失败<br>';
-                }
-                if(! row.class_mapping_pass){
-                    this.msg_error += row.username + '所带班级匹配失败<br>';
-                }
-                api_member.get_member(row.username,(result)=>{
-                    let info = JSON.parse(result);
-                    if(info.id){
-                        this.temp_table_data[index].reg_username = 'F';
-                        this.msg_error += row.username + '已经存在<br>';
-                        __.closeAll();
+            column_render : function(row,column){
+                if(this.paste_list.indexOf(column.index) == -1){
+                    if(! column.row.course_mapping_pass){
+                        this.msg_error += column.row.username + '所带科目匹配失败<br>';
                     }
-                })
-                return row.username;
+                    if(! column.row.class_mapping_pass){
+                        this.msg_error += column.row.username + '所带班级匹配失败<br>';
+                    }
+                    api_member.get_member(column.row.username,(result)=>{
+                        let info = JSON.parse(result);
+                        if(info.id){
+                            this.temp_table_data[column.index].reg_username = 'F';
+                            this.msg_error += column.row.username + '已经存在<br>';
+                            __.closeAll();
+                        }
+                    })
+                    this.paste_list.push(column.index);
+                }
+                return column.row.username;
             },
             // 数据导入
             import_paset : function(){

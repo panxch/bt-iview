@@ -1,5 +1,5 @@
 <template>
-		<Cascader :data="school_list" v-model="value" trigger="hover" @on-change="school_change"></Cascader>
+		<Cascader :data="school_list" v-model="value" trigger="hover" @on-change="school_change" filterable></Cascader>
 </template>
 <script type="text/javascript">
 	import api from '../config/api/school'
@@ -19,7 +19,7 @@
             	this.value = value;
             }
 		},
-		 mounted(){
+		mounted(){
             __.loading();
             api.get_school_district_union((result)=>{
                 this.school_list = JSON.parse(result);

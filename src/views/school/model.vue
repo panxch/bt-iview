@@ -10,7 +10,7 @@
                 <i-col span="18"></i-col>
                 <i-col span="6">
                     <div class="float_right">
-                        <save @click="save" icon="checkmark-round" type="info">保存</save>
+                        <save @click="save" icon="checkmark-round" load="true" type="info">保存</save>
                         <back></back>
                     </div>
                 </i-col>
@@ -58,7 +58,7 @@
                     </Form-item>
                 </i-col>
                 <i-col>
-                    <img :src="school_info.image_path" class="school_logo">
+                    <img :src="school_info.image" class="school_logo">
                 </i-col>
             </Row>
             <div v-if="query">
@@ -153,7 +153,6 @@
                 api_school.get_school_by_id(id,(result)=>{
                     let info = result.data;
                     this.school_info = info;
-                    this.school_info.image_path = setting.get_host + info.image;
                     this.school_info.school_type = parseInt(info.school_type);
                     if(this.school_info.location && this.school_info.location.split(',').length == 1){
                         this.school_info.location = ['',this.school_info.location];
@@ -196,8 +195,7 @@
             },
             // 校徽上传成功
             school_logo_success_handle : function(response, file, fileList){
-                this.school_info.image = file.response.file;
-                this.school_info.image_path =  setting.get_host + file.response.file;
+                this.school_info.image = setting.get_host + file.response.file;
             }
         },
         mounted(){

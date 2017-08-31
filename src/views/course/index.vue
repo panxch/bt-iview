@@ -87,7 +87,7 @@
                     this.table_data[index].study_section = '上学期';
                 else if(row.study_section == '01')
                     this.table_data[index].study_section = '下学期';
-                return `<span>${row.id}</span>`;
+                return `${column.row.id}`;
             },
         },
         mounted(){

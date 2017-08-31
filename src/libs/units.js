@@ -217,7 +217,7 @@ Array.prototype._join = function(filed){
         setTimeout(function(){
             $('div.ivu-table-body table tr').dblclick((c,i)=>{
                 let info = $(c.currentTarget);
-                let id = info.find('td:eq(1) span').html();
+                let id = info.find('td:eq(1)').html().replace(/<(?:.|\s)*?>/g,"").trim();
                 _this.go(self,url, {id : id })
             })
         },1000);

@@ -68,6 +68,7 @@ window.config = {
     page_count : 0,
     spanLeft : bt.window.width <= 1280 ? 4 : 3,
     disabled : disabled,
+    keyword : '',
 };
 
 var vue = new Vue({

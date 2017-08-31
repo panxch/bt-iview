@@ -26,5 +26,5 @@ export default {
 	},
 	save(func = null){
 		return __.post( get('basics/teacher/do_save'),func );
-	},
+	}
 }

@@ -33,7 +33,7 @@
                         <i-col span="5">
                             <div class="float_right">
                                 <event_button @click="clear" type="warning" icon="android-close" :disabled="table_data.length == 0">清除</event_button>
-                                <event_button @click="import_paset" type="info" icon="android-arrow-down" :disabled="table_data.length == 0">导入</event_button>
+                                <event_button @click="import_paset" type="info" load="true" icon="android-arrow-down" :disabled="table_data.length == 0">导入</event_button>
                                 <back></back>
                             </div>
                         </i-col>
@@ -120,6 +120,7 @@
                 this.table_data = [];
                 this.msg_error = [];
                 this.$emit('set_table_data',null);
+                this.$parent.paste_list = [];
             },
             // 导入成功后
             import_success : function(){

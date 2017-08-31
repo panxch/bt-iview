@@ -1,7 +1,7 @@
 <template>   
     <div class="layout-main">
         <div class="layout-content">
-        <Alert>教师批量上传
+        <Alert>成绩批量上传
                 <template slot="desc">请先选择基本信息和考试信息，然后再上传成绩<br>
                 <a href="/public/templates/tpl_score.xlsx"><Button type="dashed" icon="arrow-down-a">模板下载</Button></a>
                 </template>
@@ -125,6 +125,7 @@
                 m_grade_value : '',
                 primary_text : '导入',
                 loading : false,
+                paste_list : [],
                 table_height : $(window).height() - 400,
             }
         },
@@ -209,7 +210,6 @@
             handle_paste : function(data){
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
-                bt.log(result);
                 if(result.length > 0){
                     this.msg_error = '';
                     this.table_data = result;
@@ -244,50 +244,53 @@
                 });
             },
             // 列检测规则验证
-            column_render : function(row,column,index){
-                var r = this.table_data[index];
-                var pass_msg = '';
-                var course_array = this.fields_array.slice(4,this.fields_array.length);
-                course_array.forEach((c,i)=>{
-                    // 获取各课成绩
-                    var score = eval('row.' + c);
-                    if(parseInt(score)){
-                        this.fields_text_array.forEach((m,n)=>{
-                            if(c == m.en){
-                                if(m.id == '' || m.id == undefined){
-                                    pass_msg += m.cn + '匹配失败&nbsp;&nbsp;';
-                                    this.msg_error = pass_msg;
-                                }else{
-                                    // 验证通过 赋值
-                                    eval('r.' + m.en +'_code = m.id');
+            column_render : function(row,column){
+                if(this.paste_list.indexOf(column.index) == -1){
+                    var r = this.table_data[column.index];
+                    var pass_msg = '';
+                    var course_array = this.fields_array.slice(4,this.fields_array.length);
+                    course_array.forEach((c,i)=>{
+                        // 获取各课成绩
+                        var score = eval('row.' + c);
+                        if(parseInt(score)){
+                            this.fields_text_array.forEach((m,n)=>{
+                                if(c == m.en){
+                                    if(m.id == '' || m.id == undefined){
+                                        pass_msg += m.cn + '匹配失败&nbsp;&nbsp;';
+                                        this.msg_error = pass_msg;
+                                    }else{
+                                        // 验证通过 赋值
+                                        eval('r.' + m.en +'_code = m.id');
+                                    }
                                 }
-                            }
-                        });
-                    };
-                });
-                // 检测班年
-                var pass_class = false;
-                this.class_list.forEach((c,i)=>{
-                    if(c.name == row.class){
-                        pass_class = true;
-                        this.table_data[index].class_code = c.id;
-                        return true;
+                            });
+                        };
+                    });
+                    // 检测班年
+                    var pass_class = false;
+                    this.class_list.forEach((c,i)=>{
+                        if(c.name == column.row.class){
+                            pass_class = true;
+                            this.table_data[column.index].class_code = c.id;
+                            return true;
+                        }
+                    });;
+                    if(! pass_class){
+                        this.msg_error += '<br>学号'  + column.row.student_no + '班级验证失败';
                     }
-                });
-                if(! pass_class){
-                    this.msg_error += '<br>学号' + row.student_no + '班级验证失败';
-                }
-                // 检测学号
-                api_member.get_student_by_no(row.student_no,(result)=>{
-                    let info = JSON.parse(result);
-                    if(! info.id){
-                        this.table_data[index].reg_username = 1;
-                        this.msg_error += '<br>学号' + row.student_no + '验证失败';
-                    }else{
-                        this.table_data[index].student_id = info.id;
+                    //检测学号
+                    api_member.get_student_by_no(column.row.student_no,(result)=>{
+                        let info = JSON.parse(result);
+                        if(! info.id){
+                            this.table_data[index].reg_username = 1;
+                            this.msg_error += '<br>学号' + column.row.student_no + '验证失败';
+                        }else{
+                            this.table_data[column.index].student_id = info.id;
+                        }
+                    }) 
+                    this.paste_list.push(column.index);
                     }
-                }) 
-                return row.student_no;
+                return column.row.student_no;
             },
         },
         mounted(){

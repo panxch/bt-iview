@@ -23,6 +23,7 @@
                 table_columns : table_columns.class.call(this),
                 fields_array : ['name','student_cnt','teachers','class_room'],
                 table_data : [],
+                paste_list : [],
                 is_update : false
             }
         },
@@ -55,22 +56,25 @@
                     this.table_data = [];
                 }
             },
-            column_render : function(row,column,index){
-                if(this.is_update){
-                    let list = this.$refs.import.teacher_list;
-                    if(list.length == 0){
-                        this.$refs.import.msg_error = ['教师匹配失败'];
-                    }else{
-                        var info = __.info(list,'name',row.teachers);
-                        if(! info){
-                            let err = row.teachers + '匹配失败';
-                            this.$refs.import.msg_error.push(err);
+            column_render : function(row,column){
+                if(this.paste_list.indexOf(column.index) == -1){
+                    if(this.is_update){
+                        let list = this.$refs.import.teacher_list;
+                        if(list.length == 0){
+                            this.$refs.import.msg_error = ['教师匹配失败'];
                         }else{
-                            this.table_data[index].teacher_id = info.id;
+                            var info = __.info(list,'name',column.row.teachers);
+                            if(! info){
+                                let err = column.row.teachers + '匹配失败';
+                                this.$refs.import.msg_error.push(err);
+                            }else{
+                                this.table_data[column.index].teacher_id = info.id;
+                            }
                         }
                     }
+                    this.paste_list.push(column.index);
                 }
-                return row.teachers;
+                return column.row.teachers;
             },
         },
         components : { base_import },
