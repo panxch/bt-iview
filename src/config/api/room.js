@@ -21,7 +21,7 @@ export default {
 		return __.post( get('basics/room/paset',array),func );
 	},
 	// 返回单个class
-	get_room_info(room_id,func = null){
+	get_room(room_id,func = null){
 		return __.post( get('basics/room/get_room?room_id=' + room_id),func );
 	},
 	save(func = null){

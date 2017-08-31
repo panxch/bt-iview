@@ -100,7 +100,7 @@
                 __.byId('form').reset();
             },
             update : function(id){
-                api_room.get_room_info(id,result =>{
+                api_room.get_room(id,result =>{
                     this.info = JSON.parse(result);
                     this.info.school_district = [this.info.school_id,this.info.school_district];
                     this.$refs.school_district.set_value(this.info.school_district);

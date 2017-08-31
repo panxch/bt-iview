@@ -2,7 +2,7 @@
     <div class="layout-main">
         <div class="layout-content">
          <Alert>教师批量上传
-                <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案<br>
+                <template slot="desc">教师管理的添加、修改、删除<br>
                 <a href="/public/templates/tpl_teacher.xlsx"><Button type="dashed" icon="arrow-down-a">模板下载</Button></a>
                 </template>
         </Alert>

@@ -1,7 +1,7 @@
 <template>   
       <base_import ref="import" @init="init" :table_columns="table_columns" :fields_array="fields_array" @import_paset="import_paset" @set_table_data="set_table_data">
         <Alert>教室批量上传
-                <template slot="desc">消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案消息提示的描述文案<br>
+                <template slot="desc">学校对教室的添加，修改和编辑<br>
                 <a href="/public/templates/tpl_course.xlsx"><Button type="dashed" icon="arrow-down-a">模板下载</Button></a>
                 </template>
         </Alert>
