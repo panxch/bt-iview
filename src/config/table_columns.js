@@ -565,6 +565,67 @@ var table_columns = {
                 }
             ];
     },
+    room : function(){
+        return [
+                {
+                    type: 'selection',
+                    width: 30,
+                    align: 'center'
+                },
+                {
+                    title : '#',
+                    key : 'id',
+                    width: 60,
+                    align: 'center',
+                    sortable: true,
+                },
+                {
+                    title: '教室名称',
+                    key: 'name',
+                    width: 200,
+                    align: 'center'
+                },
+                {
+                    title: '座位数',
+                    key: 'number',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: '教室类别',
+                    key: 'type',
+                    width: 200,
+                    align: 'center'
+                },
+                {
+                    title: '教室地点',
+                    key: 'classroom_location',
+                    width: 200,
+                    align: 'center'
+                },
+                {
+                    title: '学校',
+                    key: 'school_name',
+                },
+                {
+                    title: '校区',
+                    key: 'campus_name',
+                    align: 'center'
+                },
+                {
+                    title: '所在年级',
+                    key: 'grade_name',
+                    width: 100,
+                    align: 'center'
+                },
+                {
+                    title: '创建时间',
+                    key: 'create_time',
+                    width: 140,
+                    align: 'center'
+                }
+            ];
+    },    
     grade : function(){
         return  [
                     {

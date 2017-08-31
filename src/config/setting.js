@@ -34,6 +34,7 @@ export default {
 	get_menu : {
 			base : [
 				{name : '年级管理',key : 'grade',icon : 'cube'},
+				{name : '教室管理',key : 'room',icon : 'ios-medical'},
 				{name : '课程管理',key : 'course',icon : 'compose'},
 				{name : '行政班级',key : 'class',icon : 'bookmark'},
 				{name : '教师管理',key : 'teacher',icon : 'person'},
