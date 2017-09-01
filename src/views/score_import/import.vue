@@ -10,7 +10,8 @@
                 <i-col>
                     <Form :label-width="80" inline>
                         <Form-item label="学校">
-                            <drop_school @handle_school_change="handle_school_change"></drop_school>
+                            <!--<drop_school @handle_school_change="handle_school_change"></drop_school>-->
+                            <drop_school_district ref="school_district" @handle_school_district_change="handle_school_change"></drop_school_district>
                         </Form-item>
                     </Form>
                 </i-col>
@@ -94,7 +95,7 @@
     import api_scores from '../../config/api/scores'
     import api_member from '../../config/api/member'
     import api_course from '../../config/api/course'
-    import drop_school from '../../components/drop_school.vue'
+    import drop_school_district from '../../components/drop_school_district.vue'
     import back from '../../components/public/bt_back.vue'
     var $ = window.$;
     export default {
@@ -179,23 +180,25 @@
             },
             // 学校选择
             handle_school_change : function(value){
+                let school_id = value[0];
+                let district_id = value[1];
                 __.loading();
                 // 取所有课目
-                api_course.get_course(value,(result)=>{
+                api_course.get_course(school_id,district_id,(result)=>{
                     this.course_list = [];
                     if(result.data.length > 0){
                         this.course_list = result.data;
                     }
                 });
                 // 取所有班级
-                api.get_class(value,(result)=>{
+                api.get_class(school_id,(result)=>{
                     this.class_list = [];
                     if(result.data.length > 0){
                         this.class_list = result.data;
                     }
                 });
                 // 取所有角色
-                api.get_grade_group(value,(result)=>{
+                api.get_grade_group(school_id,(result)=>{
                     this.grade_list = [];
                     this.all_data = result.data;
                     if(this.all_data != null && this.all_data.hasOwnProperty('grade')){
@@ -251,7 +254,7 @@
                     var course_array = this.fields_array.slice(4,this.fields_array.length);
                     course_array.forEach((c,i)=>{
                         // 获取各课成绩
-                        var score = eval('row.' + c);
+                        var score = eval('column.row.' + c);
                         if(parseInt(score)){
                             this.fields_text_array.forEach((m,n)=>{
                                 if(c == m.en){
@@ -296,6 +299,6 @@
         mounted(){
             
         },
-        components : { drop_school,back },
+        components : { back,drop_school_district },
     }
 </script>

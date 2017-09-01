@@ -88,8 +88,8 @@
             handle_page_change : function(index){
                 this.table_data = __.set_page(index,this.page_size,this.temp_table_data);
             },
-            column_render : function(row,column,index){
-                return row.name;
+            column_render : function(row,column){
+                return column.row.name;
             }
         },
         components : { back},
