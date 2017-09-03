@@ -582,7 +582,7 @@ var table_columns = {
                 {
                     title: '教室名称',
                     key: 'name',
-                    width: 200,
+                    width: 80,
                     align: 'center'
                 },
                 {
@@ -594,7 +594,13 @@ var table_columns = {
                 {
                     title: '教室类别',
                     key: 'type',
-                    width: 200,
+                    width: 80,
+                    align: 'center'
+                },
+                {
+                    title: '所在年级',
+                    key: 'grade_name',
+                    width: 100,
                     align: 'center'
                 },
                 {
@@ -610,12 +616,6 @@ var table_columns = {
                 {
                     title: '校区',
                     key: 'campus_name',
-                    align: 'center'
-                },
-                {
-                    title: '所在年级',
-                    key: 'grade_name',
-                    width: 100,
                     align: 'center'
                 },
                 {

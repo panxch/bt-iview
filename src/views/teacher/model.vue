@@ -160,7 +160,7 @@
                 api.get_role(value,result =>{
                     let list = result.data;
                     this.role_list = list.filter((c,i)=>{
-                        if(parseInt(c.type) == 3)return true;
+                        if(parseInt(c.type) == 3 || parseInt(c.type) == 2)return true;
                     });
                 })
             },

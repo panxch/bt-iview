@@ -9,6 +9,9 @@
             <Row type="flex">
                 <i-col>
                     <Form :label-width="80" inline>
+                        <Form-item label="导入名称">
+                            <input placeholder="请输入成绩导入名称..." class="ivu-input" v-model="parse_name">
+                        </Form-item>
                         <Form-item label="学校">
                             <drop_school @handle_school_change="handle_school_change"></drop_school>
                         </Form-item>
@@ -68,12 +71,12 @@
                             </i-col>
                         </Row>
                         <Row type="flex">
-                            <i-col span="18"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
+                            <i-col span="15"><Input type="text" placeholder="请直接Control + V" :readonly="true"></Input></i-col>
                             <i-col span="1"></i-col>
-                            <i-col span="5">
+                            <i-col span="8">
                                 <div class="float_right">
-                                    <Button type="warning" @click="clear" :disabled="table_data.length == 0">清除</Button>
-                                    <Button type="success" @click="import_paset" :disabled="table_data.length == 0" :loading="loading">{{primary_text}}</Button>
+                                    <Button type="warning" @click="clear" icon="android-close" :disabled="table_data.length == 0">清除</Button>
+                                    <Button type="success" @click="import_paset" icon="android-arrow-down" :disabled="table_data.length == 0" :loading="loading">{{primary_text}}</Button>
                                     <back></back>
                                 </div>
                             </i-col>
@@ -124,6 +127,7 @@
                 year_value : '',
                 m_grade_value : '',
                 primary_text : '导入',
+                parse_name : '',
                 loading : false,
                 paste_list : [],
                 table_height : $(window).height() - 400,
@@ -164,7 +168,8 @@
                         exam_time : this.time_value,
                         class_type : this.m_class_value,
                         grade_id : this.grade_id,
-                        year : this.year_value
+                        year : this.year_value,
+                        parse_name : this.parse_name
                     };
                     this.primary_text = '导入中...';
                     this.loading = true;

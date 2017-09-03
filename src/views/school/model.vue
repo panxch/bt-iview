@@ -1,5 +1,5 @@
 <style>
-.school_logo{width:30px;height:30px;}
+.school_logo{width:30px;height:30px;cursor:pointer}
 </style>
 
 <template>   
@@ -58,11 +58,15 @@
                     </Form-item>
                 </i-col>
                 <i-col>
-                    <img :src="school_info.image" class="school_logo">
+                    <img :src="school_info.image" class="school_logo" onclick="window.open(this.src)">
                 </i-col>
             </Row>
             <div v-if="query">
-                <div class="line"><h3>校区信息</h3></div>
+                <div class="line"><h3>校区信息</h3>
+                    <div class="controls">
+                        <Button icon="plus" @click="add_school_district">添加</Button>
+                    </div>
+                </div>
                 <Row type="flex">
                     <Col>
                         <Form-item label="校区名称">
@@ -71,17 +75,16 @@
                         <Form-item label="负责人">
                             <input placeholder="请输入负责人姓名..." class="ivu-input" v-model="school_district_official">
                         </Form-item>
-                        <Form-item label="学校类别">
-                            <Select class="ivu-select-options" name="school_type" v-model="school_info.school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
-                                <Option :value="info.id" v-for="info in school_type_list" :key="info.id">{{info.name}}</Option>
-                            </Select>
-                        </Form-item>
                         <Form-item label="联系方式">
                             <input placeholder="请输入联系电话..." class="ivu-input" v-model="school_district_tel">
                         </Form-item>
                     </Col>
                     <Col>
-                        <Button icon="plus" @click="add_school_district">添加</Button>
+                        <Form-item label="学校类别">
+                            <Select class="ivu-select-options" name="school_type" v-model="school_info.school_type" v-bt-validator:rules="['required']" empty_err="学校类别">
+                                <Option :value="info.id" v-for="info in school_type_list" :key="info.id">{{info.name}}</Option>
+                            </Select>
+                        </Form-item>
                     </Col>
                 </Row>
                 <Row type="flex">
