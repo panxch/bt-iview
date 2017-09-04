@@ -20,12 +20,10 @@ import './libs/cloud/common.js';
 import './libs/cloud/style.css';
 // 自己的模块
 import 'bt-utils';
-import echarts from 'echarts'
 
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.use(VueValidator);
-Vue.prototype.$echarts = echarts 
 
 // routs setting
 const RouterConfig = {

@@ -2,16 +2,26 @@
     <div class="layout-main">
         <div class="layout-content">
             <div class="box">
-                Hello World ~
+                <Row>
+                    <Col span="12">
+                        <div class="charts" >
+                            <div id="chart_school_sale" style="width:100%;height:400px"></div>
+                        </div>
+                    </Col>
+                    <Col span="12">
+                        <div class="charts" >
+                            <div id="chart_school_week" style="width:100%;height:400px"></div>
+                        </div>
+                    </Col>
+                </Row>
             </div>
-            <div class="charts" >
-            <div id="myChart" style="width:1000px;height:500px"></div>
-        </div>
-
         </div>
     </div>
 </template>
 <script type="text/javascript">
+    import echarts from 'echarts'
+    import statistics_config from '../config/statistics';
+    import api from '../config/api/statistics';
     export default {
         data(){
             return {
@@ -23,51 +33,34 @@
         },
         methods : {           
             init : function(){
-               
             },
         },
         mounted(){
-            let mainChart = this.$echarts.init(document.getElementById('myChart'))
-            var option = null;
-            // 指定图表的配置项和数据
-            option = {
-    color: ['#3398DB'],
-    tooltip : {
-        trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        }
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis : [
-        {
-            type : 'category',
-            data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            axisTick: {
-                alignWithLabel: true
-            }
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    series : [
-        {
-            name:'直接访问',
-            type:'bar',
-            barWidth: '60%',
-            data:[10, 52, 200, 334, 390, 330, 220]
-        }
-    ]
-};
-            mainChart.setOption(option, true)
+            // 月销售
+            let mainChart = echarts.init(document.getElementById('chart_school_sale'))
+            api.get_school_sale((result) =>{
+                result = JSON.parse(result);
+                statistics_config.school_line.xAxis[0].data = [];
+                statistics_config.school_line.series[0].data = [];
+                for(let info of result){
+                    statistics_config.school_line.xAxis[0].data.push(info.time);
+                    statistics_config.school_line.series[0].data.push(info.count);
+                }
+                mainChart.setOption(statistics_config.school_line, true)
+            });
+            // 周活跃
+            let chart_week = echarts.init(document.getElementById('chart_school_week'))
+            api.get_school_week((result) =>{
+                result = JSON.parse(result);
+                statistics_config.school_sale.xAxis[0].data = [];
+                statistics_config.school_sale.series[0].data = [];
+                for(let info of result){
+                    bt.log(info);
+                    statistics_config.school_sale.xAxis[0].data.push(info.name);
+                    statistics_config.school_sale.series[0].data.push(info.day);
+                }
+                chart_week.setOption(statistics_config.school_sale, true)
+            })
         },
     }
 </script>

@@ -274,9 +274,16 @@ var table_columns = {
                             align: 'center',
                         },
                         {
-                            title: '导入方式',
+                            title: '导入名称',
                             key: 'file_name_new',
                             sortable: true
+                        },
+                        {
+                            title: '导入方式',
+                            key: 'file_name_ori',
+                            width:80,
+                            align: 'center',
+                            render : this.column_render_type
                         },
                         {
                             title: '创建人',

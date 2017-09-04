@@ -139,6 +139,7 @@
             tree_bind : function(){
                 api_role.get_funcs(this.info.funcs || null,result =>{
                     result = JSON.parse(result);
+                    bt.log(result);
                     this.tree_data = result;
                 })
             },

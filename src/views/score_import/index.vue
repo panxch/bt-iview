@@ -73,13 +73,16 @@
                 });
                 __.bind_list_dblclick(this,'score_import/view');
             },
-            column_render : function(row,column,index){
+            column_render : function(row,column){
                 let exam_list = [{id:5,name :'1月考'},{id:7,name :'3月考'},{id:9,name :'5月考'},{id:1,name :'9月考'},{id:2,name :'10月考'},{id:4,name :'12月考'},{id:3,name :'期中考'},{id:6,name :'期末考'},{id:8,name :'期中考'},{id:10,name :'期末考'}];
-                let info = __.info(exam_list,'id',row.exam_type);
+                let info = __.info(exam_list,'id',column.row.exam_type);
                 if(info){
                     return info.name;
                 }
                 return '-';
+            },
+            column_render_type : function(row,column){
+                return column.row.file_name_ori === 'paset' ? '剪贴板' : 'Excel';
             },
         },
         mounted(){

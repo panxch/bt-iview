@@ -1,6 +1,6 @@
 // 基础配置类
 
-var __host = 'http://manage.yishengya.cn/';
+var __host = location.origin + '/';
 var __index = 'index.php/';
 if(dist){
 	__host = 'http://localhost:9087/';

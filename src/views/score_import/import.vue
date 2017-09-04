@@ -10,7 +10,7 @@
                 <i-col>
                     <Form :label-width="80" inline>
                         <Form-item label="导入名称">
-                            <input placeholder="请输入成绩导入名称..." class="ivu-input" v-model="parse_name">
+                            <input placeholder="请输入成绩导入名称..." class="ivu-input" name="parse_name" v-model="parse_name">
                         </Form-item>
                         <Form-item label="学校">
                             <!--<drop_school @handle_school_change="handle_school_change"></drop_school>-->
