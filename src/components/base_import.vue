@@ -28,9 +28,9 @@
                 <Tab-pane label="剪贴板导入" name="name1" icon="clipboard">
                     <div>
                         <Row type="flex">
-                        <i-col span="18"><Input type="text" placeholder="请直接Ctrl + V" :readonly="true"></Input></i-col>
+                        <i-col span="15"><Input type="text" placeholder="请直接Ctrl + V" :readonly="true"></Input></i-col>
                         <i-col span="1"></i-col>
-                        <i-col span="5">
+                        <i-col span="8">
                             <div class="float_right">
                                 <event_button @click="clear" type="warning" icon="android-close" :disabled="table_data.length == 0">清除</event_button>
                                 <event_button @click="import_paset" type="info" load="true" icon="android-arrow-down" :disabled="table_data.length == 0">导入</event_button>

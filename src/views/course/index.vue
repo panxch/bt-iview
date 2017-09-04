@@ -66,27 +66,27 @@
                 window.config.page_index = index;
                 this.set_page(index);
             },
-            column_render : function(row,column,index){
+            column_render : function(row,column){
                 // 授课方式
                 if(row.teaching_method == 'onLine')
-                    this.table_data[index].teaching_method = '线上';
+                    this.table_data[column.index].teaching_method = '线上';
                 else if(row.teaching_method == 'faceToFace')
-                    this.table_data[index].teaching_method = '面授';
+                    this.table_data[column.index].teaching_method = '面授';
                 // 课程类别
                 if(row.type == 'required')
-                    this.table_data[index].type = '必修';
+                    this.table_data[column.index].type = '必修';
                 else if(row.type == 'elective')
-                    this.table_data[index].type = '选修';
+                    this.table_data[column.index].type = '选修';
                 // 考核方式
                 if(row.assessment_method == 'examination')
-                    this.table_data[index].assessment_method = '考试';
+                    this.table_data[column.index].assessment_method = '考试';
                 else if(row.assessment_method == 'other')
-                    this.table_data[index].assessment_method = '其他';
+                    this.table_data[column.index].assessment_method = '其他';
                 //学期
                 if(row.study_section == '02')
-                    this.table_data[index].study_section = '上学期';
+                    this.table_data[column.index].study_section = '上学期';
                 else if(row.study_section == '01')
-                    this.table_data[index].study_section = '下学期';
+                    this.table_data[column.index].study_section = '下学期';
                 return `${column.row.id}`;
             },
         },
