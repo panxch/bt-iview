@@ -14,6 +14,7 @@
         </i-col>
         <i-col span="4">
             <div class="float_right">
+                <event_button @click="go_copy" icon="ios-paper-outline" v-if="copy_url">复制</event_button>
                 <event_button @click="go_update" type="info" icon="ios-checkmark-outline" v-if="update_url">修改</event_button>
                 <event_button @click="go_add" type="success" icon="plus-round" v-if="add_url">添加</event_button>
                 <event_button @click="go_import" type="success" icon="android-arrow-down" v-if="import_url">导入</event_button>
@@ -31,7 +32,7 @@
 	            tags : [],
 	        }
 	    },
-	    props : ['add_url','update_url','import_url','selection'],
+	    props : ['add_url','update_url','import_url','copy_url'],
 	    methods :{
 	    	// 学校选择
             handle_school_change : function(value){
@@ -75,6 +76,14 @@
                     return;
                 }
                 __.go(this,this.update_url,{id : info.ids });
+            },
+            go_copy(){
+                let info = __.get_list_update_check(this.$parent.selection);
+                if(! info.pass){
+                    this.$Message.error(info.error);
+                    return;
+                }
+                this.$emit('copy_handle');
             },
             go_import : function(){
                 __.go(this,this.import_url);

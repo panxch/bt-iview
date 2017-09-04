@@ -231,6 +231,7 @@
                     this.info.gender = parseInt(info.gender) ==  1 ? '男' : '女';
                     this.info.is_assist = parseInt(info.is_assist) > 0 ? true : false;
                     this.role_value = this.info.role_id = info.type.split(',')[1];
+                    bt.log(info);
 
                     this.role_bind(info.school_id);
                     this.class_bind(info);

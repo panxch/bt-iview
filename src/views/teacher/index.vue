@@ -7,7 +7,7 @@
         <Alert>教师管理
                 <template slot="desc">教师管理的添加、修改、删除</template>
         </Alert>
-        <bt_school_filter ref="bt_school_filter" update_url="/teacher/update" import_url="/teacher/import" @selection="selection">
+        <bt_school_filter ref="bt_school_filter" @copy_handle="copy_handle" update_url="/teacher/update" import_url="/teacher/import" copy_url="/teacher">
             <bt_search ref="teacher_search" @on-search="search_handle"></bt_search>
         </bt_school_filter>
     </div>
@@ -74,6 +74,12 @@
             // search world
             search_handle(keyword){
                 this.set_page(1,keyword);
+            },
+            // copy
+            copy_handle(){
+                api_teacher.do_copy(this.selection.ids,result => {
+                    this.set_page(this.page_index,window.config.keyword);
+                })
             }
         },
         mounted(){
