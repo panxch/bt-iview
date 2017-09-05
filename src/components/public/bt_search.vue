@@ -1,7 +1,7 @@
 <template>
     <Row>
         <i-col span="12">
-            <Input v-model="keyword" placeholder="请输入姓名..." style="width: 100%"></Input>
+            <Input v-model="keyword" :placeholder="placeholder" style="width: 100%"></Input>
         </i-col>
         <i-col span="12">
             <Button type="primary" icon="ios-search" @click="search_handle">搜索</Button>
@@ -15,6 +15,7 @@
                 keyword : window.config.keyword
             }
         },
+        props : ['placeholder'],
 		methods : {
 			search_handle : function(){
                 //if(! this.worlds.is_empty()){

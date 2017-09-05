@@ -60,7 +60,7 @@
                     statistics_config.school_sale.series[0].data.push(info.day);
                 }
                 chart_week.setOption(statistics_config.school_sale, true)
-            })
+            });
         },
     }
 </script>

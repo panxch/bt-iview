@@ -456,6 +456,13 @@ var table_columns = {
                     align: 'center'
                 },
                 {
+                    title: '年级',
+                    width: 100,
+                    key: 'grade_name',
+                    align: 'center',
+                    sortable: true
+                },
+                {
                     title: '班级人数',
                     key: 'student_cnt',
                     width: 70,

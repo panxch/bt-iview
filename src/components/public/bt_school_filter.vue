@@ -9,10 +9,10 @@
         <i-col span="8">
             <Tag closable color="blue" @on-close="handle_tag_close" :key="tag" :name="tag.name" v-for="tag in tags">{{tag.name}}</Tag>
         </i-col>
-        <i-col span="6">
+        <i-col span="4">
             <slot></slot>
         </i-col>
-        <i-col span="4">
+        <i-col span="6">
             <div class="float_right">
                 <event_button @click="go_copy" icon="ios-paper-outline" v-if="copy_url">复制</event_button>
                 <event_button @click="go_update" type="info" icon="ios-checkmark-outline" v-if="update_url">修改</event_button>

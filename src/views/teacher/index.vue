@@ -8,7 +8,7 @@
                 <template slot="desc">教师管理的添加、修改、删除</template>
         </Alert>
         <bt_school_filter ref="bt_school_filter" @copy_handle="copy_handle" update_url="/teacher/update" import_url="/teacher/import" copy_url="/teacher">
-            <bt_search ref="teacher_search" @on-search="search_handle"></bt_search>
+            <bt_search ref="teacher_search" @on-search="search_handle" placeholder="请输入老师姓名"></bt_search>
         </bt_school_filter>
     </div>
     <Row>
@@ -18,7 +18,10 @@
     </Row>
     <div class="space"></div>
     <Row>
-         <i-col>
+         <i-col :span="12">
+              <Badge :count="data_count" class-name="demo-badge-alone"></Badge>
+         </i-col>
+         <i-col :span="12">
              <div style="float:right;">
                  <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size" :current="page_index"></Page>
              </div>
@@ -40,6 +43,7 @@
                 page_count : window.config.page_count,
                 page_index : window.config.page_index,
                 page_size : setting.get_page_size,
+                data_count : '当前总数据量：0条',
                 selection : __.get_selection([]),
             }
         },
@@ -66,6 +70,7 @@
                     this.table_data = result.list;
                     if(this.page_count === 0 || result.page_count > 0){
                         this.page_count = window.config.page_count = result.page_count;
+                        this.data_count = `当前总数据量：${result.page_count}条`;
                     }
                     __.closeAll();
                 });

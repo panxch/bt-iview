@@ -12,7 +12,7 @@
                 <Col span="18"></Col>
                 <Col span="6">
                     <div class="float_right">
-                        <event_button @click="save" type="info" icon="checkmark-round">保存</event_button>
+                        <event_button @click="save" type="info" load="true" icon="checkmark-round">保存</event_button>
                         <back></back>
                     </div>
                 </Col>
@@ -36,6 +36,9 @@
                         <Select style="width:200px" v-model="role_value" v-bt-validator:rules="['required']" empty_err="教师角色">
                             <Option v-for="item in role_list" :value="item.id" :key="item">{{ item.name }}</Option>
                         </Select>
+                    </Form-item>
+                    <Form-item label="登陆帐号" v-if="show_username">
+                        <input placeholder="请输入..." class="ivu-input" :value="info.m_username" name="username" v-bt-validator:rules="['required']" empty_err="登录帐号">
                     </Form-item>
                 </Col>
             </Row>
@@ -73,7 +76,7 @@
             <Row type="flex">
                 <Col span="7">
                     <Form-item label="所带班级">
-                         <Cascader :data="class_list" @on-change="class_change" trigger="hover" :closeer="true"></Cascader>
+                         <Cascader :data="class_list" @on-change="class_change" trigger="hover" :closeer="true" :auto-close="false"></Cascader>
                     </Form-item>
                 </Col>
                 <Col span="17">
@@ -83,7 +86,7 @@
             <Row type="flex">
                 <Col span="7">
                     <Form-item label="所带学科">
-                         <Cascader :data="course_list" @on-change="course_change" trigger="hover" :closeer="true"></Cascader>
+                         <Cascader :data="course_list" @on-change="course_change" trigger="hover" :closeer="true" :auto-close="false"></Cascader>
                     </Form-item>
                 </Col>
                 <Col span="17">
@@ -117,6 +120,7 @@
             <input type="hidden" name="class_ids" :value="rever_tag_class_list">
             <input type="hidden" name="subject_id" :value="rever_tag_course_list">
             <input type="hidden" name="gender" :value="info.gender == '女' ? 2 : 1">
+            <input type="hidden" name="member_id" :value="info.member_id">
         </Form>
     </div>
 </template>
@@ -137,7 +141,7 @@
                 msg_error : [],
                 course_list : [],
                 tag_course_list : [],
-                info : { school_district : ['',''],role_id : 0,},
+                info : { school_district : ['',''],role_id : 0,m_username : ''},
                 role_value : '',
                 query : null,
             }
@@ -231,7 +235,6 @@
                     this.info.gender = parseInt(info.gender) ==  1 ? '男' : '女';
                     this.info.is_assist = parseInt(info.is_assist) > 0 ? true : false;
                     this.role_value = this.info.role_id = info.type.split(',')[1];
-                    bt.log(info);
 
                     this.role_bind(info.school_id);
                     this.class_bind(info);
@@ -250,7 +253,12 @@
                 this.msg_error = this.validator(this.$data,rules);
                 if(this.is_validator()){
                     api_teacher.save(result=>{
-                        __.go_success(this);
+                        result = JSON.parse(result);
+                        if(result.status == -1){
+                            this.$Notice.error({title: '消息',desc: `${result.username}用户帐号已经存在`});
+                        }else{
+                            __.go_success(this);
+                        }
                     })
                 }
             }
@@ -263,6 +271,9 @@
             rever_tag_course_list : function(){
                 return this.tag_course_list._join('id');  
             },
+            show_username : function(){
+                return this.info.m_username.indexOf('copy') > -1 ? true : false;
+            }
         },
         mounted(){
             
