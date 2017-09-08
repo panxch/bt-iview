@@ -121,7 +121,7 @@
             <input type="hidden" name="subject_id" :value="rever_tag_course_list">
             <input type="hidden" name="gender" :value="info.gender == '女' ? 2 : 1">
             <input type="hidden" name="member_id" :value="info.member_id">
-            <input type="text" name="role_source_id" :value="info.role_source_id">
+            <input type="hidden" name="role_source_id" :value="info.role_source_id">
             
         </Form>
     </div>

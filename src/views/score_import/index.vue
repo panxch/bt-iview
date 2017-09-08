@@ -14,7 +14,7 @@
         <div class="space"></div>
         <Row>
             <i-col :span="12">
-              <Badge :count="data_count" class-name="demo-badge-alone" v-if="this.data_count > 0"></Badge>&nbsp;
+              <Badge :count="data_count" class-name="demo-badge-alone" v-if="this.page_count > 0"></Badge>&nbsp;
             </i-col>
              <i-col :span="12">
                  <div style="float:right;">
