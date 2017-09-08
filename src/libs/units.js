@@ -1,5 +1,6 @@
 import axios from 'axios'
 import '../styles/loading/loaders.css'
+import iView from 'iview';
 /**
  * @author brandon fang (Q:1206144309)
  * @dateTime 2017-02-28T17:32:10+0800
@@ -79,8 +80,9 @@ Array.prototype._join = function(filed){
       },
       loading : function(_text = '数据加载中...'){
         //layer.open( {type: 2 ,content: _text,shadeClose:false,shade: 'background-color: rgba(0,0,0,.5)'} );
-        let content = '<div class="loader"><div class="loader-inner square-spin"><div></div></div></div><br><span style="color:#fff;">加载中...</span>';
+        let content = '<div class="loader"><div class="loader-inner square-spin"><div></div></div></div><br><span style="color:#999;">加载中...</span>';
         layer.open({shadeClose : false,style: 'border:none; background:rgba(0,0,0,0);width:120px;',content:content})
+        iView.LoadingBar.start();
       },
       msg : function(_text,_func){
         layer.closeAll();
@@ -108,6 +110,7 @@ Array.prototype._join = function(filed){
       // 关闭所有window，依赖layer
       closeAll : function(){
         layer.closeAll();
+        iView.LoadingBar.finish();
       },
       // 根据id获取Dom
       byId : function(_id){

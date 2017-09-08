@@ -71,6 +71,13 @@ var table_columns = {
                     sortable: true
                 },
                 {
+                    title: '学号',
+                    key: 'student_no',
+                    align : 'center',
+                    width: 140,
+                    sortable: true
+                },
+                {
                     title: '年级',
                     key: 'grade_name',
                     align: 'center',
@@ -482,6 +489,86 @@ var table_columns = {
                 {
                     title: '校区',
                     key: 'campus_name',
+                    width: 140,
+                    align: 'center'
+                },
+                {
+                    title: '创建时间',
+                    key: 'create_time',
+                    width: 140,
+                    align: 'center'
+                }
+
+            ];
+    },
+    class_move : function(){
+        return [
+                 {
+                    type: 'selection',
+                    width: 30,
+                    align: 'center'
+                },
+                {
+                    title : '#',
+                    key : 'id',
+                    width: 60,
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    title: '班级名称',
+                    key: 'name',
+                    width: 140,
+                    align: 'center'
+                },
+                {
+                    title: '分层',
+                    width: 100,
+                    key: 'layered',
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    title: '年级',
+                    width: 100,
+                    key: 'grade_name',
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    title: '课程名称',
+                    width: 100,
+                    key: 'course_name',
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    title: '任课教师',
+                    width: 100,
+                    key: 'teacher_name',
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    title: '班级人数',
+                    key: 'student_cnt',
+                    width: 70,
+                    align: 'center'
+                },
+                {
+                    title: '教室',
+                    key: 'roon_name',
+                    width: 140,
+                    align: 'center',
+                    render : this.column_render
+                },
+                {
+                    title: '学校',
+                    key: 'school_name',
+                },
+                {
+                    title: '校区',
+                    key: 'school_district_name',
                     width: 140,
                     align: 'center'
                 },

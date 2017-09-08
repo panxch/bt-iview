@@ -113,7 +113,7 @@
                 course_list : [],
                 semester_list : [{id : '02' , name : '上学期'},{id : '01' , name : '下学期'}],
                 class_type_list : [{id : 2 , name : '教学班'}],//{id : 1 , name : '行政班'},
-                exam_type_list : [{id:5,name :'1月考'},{id:7,name :'3月考'},{id:9,name :'5月考'},{id:1,name :'9月考'},{id:2,name :'10月考'},{id:4,name :'12月考'},{id:3,name :'期中考'},{id:6,name :'期末考'},{id:8,name :'期中考'},{id:10,name :'期末考'}],
+                exam_type_list : [{id:'05',name :'1月考'},{id:'07',name :'3月考'},{id:'09',name :'5月考'},{id:'01',name :'9月考'},{id:'02',name :'10月考'},{id:'04',name :'12月考'},{id:'03',name :'期中考(上学期)'},{id:'06',name :'期末考(上学期)'},{id:'08',name :'期中考(下学期)'},{id:'10',name :'期末考(下学期)'}],
                 fields_array : ['name','student_no','class','sum_socre','yuwen','shuxue','yingyue','wuli','huaxue','shengwu','zhengzhi','lishi','dili','jishu'],
                 fields_text_array : [{cn:'语文',en:'yuwen'},{cn:'数学',en:'shuxue'},{cn:'外语',en:'yingyue'},{cn:'物理',en:'wuli'},{cn:'化学',en:'huaxue'},{cn:'生物',en:'shengwu'},{cn:'政治',en:'zhengzhi'},{cn:'历史',en:'lishi'},{cn:'地理',en:'dili'},{cn:'技术',en:'jishu'}],
                 grade_current_array : [],
@@ -277,7 +277,7 @@
                     // 检测班年
                     var pass_class = false;
                     this.class_list.forEach((c,i)=>{
-                        if(c.name == column.row.class){
+                        if(c.name == column.row.class && this.m_grade_value == c.grade_id){
                             pass_class = true;
                             this.table_data[column.index].class_code = c.id;
                             return true;

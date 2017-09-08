@@ -1,10 +1,10 @@
 <template>
    <div class="layout-main">
         <div class="layout-content">
-            <Alert>课程管理
-                <template slot="desc">学校对课程的添加，修改和编辑</template>
+            <Alert>教学班管理
+                <template slot="desc">教学班设置的添加、修改、删除</template>
             </Alert>
-            <bt_school_filter ref="bt_school_filter" update_url="/course/update" import_url="/course/import" @selection="selection"></bt_school_filter>
+            <bt_school_filter ref="bt_school_filter" update_url="/class/update" import_url="/class/import" @selection="selection"></bt_school_filter>
         </div>
         <Row>
              <i-col>
@@ -14,9 +14,9 @@
          <div class="space"></div>
         <Row>
             <i-col :span="12">
-                <Badge :count="data_count" class-name="demo-badge-alone" v-if="this.data_count > 0"></Badge>&nbsp;
+              <Badge :count="data_count" class-name="demo-badge-alone" v-if="this.page_count > 0"></Badge>&nbsp;
             </i-col>
-             <i-col :span="12">
+            <i-col :span="12">
                  <div style="float:right;">
                      <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size" :current="page_index"></Page>
                  </div>
@@ -27,31 +27,29 @@
 <script type="text/javascript">
     import setting from '../../config/setting';
     import table_columns from '../../config/table_columns';
-    import api_course from '../../config/api/course'
+    import api_class from '../../config/api/class_move'
     import bt_school_filter from '../../components/public/bt_school_filter.vue'
     export default {
         data(){
             return {
-                table_columns : table_columns.course.call(this),
+                table_columns : table_columns.class_move.call(this),
                 table_data : [],
                 selection : __.get_selection([]),
                 page_index : window.config.page_index,
                 page_count : window.config.page_count,
+                data_count : '当前数据总量：0条',
                 page_size : setting.get_page_size,
-                 data_count : '当前数据总量：0条',
             }
         },
         created(){
-            window.config.active = 'course';
-            window.config.active_name = '课程管理';
-            this.table_columns.splice(2,1);
-            this.table_columns.splice(5,2);
+            window.config.active = 'class_move';
+            window.config.active_name = '教学班管理';
         },
         methods :{
             set_page : function(index){
                 __.loading();
                 var param = {school_ids : this.$refs.bt_school_filter.get_school_id(),page_index : index};
-                api_course.get_course_by_school(param,(result)=>{
+                api_class.get_class_by_school(param,(result)=>{
                     result = JSON.parse(result);
                     this.table_data = result.list;
                     if(this.page_count === 0){
@@ -60,7 +58,7 @@
                     }
                     __.closeAll();
                 });
-                __.bind_list_dblclick(this,'course/update');
+                __.bind_list_dblclick(this,'class_move/update');
             },
             // check勾选
             selection_change : function(selection){
@@ -70,30 +68,7 @@
             handle_page_change : function(index){
                 window.config.page_index = index;
                 this.set_page(index);
-            },
-            column_render : function(row,column){
-                // 授课方式
-                if(column.row.teaching_method == 'onLine')
-                    this.table_data[column.index].teaching_method = '线上';
-                else if(column.row.teaching_method == 'faceToFace')
-                    this.table_data[column.index].teaching_method = '面授';
-                // 课程类别
-                if(column.row.type == 'required')
-                    this.table_data[column.index].type = '必修';
-                else if(column.row.type == 'elective')
-                    this.table_data[column.index].type = '选修';
-                // 考核方式
-                if(column.row.assessment_method == 'examination')
-                    this.table_data[column.index].assessment_method = '考试';
-                else if(column.row.assessment_method == 'other')
-                    this.table_data[column.index].assessment_method = '其他';
-                //学期
-                if(column.row.study_section == '02')
-                    this.table_data[column.index].study_section = '上学期';
-                else if(column.row.study_section == '01')
-                    this.table_data[column.index].study_section = '下学期';
-                return `${column.row.id}`;
-            },
+            },            
         },
         mounted(){
             this.set_page(this.page_index);

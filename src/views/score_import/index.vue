@@ -13,7 +13,10 @@
         </Row>
         <div class="space"></div>
         <Row>
-             <i-col>
+            <i-col :span="12">
+              <Badge :count="data_count" class-name="demo-badge-alone" v-if="this.data_count > 0"></Badge>&nbsp;
+            </i-col>
+             <i-col :span="12">
                  <div style="float:right;">
                      <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size"></Page>
                  </div>
@@ -35,6 +38,7 @@
                 page_count : 0,
                 page_index : 1,
                 page_size : setting.get_page_size,
+                data_count : '当前数据总量：0条',
                 selection : __.get_selection([]),
             }
         },
@@ -68,6 +72,7 @@
                     this.table_data = result.list;
                     if(this.page_count === 0){
                         this.page_count = result.page_count;
+                        this.data_count = `当前数据总量：${result.page_count}条`;
                     }
                     __.closeAll();
                 });

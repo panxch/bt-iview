@@ -39,12 +39,11 @@ router.beforeEach((to, from, next) => {
         window.config.page_index = 1;
         window.config.page_count = 0;
     }
-    iView.LoadingBar.start();
     next();
 });
 
 router.afterEach((to, from, next) => {
-    iView.LoadingBar.finish();
+    // iView.LoadingBar.finish();
     window.scrollTo(0, 0);
 });
 

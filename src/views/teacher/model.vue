@@ -33,7 +33,7 @@
                         <drop_school_district ref="school_district" @handle_school_district_change="handle_school_district_change"></drop_school_district>
                     </Form-item>
                     <Form-item label="教师角色">
-                        <Select style="width:200px" v-model="role_value" v-bt-validator:rules="['required']" empty_err="教师角色">
+                        <Select style="width:200px" v-model="role_value" v-bt-validator:rules="['required']" @on-change="handle_role_change" empty_err="教师角色">
                             <Option v-for="item in role_list" :value="item.id" :key="item">{{ item.name }}</Option>
                         </Select>
                     </Form-item>
@@ -121,6 +121,8 @@
             <input type="hidden" name="subject_id" :value="rever_tag_course_list">
             <input type="hidden" name="gender" :value="info.gender == '女' ? 2 : 1">
             <input type="hidden" name="member_id" :value="info.member_id">
+            <input type="text" name="role_source_id" :value="info.role_source_id">
+            
         </Form>
     </div>
 </template>
@@ -176,6 +178,14 @@
 
                 this.class_bind(school_district);
                 this.course_bind(school_district);
+                this.role_bind(this.info.school_id);
+            },
+            // 角色切换
+            handle_role_change(value){
+                let role = this.role_list.find( info =>{return info.id == value;})
+                if(role){
+                    this.info.role_source_id = role.type;
+                }
             },
             course_bind : function(info){
                 api.get_grade_course_union(info.school_id,info.school_district,(result)=>{

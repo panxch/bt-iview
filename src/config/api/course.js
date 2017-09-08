@@ -16,6 +16,10 @@ export default {
 	get_course(school_id,district_id,func = null) {
 		return __.get( get('basics/base/get_course/?school_id=' + school_id + '&school_district=' + district_id),func );
 	},
+	// 根据gradeID获取所有课程
+	get_course_by_grade(grade_id,func = null) {
+		return __.get( get('basics/course/get_course_by_grade/?grade_id=' + grade_id),func );
+	},
 	// 剪贴板课程导入
 	do_import_course_paset(array,func = null){
 		return __.post( get('basics/course/paset',array),func );

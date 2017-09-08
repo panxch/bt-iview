@@ -1,8 +1,8 @@
 <template>
    <div class="layout-main">
         <div class="layout-content">
-            <Alert>班级管理
-                <template slot="desc">班级设置的添加、修改、删除</template>
+            <Alert>行政班管理
+                <template slot="desc">行政班设置的添加、修改、删除</template>
             </Alert>
             <bt_school_filter ref="bt_school_filter" update_url="/class/update" import_url="/class/import" @selection="selection"></bt_school_filter>
         </div>
@@ -13,7 +13,10 @@
         </Row>
          <div class="space"></div>
         <Row>
-             <i-col>
+            <i-col :span="12">
+              <Badge :count="data_count" class-name="demo-badge-alone" v-if="this.page_count > 0"></Badge>&nbsp;
+            </i-col>
+            <i-col :span="12">
                  <div style="float:right;">
                      <Page :total="page_count" @on-change="handle_page_change" :page-size="page_size" :current="page_index"></Page>
                  </div>
@@ -34,12 +37,13 @@
                 selection : __.get_selection([]),
                 page_index : window.config.page_index,
                 page_count : window.config.page_count,
+                data_count : '当前数据总量：0条',
                 page_size : setting.get_page_size,
             }
         },
         created(){
             window.config.active = 'class';
-            window.config.active_name = '班级管理';
+            window.config.active_name = '行政班管理';
         },
         methods :{
             set_page : function(index){
@@ -50,6 +54,7 @@
                     this.table_data = result.list;
                     if(this.page_count === 0){
                         this.page_count = window.config.page_count = result.page_count;
+                        this.data_count = `当前数据总量：${result.page_count}条`;
                     }
                     __.closeAll();
                 });
