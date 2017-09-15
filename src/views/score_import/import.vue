@@ -3,6 +3,7 @@
         <div class="layout-content">
         <Alert>成绩批量上传
                 <template slot="desc">请先选择基本信息和考试信息，然后再上传成绩<br>
+                <span style="color:#ff0000;">注意：相同的年级、考试时间、类型将视为更新操作</span><br>
                 <a href="/public/templates/tpl_score.xlsx"><Button type="dashed" icon="arrow-down-a">模板下载</Button></a>
                 </template>
         </Alert>
@@ -13,7 +14,6 @@
                             <input placeholder="请输入成绩导入名称..." class="ivu-input" name="parse_name" v-model="parse_name">
                         </Form-item>
                         <Form-item label="学校">
-                            <!--<drop_school @handle_school_change="handle_school_change"></drop_school>-->
                             <drop_school_district ref="school_district" @handle_school_district_change="handle_school_change"></drop_school_district>
                         </Form-item>
                     </Form>
@@ -126,6 +126,8 @@
                 m_class_value : '',
                 m_time_value : '',
                 year_value : '',
+                school_id : '',
+                district_id : '',
                 m_grade_value : '',
                 primary_text : '导入',
                 parse_name : '',
@@ -170,12 +172,13 @@
                         class_type : this.m_class_value,
                         grade_id : this.grade_id,
                         year : this.year_value,
-                        parse_name : this.parse_name
+                        parse_name : this.parse_name,
+                        school_id : this.school_id
                     };
                     this.primary_text = '导入中...';
                     this.loading = true;
                     api_scores.do_import_score_upload_paset(param,(result)=>{
-                        this.import_success();
+                       this.import_success();
                     })
                 }
             },
@@ -185,25 +188,25 @@
             },
             // 学校选择
             handle_school_change : function(value){
-                let school_id = value[0];
-                let district_id = value[1];
+                this.school_id = value[0];
+                this.district_id = value[1];
                 __.loading();
                 // 取所有课目
-                api_course.get_course(school_id,district_id,(result)=>{
+                api_course.get_course(this.school_id,this.district_id,(result)=>{
                     this.course_list = [];
                     if(result.data.length > 0){
                         this.course_list = result.data;
                     }
                 });
                 // 取所有班级
-                api.get_class(school_id,(result)=>{
+                api.get_class(this.school_id,(result)=>{
                     this.class_list = [];
                     if(result.data.length > 0){
                         this.class_list = result.data;
                     }
                 });
                 // 取所有角色
-                api.get_grade_group(school_id,(result)=>{
+                api.get_grade_group(this.school_id,(result)=>{
                     this.grade_list = [];
                     this.all_data = result.data;
                     if(this.all_data != null && this.all_data.hasOwnProperty('grade')){

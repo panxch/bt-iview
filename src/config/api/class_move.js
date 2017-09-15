@@ -19,4 +19,7 @@ export default {
 	save(func = null){
 		return __.post( get('basics/_class_move/do_save'),func );
 	},
+	do_import_paset(array,func = null){
+		return __.post( get('basics/_class_move/paset',array),func );
+	},
 }

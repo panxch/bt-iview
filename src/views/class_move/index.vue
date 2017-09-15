@@ -4,7 +4,7 @@
             <Alert>教学班管理
                 <template slot="desc">教学班设置的添加、修改、删除</template>
             </Alert>
-            <bt_school_filter ref="bt_school_filter" update_url="/class/update" import_url="/class/import" @selection="selection"></bt_school_filter>
+            <bt_school_filter ref="bt_school_filter" update_url="/class_move/update" import_url="/class_move/import" @selection="selection"></bt_school_filter>
         </div>
         <Row>
              <i-col>

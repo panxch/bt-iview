@@ -12,7 +12,7 @@ export default {
 		array.page_size = setting.get_page_size
 		return __.post( get('basics/room/get_room_by_school',array),func );
 	},
-	// 返回当前用户所在学校的所有课目
+	// 返回当前用户所在学校的所有教室
 	get_room_by_school_district(school_id,district_id,func = null) {
 		return __.get( get('basics/room/get_room_by_school_district/?school_id=' + school_id + '&school_district=' + district_id),func );
 	},

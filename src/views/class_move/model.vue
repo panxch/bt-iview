@@ -66,6 +66,8 @@
                 </i-col>
             </Row>
             </div>
+            <div v-if="is_update">
+            </div>
             <input type="hidden" name="id" :value="query.id" v-if="query">
             <input type="hidden" name="school_id" :value="info.school_district[0]">
             <input type="hidden" name="school_district" :value="info.school_district[1]" v-bt-validator:rules="['required']" empty_err="所在校区">
@@ -96,6 +98,7 @@
                 semester_list : [{id : '02' , name : '上学期'},{id : '01' , name : '下学期'}],
                 course_list : [],
                 query : null,
+                is_update : false,
             }
         },
         created(){
@@ -109,6 +112,7 @@
                 if(this.$route.query.hasOwnProperty('id')){
                     this.query = this.$route.query
                     this.update(this.query.id);
+                    this.is_update = true;
                 }
             },
             // 校区回调

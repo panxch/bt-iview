@@ -536,6 +536,13 @@ var table_columns = {
                     sortable: true
                 },
                 {
+                    title: '学期',
+                    width: 80,
+                    key: 'semester',
+                    align: 'center',
+                    sortable: true
+                },
+                {
                     title: '课程名称',
                     width: 100,
                     key: 'course_name',
@@ -547,7 +554,8 @@ var table_columns = {
                     width: 100,
                     key: 'teacher_name',
                     align: 'center',
-                    sortable: true
+                    sortable: true,
+                    render : this.column_render
                 },
                 {
                     title: '班级人数',
@@ -559,8 +567,7 @@ var table_columns = {
                     title: '教室',
                     key: 'roon_name',
                     width: 140,
-                    align: 'center',
-                    render : this.column_render
+                    align: 'center'
                 },
                 {
                     title: '学校',
