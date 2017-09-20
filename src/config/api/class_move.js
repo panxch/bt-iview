@@ -22,4 +22,7 @@ export default {
 	do_import_paset(array,func = null){
 		return __.post( get('basics/_class_move/paset',array),func );
 	},
+	get_student_by_motive_id(id,func = null){
+		return __.get( get('basics/_class_move/get_student_by_motive_id?id=' + id),func );
+	}
 }

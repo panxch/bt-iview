@@ -112,6 +112,12 @@ Array.prototype._join = function(filed){
         layer.closeAll();
         iView.LoadingBar.finish();
       },
+      dialog_close : function(){
+        $('.dialog').addClass('hide');
+      },
+      dialog_show : function(){
+        $('.dialog').removeClass('hide');
+      },
       // 根据id获取Dom
       byId : function(_id){
         return document.getElementById(_id);

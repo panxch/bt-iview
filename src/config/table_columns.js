@@ -733,7 +733,44 @@ var table_columns = {
                     align: 'center'
                 }
             ];
-    },    
+    }, 
+    import_class_move_student : function(){
+        return  [
+                    {
+                        title: '姓名',
+                        width: 100,
+                        key: 'name',
+                        align: 'center',
+                        sortable: true,
+                        render : this.column_render
+                    },
+                    {
+                        title: 'TQ',
+                        width: 100,
+                        key: 'temp',
+                        align: 'center',
+                        sortable: true
+                    },
+            ]
+    }, 
+    class_move_student : function(){
+        return  [
+                    {
+                        title: '姓名',
+                        width: 100,
+                        key: 'name',
+                        align: 'center',
+                        sortable: true,
+                    },
+                    {
+                        title: 'TQ',
+                        width: 100,
+                        key: 'temp',
+                        align: 'center',
+                        sortable: true
+                    },
+            ]
+    },   
     grade : function(){
         return  [
                     {
