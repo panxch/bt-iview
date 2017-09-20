@@ -763,12 +763,19 @@ var table_columns = {
                         sortable: true,
                     },
                     {
-                        title: 'TQ',
-                        width: 100,
-                        key: 'temp',
+                        title: '帐号',
+                        width: 200,
+                        key: 'username',
                         align: 'center',
                         sortable: true
                     },
+                    {
+                        title: '学号',
+                        width: 200,
+                        key: 'student_no',
+                        align: 'center',
+                        sortable: true
+                    }
             ]
     },   
     grade : function(){

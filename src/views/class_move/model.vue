@@ -69,18 +69,18 @@
                     </i-col>
                 </Row>
                 <div class="line"><h3>关联学生</h3></div>
-                <div style="overflow-y:scroll;height:100%;">
+                <div style="overflow-y:auto;height:620px;">
                     <Table border highlight-row :columns="table_columns_student" :data="student_data" v-if="student_data.length > 0"></Table>
                 </div>
             </div>
             <div v-if="is_update">
-                <div class="dialog -hide">
+                <div class="dialog hide">
                     <div class="close" onclick="__.dialog_close();">
                         <Icon type="ios-close-empty"></Icon>
                     </div>
                     <div class="box">
-                        <Alert>教学班批量上传
-                            <template slot="desc">教学班管理的添加、修改、删除
+                        <Alert>学生关联批量上传
+                            <template slot="desc">学生关联管理的添加、修改、删除
                                 <br>
                                 <a href="/public/templates/tpl_class_move_student.xlsx">
                                     <Button type="dashed" icon="arrow-down-a">模板下载</Button>
@@ -229,7 +229,9 @@ export default {
                     this.$Notice.success({ title: '消息', desc: '导入工作已完成', duration: 1.5, top: 500 });
                     __.dialog_close();
                     this.clear();
-                    location.reload();
+                    setTimeout(function() {
+                       location.reload(); 
+                    }, 500);
                 })
             }
         },
