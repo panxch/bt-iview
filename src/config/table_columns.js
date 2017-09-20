@@ -61,7 +61,7 @@ var table_columns = {
                     key: 'student_name',
                     sortable: true,
                     align: 'center',
-                    width:180,
+                    width:80,
                 },
                 {
                     title: '登陆用户名',
@@ -87,7 +87,7 @@ var table_columns = {
                     title: '班级',
                     key: 'class_name',
                     align: 'center',
-                    width:160,
+                    width:120,
                 },
                 {
                     title: '是否毕业',
@@ -518,12 +518,12 @@ var table_columns = {
                 {
                     title: '班级名称',
                     key: 'name',
-                    width: 140,
+                    width: 80,
                     align: 'center'
                 },
                 {
                     title: '分层',
-                    width: 100,
+                    width: 60,
                     key: 'layered',
                     align: 'center',
                     sortable: true
@@ -576,15 +576,15 @@ var table_columns = {
                 {
                     title: '校区',
                     key: 'school_district_name',
-                    width: 140,
+                    width: 80,
                     align: 'center'
                 },
-                {
-                    title: '创建时间',
-                    key: 'create_time',
-                    width: 140,
-                    align: 'center'
-                }
+                // {
+                //     title: '创建时间',
+                //     key: 'create_time',
+                //     width: 140,
+                //     align: 'center'
+                // }
 
             ];
     },
