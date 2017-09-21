@@ -161,8 +161,6 @@ export default {
             temp_table_data: [],
             table_data: [],
             student_data : [],
-            page_count: 0,
-            page_size: setting.get_page_size,
             query: null,
             is_update: false,
         }
@@ -256,31 +254,15 @@ export default {
             bt.log(result);
             if (result.length > 0) {
                 result.forEach((c, i) => {
-                    var reg_info = this.reg_data(this.student_list, item => { return item.student_name == c.name; });
+                    var reg_info = __.reg_data(this.student_list, item => { return item.student_name == c.name; });
                     c.pass = reg_info.pass;
                     c.data = reg_info.data;
                     this.temp_table_data.push(c);
                 })
-                this.page_count = this.temp_table_data.length;
                 this.table_data = this.temp_table_data;
             } else {
                 this.dialog_msg_error = '格式检查失败~';
             }
-        },
-        // 检测数据
-        reg_data: function(list, fn) {
-            var pass = false,
-                pass_array = null;
-            let info = (function(list) {
-                return list.find(item => {
-                    return fn(item);
-                })
-            })(list);
-            if (info) {
-                pass = true;
-                pass_array = info.tid;
-            }
-            return { pass: pass, data: pass_array };
         },
         // 课程选择
         course_bind(grade_id) {

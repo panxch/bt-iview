@@ -239,6 +239,20 @@ Array.prototype._join = function(filed){
             __.go(self,'/' + window.config.active);
         },1500)
       },
+      reg_data(list,fn){
+        var pass = false,
+            pass_array = null;
+        let info = (function(list) {
+            return list.find(item => {
+                return fn(item);
+            })
+        })(list);
+        if (info) {
+            pass = true;
+            pass_array = info.tid;
+        }
+        return { pass: pass, data: pass_array };
+      },
     }
     return new fn();
   })();

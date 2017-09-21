@@ -133,19 +133,19 @@
                     result.forEach((c,i)=>{
                         let grades = c.grade_name.split('/');
                         // 学课
-                        var reg_course_info = this.reg_data(c.course_name,this.course_list,item => {return item.name == c.course_name && item.grade_first_name == grades[0] && item.grade_name == grades[1];});
+                        var reg_course_info = __.reg_data(this.course_list,item => {return item.name == c.course_name && item.grade_first_name == grades[0] && item.grade_name == grades[1];});
                         c.course_pass = reg_course_info.pass;
                         c.course_data = reg_course_info.data;
                         // 年级
-                        var reg_grade_info = this.reg_data(grades,this.grade_list,item => {return item.name == grades[0] && item.grade_name == grades[1];});
+                        var reg_grade_info = __.reg_data(this.grade_list,item => {return item.name == grades[0] && item.grade_name == grades[1];});
                         c.grade_pass = reg_grade_info.pass;
                         c.grade_data = reg_grade_info.data;
                         // 老师
-                        var reg_teacher_info = this.reg_data(c.teacher_name,this.teacher_list,item => {return item.name == c.teacher_name;});
+                        var reg_teacher_info = __.reg_data(this.teacher_list,item => {return item.name == c.teacher_name;});
                         c.teacher_pass = reg_teacher_info.pass;
                         c.teacher_data = reg_teacher_info.data;
                         // 教室
-                        var reg_room_info = this.reg_data(c.roon_name,this.room_list,item => {return item.name == c.roon_name;});
+                        var reg_room_info = __.reg_data(this.room_list,item => {return item.name == c.roon_name;});
                         c.room_pass = reg_room_info.pass;
                         c.room_data = reg_room_info.data;
 
@@ -160,21 +160,6 @@
             // 数据分页
             handle_page_change : function(index){
                 this.table_data = __.set_page(index,this.page_size,this.temp_table_data);
-            },
-            // 检测数据
-            reg_data : function(room,list,fn){
-                var pass = false , pass_array = null;
-                let info = (function(list){
-                    return list.find( item => {
-                        return fn(item);
-                    })
-                })(list);
-                if( info ){
-                    pass = true;
-                    pass_array = info.id;
-                    //pass_array.push(info.id);
-                }
-                return { pass : pass, data : pass_array};
             },
             // 列检测规则验证
             column_render : function(row,column){
