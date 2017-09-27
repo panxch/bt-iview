@@ -28,7 +28,7 @@
                             </Select>
                         </Form-item>
                         <Form-item label="所在年级">
-                            <Select placeholder="请选择" style="width:200px" :clearable="true" @on-change="do_grade_nianji_select" v-model="m_grade_value" name="grade_value" v-bt-validator:rules="['required']" empty_err="所在年级">
+                            <Select placeholder="请选择" style="width:200px" :clearable="true" v-model="m_grade_value" name="grade_value" v-bt-validator:rules="['required']" empty_err="所在年级">
                                 <Option :value="info.id" v-for="info in grade_nianji_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
@@ -77,7 +77,7 @@
                             <i-col span="8">
                                 <div class="float_right">
                                     <Button type="warning" @click="clear" icon="android-close" :disabled="table_data.length == 0">清除</Button>
-                                    <Button type="success" @click="import_paset" icon="android-arrow-down" :disabled="table_data.length == 0" :loading="loading">{{primary_text}}</Button>
+                                    <Button type="success" @click="import_paset" icon="android-arrow-down" :disabled="table_data.length == 0 || msg_error.length > 0" :loading="loading">{{primary_text}}</Button>
                                     <back></back>
                                 </div>
                             </i-col>
@@ -105,7 +105,7 @@
         data(){
             return {
                 table_data : [],
-                table_columns : table_columns.score_import.call(this),
+                table_columns : table_columns.score_import_class_move.call(this),
                 grade_list : [],
                 grade_nianji_list : [],
                 page_size : setting.get_page_size,
@@ -114,7 +114,7 @@
                 semester_list : [{id : '02' , name : '上学期'},{id : '01' , name : '下学期'}],
                 class_type_list : [{id : 2 , name : '教学班'}],//{id : 1 , name : '行政班'},
                 exam_type_list : [{id:'05',name :'1月考'},{id:'07',name :'3月考'},{id:'09',name :'5月考'},{id:'01',name :'9月考'},{id:'02',name :'10月考'},{id:'04',name :'12月考'},{id:'03',name :'期中考(上学期)'},{id:'06',name :'期末考(上学期)'},{id:'08',name :'期中考(下学期)'},{id:'10',name :'期末考(下学期)'}],
-                fields_array : ['name','student_no','class','sum_socre','yuwen','shuxue','yingyue','wuli','huaxue','shengwu','zhengzhi','lishi','dili','jishu'],
+                fields_array : ['student_no','name','class','yuwen','shuxue','yingyue','wuli_A','wuli_B','huaxue_A','huaxue_B','shengwu_A','shengwu_B','zhengzhi_A','zhengzhi_B','lishi_A','lishi_B','dili_A','dili_B'],
                 fields_text_array : [{cn:'语文',en:'yuwen'},{cn:'数学',en:'shuxue'},{cn:'外语',en:'yingyue'},{cn:'物理',en:'wuli'},{cn:'化学',en:'huaxue'},{cn:'生物',en:'shengwu'},{cn:'政治',en:'zhengzhi'},{cn:'历史',en:'lishi'},{cn:'地理',en:'dili'},{cn:'技术',en:'jishu'}],
                 grade_current_array : [],
                 class_list : [],
@@ -138,8 +138,8 @@
         },
         created(){
             this._init();
-            window.config.active = 'score_import';
-            window.config.active_name = '成绩数据导入';
+            window.config.active = 'score_import_class_move';
+            window.config.active_name = '教学班成绩数据导入';
         },
         methods : {
             _init : function(){
@@ -222,10 +222,13 @@
                 var line_match = data.match(/([\W\w]*?)RR/g);
                 var result = __.pasteMatch(line_match,this.fields_array);
                 if(result.length > 0){
-                    this.msg_error = '';
-                    this.table_data = result;
-                }else{
-                    this.msg_error = '格式检查失败~';
+                    result.forEach((c,i)=>{
+                        // var reg_course_info = __.reg_data(this.course_list,item => {return item.name == c.course_name && item.grade_first_name == grades[0] && item.grade_name == grades[1];});
+                        // c.course_pass = reg_course_info.pass;
+                        // c.course_data = reg_course_info.data;
+
+                        this.table_data.push(c);
+                    })
                 }
             },
             // 入学年份选择
@@ -235,24 +238,6 @@
                 this.all_data.grade[c].forEach((c,i)=>{
                     this.grade_nianji_list.push( {id : c.id,name : c.grade_name} );
                 })
-            },
-            // 所有年级选择
-            do_grade_nianji_select : function(grade_id){
-                this.grade_id = grade_id;
-                this.grade_current_array = [];
-                this.course_list.forEach((c,i)=>{
-                    if(c.grade_id == grade_id){
-                        this.grade_current_array.push({name : c.name,id : c.id})
-                    }
-                });
-                this.grade_current_array.forEach((m,n)=>{
-                    this.fields_text_array.forEach((c,i)=>{
-                        if(c.cn == m.name){
-                            c.id = m.id;
-                            return;
-                        }
-                    })
-                });
             },
             // 列检测规则验证
             column_render : function(row,column){
@@ -303,9 +288,6 @@
                     }
                 return column.row.student_no;
             },
-        },
-        mounted(){
-            
         },
         components : { back,drop_school_district },
     }

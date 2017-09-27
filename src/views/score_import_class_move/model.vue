@@ -53,8 +53,8 @@
         },
         created(){
             this._init();
-            window.config.active = 'score_import';
-            window.config.active_name = '成绩导入管理';
+            window.config.active = 'score_import_class';
+            window.config.active_name = '教学班成绩导入管理';
         },
         methods : {
             _init : function(){

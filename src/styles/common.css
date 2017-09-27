@@ -44,7 +44,10 @@ span.red{color:#ff0000;padding-left:3px;width:2px;display:inline-block;}
     top: -1px;}
 .ivu-menu li.ivu-menu-item.sub_menu:hover .menu{
     display: block;
-}    
+}
+.ivu-menu li.ivu-menu-item.sub_menu > .menu li:hover {
+    display: block;
+}
 .ivu-menu li.ivu-menu-item.sub_menu > .menu li{line-height: 30px;padding-left:10px;}
 .ivu-menu li.ivu-menu-item.sub_menu > .menu li i{margin-right:10px;}
 

@@ -111,8 +111,8 @@
                                     </Row>
                                 </div>
                                 <div class="space"></div>
-                                <div style="overflow-y:scroll;height:280px;">
-                                    <Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0"></Table>
+                                <div>
+                                    <Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0" :height="table_height"></Table>
                                 </div>
                                 <div class="space"></div>
                             </Tab-pane>
@@ -161,6 +161,7 @@ export default {
             temp_table_data: [],
             table_data: [],
             student_data : [],
+            table_height : 280,
             query: null,
             is_update: false,
         }

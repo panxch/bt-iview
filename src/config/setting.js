@@ -34,12 +34,13 @@ export default {
 	get_menu : {
 			base : [
 				{name : '年级管理',key : 'grade',icon : 'cube'},
-				{name : '教室管理',key : 'room',icon : 'ios-medical'},
 				{name : '课程管理',key : 'course',icon : 'compose'},
 				{name : '班级管理  > ',key : '',icon : 'bookmark' ,is_sub : 'sub_menu',sub : [{name : '行政班',key : 'class',icon:"link"},{name : '教学班',key : 'class_move',icon:"android-walk"}]},
 				{name : '教师管理',key : 'teacher',icon : 'person'},
 				{name : '学生管理',key : 'student',icon : 'person-stalker'},
-				{name : '导入管理',key : 'score_import',icon : 'android-clipboard'}
+				{name : '导入管理',key : 'score_import_class',icon : 'bookmark'},
+				// {name : '导入管理  > ',key : 'score_import',icon : 'bookmark',is_sub : 'sub_menu',sub : [{name : '行政班',key : 'score_import_class',icon:"link"},{name : '教学班',key : 'score_import_class_move',icon:"android-walk"}]},
+				{name : '教室管理',key : 'room',icon : 'ios-medical'},
 			],
 			setting : [
 				{name : '学校管理',key : 'school',icon : 'ios-home'},

@@ -7,11 +7,11 @@
         <slot></slot>
             <Menu-group>
                 <Menu-item :name="menu.key" v-for="menu in config.menu" :class="menu.is_sub"><Icon :type="menu.icon"></Icon>{{menu.name}}
-                    <div class="menu" v-if="menu.sub">
+                    <ul class="menu" v-if="menu.sub">
                         <li v-for="sub in menu.sub" @click='handleSelect(sub.key)'>
                             <Icon :type="sub.icon"></Icon>{{sub.name}}
                         </li>
-                    </div>
+                    </ul>
                 </Menu-item>
             </Menu-group>
     </Menu>
@@ -29,7 +29,8 @@ export default {
     props: ['config'],
     methods : {
         handleSelect : function(name){
-            if(name){
+            //if(name && name != 'score_import'){
+            if( name ){
                 this.$router.push('/' + name);
             }
         }

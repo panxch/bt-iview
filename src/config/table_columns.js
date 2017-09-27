@@ -423,6 +423,122 @@ var table_columns = {
                     }
                 ];
     },
+    score_import_class_move : function(){
+        return [
+                    {
+                        type: 'index',
+                        width: 70,
+                        align: 'center'
+                    },
+                    {
+                        title : '学号',
+                        key : 'student_no',
+                        render : this.column_render
+                    },
+                    {
+                        title: '姓名',
+                        key: 'name',
+                        width: 90,
+                        align : 'center',
+                    },
+                    {
+                        title: '班级',
+                        key: 'class',
+                        width: 120,
+                        align : 'center'
+                    },
+                    {
+                        title: '语文',
+                        width: 70,
+                        key: 'yuwen',
+                        align : 'center',
+                    },
+                    {
+                        title : '数学',
+                        key : 'shuxue',
+                        width: 70,
+                        align : 'center',
+                    },
+                    {
+                        title: '英语',
+                        width: 70,
+                        key: 'yingyue',
+                        align : 'center',
+                    },
+                    {
+                        title : '物理A',
+                        key : 'wuli_A',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '物理B',
+                        key : 'wuli_B',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '化学A',
+                        key : 'huaxue_A',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '化学B',
+                        key : 'huaxue_B',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '生物A',
+                        key : 'shengwu_A',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '生物B',
+                        key : 'shengwu_B',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '政治A',
+                        key : 'zhengzhi_A',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '政治B',
+                        key : 'zhengzhi_B',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '历史A',
+                        key : 'lishi_A',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '历史B',
+                        key : 'lishi_B',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '地理A',
+                        key : 'dili_A',
+                        width: 70,
+                        align : 'center'                            
+                    },
+                    {
+                        title : '地理B',
+                        key : 'dili_B',
+                        width: 70,
+                        align : 'center'
+                    }
+                ];
+    },
     score_view : function(){
         return [
                     {

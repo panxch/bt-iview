@@ -41,22 +41,14 @@
                         <i-col span="8">
                             <div class="float_right">
                                 <event_button @click="clear" type="warning" icon="android-close" :disabled="table_data.length == 0">清除</event_button>
-                                <event_button @click="import_paset" type="info" icon="android-arrow-down" load="true" :disabled="table_data.length == 0">导入</event_button>
+                                <event_button @click="import_paset" type="info" icon="android-arrow-down" load="true" :disabled="table_data.length == 0 || msg_error.length > 0">导入</event_button>
                                 <back></back>
                             </div>
                         </i-col>
                     </Row>
                     </div>
                     <div class="space"></div>
-                    <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0"></Table></div>
-                    <div class="space"></div>
-                    <Row>
-                         <i-col>
-                             <div style="float:right;">
-                                 <Page :total="page_count" :page-size="page_size"  @on-change="handle_page_change" v-if="temp_table_data.length > 0"></Page>
-                             </div>
-                         </i-col>
-                    </Row>
+                    <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0" :height="table_height"></Table></div>
                 </Tab-pane>
             </Tabs>
         </div>
@@ -97,7 +89,8 @@
                 district_id : null,
                 semester : null,
                 msg_error : '',
-                paste_list : []
+                paste_list : [],
+                table_height : $(window).height() - 400,
             }
         },
         created(){
@@ -122,7 +115,7 @@
                 },3000)
             },
             clear : function(){
-                this.temp_table_data = this.table_data = [];
+                this.table_data = [];
                 this.msg_error = '';
             },
             // 匹配数据
@@ -149,17 +142,11 @@
                         c.room_pass = reg_room_info.pass;
                         c.room_data = reg_room_info.data;
 
-                        this.temp_table_data.push(c);
+                        this.table_data.push(c);
                     })
-                    this.page_count = this.temp_table_data.length;
-                    this.table_data = __.set_page(1,this.page_size,this.temp_table_data);
                 }else{
                      this.msg_error = '格式检查失败~';
                 }
-            },
-            // 数据分页
-            handle_page_change : function(index){
-                this.table_data = __.set_page(index,this.page_size,this.temp_table_data);
             },
             // 列检测规则验证
             column_render : function(row,column){
@@ -184,7 +171,6 @@
             import_paset : function(){
                 var pass = true;
                 if(this.msg_error != '' ){
-                    //this.$Message.warning('格式检查失败,请修改后再次导入~');
                     pass = false;
                     return pass;
                 }

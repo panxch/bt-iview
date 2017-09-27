@@ -41,22 +41,14 @@
                         <i-col span="8">
                             <div class="float_right">
                                 <event_button @click="clear" type="warning" icon="android-close" :disabled="table_data.length == 0">清除</event_button>
-                                <event_button @click="import_paset" type="info" icon="android-arrow-down" load="true" :disabled="table_data.length == 0">导入</event_button>
+                                <event_button @click="import_paset" type="info" icon="android-arrow-down" load="true" :disabled="table_data.length == 0 || msg_error.length > 0">导入</event_button>
                                 <back></back>
                             </div>
                         </i-col>
                     </Row>
                     </div>
                     <div class="space"></div>
-                    <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0"></Table></div>
-                    <div class="space"></div>
-                    <Row>
-                         <i-col>
-                             <div style="float:right;">
-                                 <Page :total="page_count" :page-size="page_size"  @on-change="handle_page_change" v-if="temp_table_data.length > 0"></Page>
-                             </div>
-                         </i-col>
-                    </Row>
+                    <div><Table border highlight-row :columns="table_columns" :data="table_data" v-if="table_data.length > 0" :height="table_height"></Table></div>
                 </Tab-pane>
             </Tabs>
         </div>
@@ -75,6 +67,7 @@
     export default {
         data(){
             return {
+                table_height : $(window).height() - 350,
                 temp_table_data : [],
                 table_data : [],
                 table_columns : table_columns.student_import.call(this),
@@ -120,8 +113,7 @@
                     result.forEach((c,i)=>{
                         this.temp_table_data.push(c);
                     })
-                    this.page_count = this.temp_table_data.length;
-                    this.table_data = __.set_page(1,this.page_size,this.temp_table_data);
+                    this.table_data = this.temp_table_data;
                 }else{
                      this.msg_error = '格式检查失败~';
                 }
@@ -142,10 +134,6 @@
                 this.$refs.grade_class.$children[0].toggleOpen();
                 this.class_bind(this.info.school_id,this.info.district_id);
                 this.handle_school_change(this.info.school_id);
-            },
-            // 数据分页
-            handle_page_change : function(index){
-                this.table_data = __.set_page(index,this.page_size,this.temp_table_data);
             },
             // 数据导入
             import_paset : function(){
