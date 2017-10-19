@@ -167,6 +167,21 @@ var table_columns = {
                         title: '视力',
                         key: 'v_vision',
                         align: 'center'
+                    },
+                    {
+                        title: '年级(届)',
+                        key: 'year_name',
+                        align: 'center'
+                    },
+                    {
+                        title: '年级(名)',
+                        key: 'grade_name',
+                        align: 'center'
+                    },
+                    {
+                        title: '所在班级',
+                        key: 'class_name',
+                        align: 'center'
                     }
                 ];
     },

@@ -12,9 +12,6 @@
                         <Form-item label="所属校区">
                             <drop_school_district ref="school_district" @handle_school_district_change="handle_school_district_change" name="district_id" v-bt-validator:rules="['required']" empty_err="所属校区"></drop_school_district>
                         </Form-item>
-                        <Form-item label="所属班级">
-                            <drop_grade_class ref="grade_class" @handle_grade_class_change="handle_grade_class_change" name="class_id" v-bt-validator:rules="['required']" empty_err="所属班级"></drop_grade_class>
-                        </Form-item>
                         <Form-item label="角色">
                             <Select placeholder="请选择" style="width:200px" v-model="info.role_id" name="role_id" v-bt-validator:rules="['required']" empty_err="角色">
                                 <Option :value="info.id" v-for="info in role_list" :key="info.id">{{info.name}}</Option>
@@ -62,7 +59,6 @@
     import back from '../../components/public/bt_back.vue'
     import table_columns from '../../config/table_columns'
     import drop_school_district from '../../components/drop_school_district.vue'
-    import drop_grade_class from '../../components/drop_grade_class.vue'
     import event_button from '../../components/public/bt_save.vue'
     export default {
         data(){
@@ -71,13 +67,14 @@
                 temp_table_data : [],
                 table_data : [],
                 table_columns : table_columns.student_import.call(this),
-                fields_array : ['username','name','gender','student_no','student_stype','v_height','v_weight','v_lung','v_vision'],
+                fields_array : ['username','name','gender','student_no','student_stype','v_height','v_weight','v_lung','v_vision','year_name','grade_name','class_name'],
                 role_list : [],
                 page_count : 0,
                 page_size : setting.get_page_size,
                 msg_error : '',
                 info : {},
-                paste_list : []
+                paste_list : [],
+                class_list : [],
             }
         },
         created(){
@@ -120,18 +117,18 @@
             },
             // 年级、班级数据同步更新
             class_bind : function(school_id,district_id){
-                this.$refs.grade_class.bind(school_id,district_id);
-            },
-            // 班级回调
-            handle_grade_class_change : function(value){
-                this.info.grade_id = value[0];
-                this.info.class_id = value[1];
+                 // 取所有班级
+                api.get_class(school_id,(result)=>{
+                    this.class_list = [];
+                    if(result.data.length > 0){
+                        this.class_list = result.data;
+                    }
+                });
             },
             // 校区回调
             handle_school_district_change : function(value){
                 this.info.school_id = value[0];
                 this.info.district_id = value[1];
-                this.$refs.grade_class.$children[0].toggleOpen();
                 this.class_bind(this.info.school_id,this.info.district_id);
                 this.handle_school_change(this.info.school_id);
             },
@@ -165,7 +162,20 @@
                             this.temp_table_data[column.index].reg_username = 'F';
                             this.msg_error += column.row.username + '已经存在<br>';
                         }
-                    })
+                    });
+                    let year_name,grade_name,class_name;
+                    year_name = column.row.year_name;
+                    grade_name = column.row.grade_name;
+                    class_name = column.row.class_name;
+                    let info = this.class_list.find((info) => {
+                        return info.year_name == year_name && info.grade_name == grade_name && info.name == class_name;
+                    });
+                    if( ! info ){
+                        this.msg_error += column.row.username + '所在班级不存在<br>';
+                    }else{
+                        this.temp_table_data[column.index].class_id = info.id;
+                        this.temp_table_data[column.index].grade_id = info.grade_id;
+                    }
                     this.paste_list.push(column.index);
                 }
                 return column.row.username;
@@ -182,6 +192,6 @@
         },
         mounted(){
         },
-        components : { back,drop_school_district,drop_grade_class,event_button},
+        components : { back,drop_school_district,event_button},
     }
 </script>
