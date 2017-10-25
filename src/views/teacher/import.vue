@@ -18,6 +18,11 @@
                                 <Option :value="info.id" v-for="info in role_list" :key="info.id">{{info.name}}</Option>
                             </Select>
                         </Form-item>
+                        <Form-item label="类型">
+                            <Select placeholder="请选择" style="width:200px" v-model="role_source_id">
+                                <Option :value="info.id" v-for="info in role_source_list" :key="info.id">{{info.name}}</Option>
+                            </Select>
+                        </Form-item>
                     </Form>
                 </i-col>
             </Row>
@@ -76,6 +81,7 @@
         data(){
             return {
                 temp_table_data : [],
+                role_source_list : [{id : 3,name : '教师'},{id : 2,name : '教务'}],
                 table_data : [],
                 table_columns : table_columns.teacher_import.call(this),
                 fields_array : ['username','name','tel','gender','course_mapping','class_mapping'],
@@ -84,6 +90,7 @@
                 class_list : [],
                 role_list : [],
                 page_count : 0,
+                role_source_id : 3,
                 role_value : '',
                 page_size : setting.get_page_size,
                 school_id : null,
@@ -215,7 +222,7 @@
                         this.msg_error = '请选择一个角色~';
                         return;
                     }
-                    var param = {data : JSON.stringify(this.temp_table_data),school_id : this.school_id,district_id:this.district_id,role_id : this.role_value};
+                    var param = {data : JSON.stringify(this.temp_table_data),school_id : this.school_id,district_id:this.district_id,role_id : this.role_value,role_source_id : this.role_source_id};
                     api_teacher.do_import_teacher_paset(param,(result)=>{
                         this.import_success();
                     })
